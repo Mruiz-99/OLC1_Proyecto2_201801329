@@ -1,0 +1,119 @@
+
+#encabezado{
+  background-color: rgb(92, 219, 8);
+  width: 100%;
+}
+
+#carne{
+  text-align: center;
+  display: inline-block;
+  width: 25%;
+}
+#titulo{
+  text-align: left;
+  display: inline-block;
+  width: 65%;
+  padding-left: 110px;
+}
+.tabs{
+  font-family:arial;
+  margin:0 auto;
+  width:100%;
+  text-align:center;
+}
+
+.tab-buttons{
+  margin-bottom:20px;
+}
+
+button{
+  margin-right:15px;
+  font-size:20px;
+  background:transparent;
+  border:none;
+  outline:none;
+  padding:10px 20px ;
+  cursor:pointer;
+  color:rgba(0,0,0,.4);
+  transition:all ease-in-out .2s;
+  border-bottom:2px solid transparent;
+  
+}
+.active{
+  border-bottom:2px solid #42b3f4;
+ 
+  color:black;
+}
+
+
+#boton{
+  text-decoration: none;
+  padding: 7px;
+  margin: 15px;
+  font-weight: 500;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #1883ba;
+  border-radius: 6px;
+  border: 2px solid #0016b0;
+}
+#boton:hover{
+  color: #1883ba;
+  background-color: #ffffff;
+}
+#consola{
+  display: inline-block;
+  width: 40%;
+
+  
+}
+#codigo{
+  display: inline-block;
+  width: 59%;
+  margin: 1px;
+}
+
+
+#pantalla{
+  width: 100%;
+  text-align: center;
+  align-content: center !important;
+}
+#navegacion {
+  align-content: center !important;
+  display: inline-block;
+  
+}
+#modulo{
+  width: 100%;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+#nav {
+	width: 100%;
+  align-self: center;
+  align-content: center !important;
+  text-align: center;
+  font-size: 28px;
+	margin: 0 0 2 0;
+	padding: 0;
+	list-style: none; }
+#nav li {
+	float: left; }
+
+#nav li a {
+		display: block;
+		padding: 8px 15px;
+		text-decoration: none;
+		font-weight: bold;
+		color: #000000;
+		border-right: 2px solid #000000; }
+
+#nav li a {
+		display: block;
+		padding: 8px 15px;
+		text-decoration: none;
+		font-weight: bold;
+		color: #000000;
+		border-right: 2px solid #000000; }

@@ -1,0 +1,13 @@
+body{
+    margin: 0;
+}
+.editor-container{
+    text-align: left;
+    font-size: 20px;
+    vertical-align: top;
+    height: 50px;
+}
+.CodeMirror{
+    height: 550px !important;
+    width: 900px !important;
+}
