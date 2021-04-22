@@ -72,25 +72,111 @@
   }
 */
 var grammar = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o};
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,5],$V1=[5,7],$V2=[1,13],$V3=[1,12],$V4=[1,11],$V5=[1,14],$V6=[1,15],$V7=[1,16],$V8=[1,17],$V9=[1,18],$Va=[1,19],$Vb=[1,20],$Vc=[1,22],$Vd=[1,23],$Ve=[1,24],$Vf=[1,25],$Vg=[1,26],$Vh=[1,27],$Vi=[1,28],$Vj=[1,29],$Vk=[1,30],$Vl=[1,31],$Vm=[1,32],$Vn=[1,33],$Vo=[1,34],$Vp=[1,35],$Vq=[1,36],$Vr=[10,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],$Vs=[10,24,26],$Vt=[10,12,13,18,19,20,21,22,23,24,25,26],$Vu=[10,12,13,14,15,17,18,19,20,21,22,23,24,25,26],$Vv=[10,18,19,20,21,22,23,24,25,26];
 var parser = {trace: function trace () { },
 yy: {},
-symbols_: {"error":2,"ini":3,"EOF":4,"$accept":0,"$end":1},
-terminals_: {2:"error",4:"EOF"},
-productions_: [0,[3,1]],
+symbols_: {"error":2,"inicio":3,"instrucciones":4,"EOF":5,"instruccion":6,"PRINT":7,"PARIZQ":8,"expresion":9,"PARDER":10,"PTCOMA":11,"MAS":12,"MENOS":13,"POR":14,"DIVIDIDO":15,"POTENCIA":16,"MOD":17,"DOBLEIGUAL":18,"NOIGUAL":19,"MENQUE":20,"MAYQUE":21,"MENIGQUE":22,"MAYIGQUE":23,"AND":24,"NOT":25,"OR":26,"TRUE":27,"FALSE":28,"CADENA":29,"CARACTER":30,"DECIMAL":31,"ENTERO":32,"IDENTIFICADOR":33,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",7:"PRINT",8:"PARIZQ",10:"PARDER",11:"PTCOMA",12:"MAS",13:"MENOS",14:"POR",15:"DIVIDIDO",16:"POTENCIA",17:"MOD",18:"DOBLEIGUAL",19:"NOIGUAL",20:"MENQUE",21:"MAYQUE",22:"MENIGQUE",23:"MAYIGQUE",24:"AND",25:"NOT",26:"OR",27:"TRUE",28:"FALSE",29:"CADENA",30:"CARACTER",31:"DECIMAL",32:"ENTERO",33:"IDENTIFICADOR"},
+productions_: [0,[3,2],[3,2],[4,2],[4,1],[6,5],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,2],[9,2],[9,3],[9,1],[9,1],[9,1],[9,1],[9,1],[9,1],[9,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
 var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
-
-	
+console.log(JSON.stringify($$[$0-1],null,2)); EjecutarBloque($$[$0-1],EntornoGlobal)  
+break;
+case 2:
+console.log("Sintactico","Error en : '"+yytext+"'",this._$.first_line,this._$.first_column)
+break;
+case 3:
+ this.$=$$[$0-1]; this.$.push($$[$0]); 
+break;
+case 4:
+ this.$=[]; this.$.push($$[$0]); 
+break;
+case 5:
+ this.$ = print("print",$$[$0-2]); 
+break;
+case 6:
+ this.$ = setOperacion($$[$0-2],$$[$0],"+");
+break;
+case 7:
+ this.$ = setOperacion($$[$0-2],$$[$0],"-");
+break;
+case 8:
+ this.$ = setOperacion($$[$0-2],$$[$0],"*");
+break;
+case 9:
+ this.$ = setOperacion($$[$0-2],$$[$0],"/");
+break;
+case 10:
+ this.$ = setOperacion($$[$0-2],$$[$0],"^");
+break;
+case 11:
+ this.$ = setOperacion($$[$0-2],$$[$0],"%");
+break;
+case 12:
+ this.$ = setOperacion($$[$0-2],$$[$0],"==");
+break;
+case 13:
+ this.$ = setOperacion($$[$0-2],$$[$0],"!=");
+break;
+case 14:
+ this.$ = setOperacion($$[$0-2],$$[$0],"<");
+break;
+case 15:
+ this.$ = setOperacion($$[$0-2],$$[$0],">");
+break;
+case 16:
+ this.$ = setOperacion($$[$0-2],$$[$0],"<=");
+break;
+case 17:
+ this.$ = setOperacion($$[$0-2],$$[$0],">=");
+break;
+case 18:
+ this.$ = setOperacion($$[$0-2],$$[$0],"and");
+break;
+case 19:
+ this.$ = setOperacion($$[$0-2],$$[$0],"not");
+break;
+case 20:
+ this.$ = setOperacion($$[$0-2],$$[$0],"or");
+break;
+case 21:
+ this.$ = setOperacionUnario($$[$0],"not");
+break;
+case 22:
+ this.$ = setOperacionUnario($$[$0],"umenos");
+break;
+case 23:
+ this.$ = $$[$0-1]
+break;
+case 24:
+ this.$ = setSimbolos(true,"booleano");
+break;
+case 25:
+ this.$ = setSimbolos(false,"booleano");
+break;
+case 26:
+ this.$ = setSimbolos($$[$0],"cadena");
+break;
+case 27:
+ this.$ = setSimbolos($$[$0],"caracter");
+break;
+case 28:
+ this.$ = setSimbolos(parseFloat($$[$0]),"doble");
+break;
+case 29:
+ this.$ = setSimbolos($$[$0],"entero");
+break;
+case 30:
+ this.$ = setSimbolos($$[$0],"identificador");
 break;
 }
 },
-table: [{3:1,4:[1,2]},{1:[3]},{1:[2,1]}],
-defaultActions: {2:[2,1]},
+table: [{2:[1,3],3:1,4:2,6:4,7:$V0},{1:[3]},{5:[1,6],6:7,7:$V0},{5:[1,8]},o($V1,[2,4]),{8:[1,9]},{1:[2,1]},o($V1,[2,3]),{1:[2,2]},{8:$V2,9:10,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},{10:[1,21],12:$Vc,13:$Vd,14:$Ve,15:$Vf,16:$Vg,17:$Vh,18:$Vi,19:$Vj,20:$Vk,21:$Vl,22:$Vm,23:$Vn,24:$Vo,25:$Vp,26:$Vq},{8:$V2,9:37,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},{8:$V2,9:38,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},{8:$V2,9:39,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},o($Vr,[2,24]),o($Vr,[2,25]),o($Vr,[2,26]),o($Vr,[2,27]),o($Vr,[2,28]),o($Vr,[2,29]),o($Vr,[2,30]),{11:[1,40]},{8:$V2,9:41,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},{8:$V2,9:42,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},{8:$V2,9:43,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},{8:$V2,9:44,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},{8:$V2,9:45,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},{8:$V2,9:46,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},{8:$V2,9:47,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},{8:$V2,9:48,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},{8:$V2,9:49,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},{8:$V2,9:50,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},{8:$V2,9:51,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},{8:$V2,9:52,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},{8:$V2,9:53,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},{8:$V2,9:54,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},{8:$V2,9:55,13:$V3,25:$V4,27:$V5,28:$V6,29:$V7,30:$V8,31:$V9,32:$Va,33:$Vb},o($Vs,[2,21],{12:$Vc,13:$Vd,14:$Ve,15:$Vf,16:$Vg,17:$Vh,18:$Vi,19:$Vj,20:$Vk,21:$Vl,22:$Vm,23:$Vn,25:$Vp}),o($Vr,[2,22]),{10:[1,56],12:$Vc,13:$Vd,14:$Ve,15:$Vf,16:$Vg,17:$Vh,18:$Vi,19:$Vj,20:$Vk,21:$Vl,22:$Vm,23:$Vn,24:$Vo,25:$Vp,26:$Vq},o($V1,[2,5]),o($Vt,[2,6],{14:$Ve,15:$Vf,16:$Vg,17:$Vh}),o($Vt,[2,7],{14:$Ve,15:$Vf,16:$Vg,17:$Vh}),o($Vu,[2,8],{16:$Vg}),o($Vu,[2,9],{16:$Vg}),o($Vu,[2,10]),o($Vu,[2,11],{16:$Vg}),o($Vv,[2,12],{12:$Vc,13:$Vd,14:$Ve,15:$Vf,16:$Vg,17:$Vh}),o($Vv,[2,13],{12:$Vc,13:$Vd,14:$Ve,15:$Vf,16:$Vg,17:$Vh}),o($Vv,[2,14],{12:$Vc,13:$Vd,14:$Ve,15:$Vf,16:$Vg,17:$Vh}),o($Vv,[2,15],{12:$Vc,13:$Vd,14:$Ve,15:$Vf,16:$Vg,17:$Vh}),o($Vv,[2,16],{12:$Vc,13:$Vd,14:$Ve,15:$Vf,16:$Vg,17:$Vh}),o($Vv,[2,17],{12:$Vc,13:$Vd,14:$Ve,15:$Vf,16:$Vg,17:$Vh}),o($Vs,[2,18],{12:$Vc,13:$Vd,14:$Ve,15:$Vf,16:$Vg,17:$Vh,18:$Vi,19:$Vj,20:$Vk,21:$Vl,22:$Vm,23:$Vn,25:$Vp}),o($Vs,[2,19],{12:$Vc,13:$Vd,14:$Ve,15:$Vf,16:$Vg,17:$Vh,18:$Vi,19:$Vj,20:$Vk,21:$Vl,22:$Vm,23:$Vn,25:$Vp}),o([10,26],[2,20],{12:$Vc,13:$Vd,14:$Ve,15:$Vf,16:$Vg,17:$Vh,18:$Vi,19:$Vj,20:$Vk,21:$Vl,22:$Vm,23:$Vn,24:$Vo,25:$Vp}),o($Vr,[2,23])],
+defaultActions: {6:[2,1],8:[2,2]},
 parseError: function parseError (str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -100,16 +186,33 @@ parseError: function parseError (str, hash) {
         throw error;
     }
 },
-parse: function parse(input) {
-    var self = this, stack = [0], tstack = [], vstack = [null], lstack = [], table = this.table, yytext = '', yylineno = 0, yyleng = 0, recovering = 0, TERROR = 2, EOF = 1;
+parse: function parse (input) {
+    var self = this,
+        stack = [0],
+        tstack = [], // token stack
+        vstack = [null], // semantic value stack
+        lstack = [], // location stack
+        table = this.table,
+        yytext = '',
+        yylineno = 0,
+        yyleng = 0,
+        recovering = 0,
+        TERROR = 2,
+        EOF = 1;
+
     var args = lstack.slice.call(arguments, 1);
+
+    //this.reductionCount = this.shiftCount = 0;
+
     var lexer = Object.create(this.lexer);
     var sharedState = { yy: {} };
+    // copy state
     for (var k in this.yy) {
-        if (Object.prototype.hasOwnProperty.call(this.yy, k)) {
-            sharedState.yy[k] = this.yy[k];
-        }
+      if (Object.prototype.hasOwnProperty.call(this.yy, k)) {
+        sharedState.yy[k] = this.yy[k];
+      }
     }
+
     lexer.setInput(input, sharedState.yy);
     sharedState.yy.lexer = lexer;
     sharedState.yy.parser = this;
@@ -118,125 +221,1031 @@ parse: function parse(input) {
     }
     var yyloc = lexer.yylloc;
     lstack.push(yyloc);
+
     var ranges = lexer.options && lexer.options.ranges;
+
     if (typeof sharedState.yy.parseError === 'function') {
         this.parseError = sharedState.yy.parseError;
     } else {
         this.parseError = Object.getPrototypeOf(this).parseError;
     }
-    function popStack(n) {
+
+    function popStack (n) {
         stack.length = stack.length - 2 * n;
         vstack.length = vstack.length - n;
         lstack.length = lstack.length - n;
     }
-    _token_stack:
-        var lex = function () {
-            var token;
-            token = lexer.lex() || EOF;
-            if (typeof token !== 'number') {
-                token = self.symbols_[token] || token;
-            }
-            return token;
-        };
+
+_token_stack:
+    var lex = function () {
+        var token;
+        token = lexer.lex() || EOF;
+        // if token isn't its numeric value, convert
+        if (typeof token !== 'number') {
+            token = self.symbols_[token] || token;
+        }
+        return token;
+    }
+
     var symbol, preErrorSymbol, state, action, a, r, yyval = {}, p, len, newState, expected;
     while (true) {
+        // retreive state number from top of stack
         state = stack[stack.length - 1];
+
+        // use default actions if available
         if (this.defaultActions[state]) {
             action = this.defaultActions[state];
         } else {
             if (symbol === null || typeof symbol == 'undefined') {
                 symbol = lex();
             }
+            // read action for current state and first input
             action = table[state] && table[state][symbol];
         }
-                    if (typeof action === 'undefined' || !action.length || !action[0]) {
-                var errStr = '';
+
+_handle_error:
+        // handle parse error
+        if (typeof action === 'undefined' || !action.length || !action[0]) {
+            var error_rule_depth;
+            var errStr = '';
+
+            // Return the rule stack depth where the nearest error rule can be found.
+            // Return FALSE when no error recovery rule was found.
+            function locateNearestErrorRecoveryRule(state) {
+                var stack_probe = stack.length - 1;
+                var depth = 0;
+
+                // try to recover from error
+                for(;;) {
+                    // check for error recovery rule in this state
+                    if ((TERROR.toString()) in table[state]) {
+                        return depth;
+                    }
+                    if (state === 0 || stack_probe < 2) {
+                        return false; // No suitable error recovery rule available.
+                    }
+                    stack_probe -= 2; // popStack(1): [symbol, action]
+                    state = stack[stack_probe];
+                    ++depth;
+                }
+            }
+
+            if (!recovering) {
+                // first see if there's any chance at hitting an error recovery rule:
+                error_rule_depth = locateNearestErrorRecoveryRule(state);
+
+                // Report error
                 expected = [];
                 for (p in table[state]) {
                     if (this.terminals_[p] && p > TERROR) {
-                        expected.push('\'' + this.terminals_[p] + '\'');
+                        expected.push("'"+this.terminals_[p]+"'");
                     }
                 }
                 if (lexer.showPosition) {
-                    errStr = 'Parse error on line ' + (yylineno + 1) + ':\n' + lexer.showPosition() + '\nExpecting ' + expected.join(', ') + ', got \'' + (this.terminals_[symbol] || symbol) + '\'';
+                    errStr = 'Parse error on line '+(yylineno+1)+":\n"+lexer.showPosition()+"\nExpecting "+expected.join(', ') + ", got '" + (this.terminals_[symbol] || symbol)+ "'";
                 } else {
-                    errStr = 'Parse error on line ' + (yylineno + 1) + ': Unexpected ' + (symbol == EOF ? 'end of input' : '\'' + (this.terminals_[symbol] || symbol) + '\'');
+                    errStr = 'Parse error on line '+(yylineno+1)+": Unexpected " +
+                                  (symbol == EOF ? "end of input" :
+                                              ("'"+(this.terminals_[symbol] || symbol)+"'"));
                 }
                 this.parseError(errStr, {
                     text: lexer.match,
                     token: this.terminals_[symbol] || symbol,
                     line: lexer.yylineno,
                     loc: yyloc,
-                    expected: expected
+                    expected: expected,
+                    recoverable: (error_rule_depth !== false)
                 });
+            } else if (preErrorSymbol !== EOF) {
+                error_rule_depth = locateNearestErrorRecoveryRule(state);
             }
-        if (action[0] instanceof Array && action.length > 1) {
-            throw new Error('Parse Error: multiple actions possible at state: ' + state + ', token: ' + symbol);
-        }
-        switch (action[0]) {
-        case 1:
-            stack.push(symbol);
-            vstack.push(lexer.yytext);
-            lstack.push(lexer.yylloc);
-            stack.push(action[1]);
-            symbol = null;
-            if (!preErrorSymbol) {
+
+            // just recovered from another error
+            if (recovering == 3) {
+                if (symbol === EOF || preErrorSymbol === EOF) {
+                    throw new Error(errStr || 'Parsing halted while starting to recover from another error.');
+                }
+
+                // discard current lookahead and grab another
                 yyleng = lexer.yyleng;
                 yytext = lexer.yytext;
                 yylineno = lexer.yylineno;
                 yyloc = lexer.yylloc;
-                if (recovering > 0) {
-                    recovering--;
-                }
-            } else {
-                symbol = preErrorSymbol;
-                preErrorSymbol = null;
+                symbol = lex();
             }
-            break;
-        case 2:
-            len = this.productions_[action[1]][1];
-            yyval.$ = vstack[vstack.length - len];
-            yyval._$ = {
-                first_line: lstack[lstack.length - (len || 1)].first_line,
-                last_line: lstack[lstack.length - 1].last_line,
-                first_column: lstack[lstack.length - (len || 1)].first_column,
-                last_column: lstack[lstack.length - 1].last_column
-            };
-            if (ranges) {
-                yyval._$.range = [
-                    lstack[lstack.length - (len || 1)].range[0],
-                    lstack[lstack.length - 1].range[1]
-                ];
+
+            // try to recover from error
+            if (error_rule_depth === false) {
+                throw new Error(errStr || 'Parsing halted. No suitable error recovery rule available.');
             }
-            r = this.performAction.apply(yyval, [
-                yytext,
-                yyleng,
-                yylineno,
-                sharedState.yy,
-                action[1],
-                vstack,
-                lstack
-            ].concat(args));
-            if (typeof r !== 'undefined') {
-                return r;
-            }
-            if (len) {
-                stack = stack.slice(0, -1 * len * 2);
-                vstack = vstack.slice(0, -1 * len);
-                lstack = lstack.slice(0, -1 * len);
-            }
-            stack.push(this.productions_[action[1]][0]);
-            vstack.push(yyval.$);
-            lstack.push(yyval._$);
-            newState = table[stack[stack.length - 2]][stack[stack.length - 1]];
-            stack.push(newState);
-            break;
-        case 3:
-            return true;
+            popStack(error_rule_depth);
+
+            preErrorSymbol = (symbol == TERROR ? null : symbol); // save the lookahead token
+            symbol = TERROR;         // insert generic error symbol as new lookahead
+            state = stack[stack.length-1];
+            action = table[state] && table[state][TERROR];
+            recovering = 3; // allow 3 real symbols to be shifted before reporting a new error
         }
+
+        // this shouldn't happen, unless resolve defaults are off
+        if (action[0] instanceof Array && action.length > 1) {
+            throw new Error('Parse Error: multiple actions possible at state: '+state+', token: '+symbol);
+        }
+
+        switch (action[0]) {
+            case 1: // shift
+                //this.shiftCount++;
+
+                stack.push(symbol);
+                vstack.push(lexer.yytext);
+                lstack.push(lexer.yylloc);
+                stack.push(action[1]); // push state
+                symbol = null;
+                if (!preErrorSymbol) { // normal execution/no error
+                    yyleng = lexer.yyleng;
+                    yytext = lexer.yytext;
+                    yylineno = lexer.yylineno;
+                    yyloc = lexer.yylloc;
+                    if (recovering > 0) {
+                        recovering--;
+                    }
+                } else {
+                    // error just occurred, resume old lookahead f/ before error
+                    symbol = preErrorSymbol;
+                    preErrorSymbol = null;
+                }
+                break;
+
+            case 2:
+                // reduce
+                //this.reductionCount++;
+
+                len = this.productions_[action[1]][1];
+
+                // perform semantic action
+                yyval.$ = vstack[vstack.length-len]; // default to $$ = $1
+                // default location, uses first token for firsts, last for lasts
+                yyval._$ = {
+                    first_line: lstack[lstack.length-(len||1)].first_line,
+                    last_line: lstack[lstack.length-1].last_line,
+                    first_column: lstack[lstack.length-(len||1)].first_column,
+                    last_column: lstack[lstack.length-1].last_column
+                };
+                if (ranges) {
+                  yyval._$.range = [lstack[lstack.length-(len||1)].range[0], lstack[lstack.length-1].range[1]];
+                }
+                r = this.performAction.apply(yyval, [yytext, yyleng, yylineno, sharedState.yy, action[1], vstack, lstack].concat(args));
+
+                if (typeof r !== 'undefined') {
+                    return r;
+                }
+
+                // pop off stack
+                if (len) {
+                    stack = stack.slice(0,-1*len*2);
+                    vstack = vstack.slice(0, -1*len);
+                    lstack = lstack.slice(0, -1*len);
+                }
+
+                stack.push(this.productions_[action[1]][0]);    // push nonterminal (reduce)
+                vstack.push(yyval.$);
+                lstack.push(yyval._$);
+                // goto new state = table[STATE][NONTERMINAL]
+                newState = table[stack[stack.length-2]][stack[stack.length-1]];
+                stack.push(newState);
+                break;
+
+            case 3:
+                // accept
+                return true;
+        }
+
     }
+
     return true;
 }};
+
+    var pilaCiclosSw = [];
+    var pilaFunciones = [];
+  	// entorno
+  	const Entorno = function(anterior)
+    {
+    	return {
+        	tablaSimbolos:new Map(),
+          	anterior:anterior
+        }
+    }
+  	var EntornoGlobal = Entorno(null)
+  	//Ejecuciones
+    function EjecutarBloque(instrucciones, ent)
+	{
+        var retorno=null;
+        for(var elemento of instrucciones)
+        {
+        	switch(elemento.TipoInstruccion)
+          	{
+            	case "print":
+                    var res=Evaluar(elemento.Operacion, ent);
+                    console.log(res.Valor);
+                    break;
+                case "crear":
+                    retorno = EjecutarCrear(elemento, ent);
+                    break;
+                case "asignar":
+                    retorno = EjecutarAsignar(elemento, ent);
+                    break;
+                case "hacer":
+                    retorno = EjecutarHacer(elemento, ent);
+                    break;
+                case "si":
+                    retorno = EjecutarSi(elemento, ent);
+                    break;
+                case "mientras":
+                    retorno = EjecutarMientras(elemento, ent);
+                    break;
+                case "desde":
+                    retorno = EjecutarDesde(elemento, ent);
+                    break;
+                case "seleccionar":
+                    retorno = EjecutarSeleccionar(elemento, ent);
+                    break;
+                case "funcion":
+                    retorno = EjecutarFuncion(elemento,EntornoGlobal);
+                    break;
+                case "llamada":
+                    EjecutarLlamada(elemento,ent);
+                    retorno = null;
+                    break;
+                case "retorno":
+                    if (pilaFunciones.length>0)
+                    {
+                        retorno = elemento.Expresion;
+                    }
+                    else
+                    {
+                        console.log("Intruccion retorno fuera de una funcion")
+                    }
+                    break;
+                case "romper":
+                    if (pilaCiclosSw.length>0)
+                    {
+                        return elemento;
+                    }
+                    else
+                    {
+                        console.log("Intruccion romper fuera de un seleccionar o un ciclo")
+                    }
+                    
+          	}
+            if(retorno)
+            {
+                return retorno;
+            }
+        }
+        return null;
+    }
+    //Expresion
+    const setSimbolos = function(Valor,Tipo)
+    {
+        return {
+            Valor:Valor,
+            Tipo:Tipo
+        }
+    }
+    const setOperacion= function(factor_izq,factor_der,Tipo)
+    {
+        return {
+            factor_izq:factor_izq,
+            factor_der:factor_der,
+            Tipo:Tipo
+        }
+    }
+    function setOperacionUnario(Operando,Tipo)
+	{
+        return {
+            factor_izq:Operando,
+            factor_der:null,
+            Tipo:Tipo
+        }
+    }
+    function Evaluar(Operacion,ent)
+    {
+        var Valorizq=null;
+        var Valorder=null;
+      	//Simbolos
+        switch(Operacion.Tipo)
+        {
+            case "booleano":
+                return setSimbolos(Operacion.Valor,Operacion.Tipo);
+            case "cadena":
+                return setSimbolos(Operacion.Valor,Operacion.Tipo);
+			case "caracter":
+                return setSimbolos(Operacion.Valor,Operacion.Tipo);
+            case "doble":
+                return setSimbolos(parseFloat(Operacion.Valor),Operacion.Tipo);
+			case "entero":
+                return setSimbolos(Number(Operacion.Valor),Operacion.Tipo);
+          	case "identificador":
+                var temp=ent;
+                while(temp!=null)
+                {
+                    if(temp.tablaSimbolos.has(Operacion.Valor))
+                    {
+                        var valorID = temp.tablaSimbolos.get(Operacion.Valor);
+                        return setSimbolos(valorID.Valor,valorID.Tipo);
+                    }
+                    temp=temp.anterior;
+                }
+                console.log("No existe la variable " + Operacion.Valor);
+                return setSimbolos("@error@","error");
+            case "funcion":
+                var res = EjecutarLlamada(Llamada(Operacion.Valor.Id,Operacion.Valor.Params), ent)
+                return res
+        }
+      	//Operaciones
+        Valorizq=Evaluar(Operacion.factor_izq, ent);
+        if(Operacion.factor_der!=null)
+        {
+            Valorder=Evaluar(Operacion.factor_der, ent);
+        }
+      	var tipoRetorno = "error";
+      	// identificar qué operaciones sí podemos realizar dependiendo del tipo
+    	switch(Valorizq.Tipo)
+        {
+          case "cadena":
+            // cadena puede sumarse con cualquier otro tipo
+            if(!Valorder){
+            	tipoRetorno="cadena";
+            	break;
+            }
+            switch(Valorder.Tipo)
+            {
+            	case "cadena":
+				case "caracter":
+              	case "entero":
+				case "doble":
+                case "booleano":
+                	tipoRetorno = "cadena";	
+                	break;
+            }
+            break;
+		case "caracter":
+            // cadena puede sumarse con cualquier otro tipo
+            if(!Valorder){
+            	tipoRetorno="caracter";
+            	break;
+            }
+            switch(Valorder.Tipo)
+            {
+            	case "cadena":
+				case "caracter":
+              	case "entero":
+				case "doble":
+                case "booleano":
+                	tipoRetorno = "cadena";	
+                	break;
+            }
+            break;	
+          case "entero":
+            if(!Valorder){
+            	tipoRetorno="entero";
+              	break;
+            }
+            switch(Valorder.Tipo)
+            {
+            	case "cadena":
+                	tipoRetorno = "cadena";
+                	break;
+              	case "entero":
+                	tipoRetorno = "entero";	
+                	break;
+				case "doble":
+                	tipoRetorno = "doble";	
+                	break;	
+            }
+            break;
+		case "doble":
+            if(!Valorder){
+            	tipoRetorno="doble";
+              	break;
+            }
+            switch(Valorder.Tipo)
+            {
+            	case "cadena":
+                	tipoRetorno = "cadena";
+                	break;
+              	case "entero":
+                	tipoRetorno = "entero";	
+                	break;
+				case "doble":
+                	tipoRetorno = "doble";	
+                	break;	
+            }
+            break;	
+          case "booleano":
+            if(!Valorder){
+            	tipoRetorno="booleano";
+              	break;
+            }
+            if(!Valorder){
+            	break;
+            }
+            switch(Valorder.Tipo)
+            {
+            	case "booleano":
+                	tipoRetorno = "booleano";
+              		break;
+            }
+            break;
+        }
+      
+        switch (Operacion.Tipo)
+        {
+            case "+":
+                switch(tipoRetorno)
+                {
+                	case "cadena":
+                	case "entero":
+            			return setSimbolos(Valorizq.Valor + Valorder.Valor, tipoRetorno);
+                		break;
+					case "doble":
+            			return setSimbolos(Valorizq.Valor + Valorder.Valor, tipoRetorno);
+                		break;
+                }
+            case "-":
+                switch(tipoRetorno)
+                {
+                	case "entero":
+            			return setSimbolos(Valorizq.Valor - Valorder.Valor, tipoRetorno);
+                		break;
+					case "doble":
+            			return setSimbolos(Valorizq.Valor - Valorder.Valor, tipoRetorno);
+                		break;	
+                }
+            case "umenos":
+                switch(tipoRetorno)
+                {
+                	case "entero":
+            			return setSimbolos(0-Valorizq.Valor, tipoRetorno);
+					case "doble":
+            			return setSimbolos(0-Valorizq.Valor, tipoRetorno);	
+                }
+            case "*":
+                switch(tipoRetorno)
+                {
+                	case "entero":
+                    	return setSimbolos(Valorizq.Valor * Valorder.Valor, tipoRetorno);
+					case "doble":
+                    	return setSimbolos(Valorizq.Valor * Valorder.Valor, tipoRetorno);	
+                }
+            case "/":
+                switch(tipoRetorno)
+                {
+                	case "entero":	
+                    	return setSimbolos(Valorizq.Valor / Valorder.Valor, tipoRetorno);
+					case "doble":	
+                    	return setSimbolos(Valorizq.Valor / Valorder.Valor, tipoRetorno);	
+                }
+			case "^":
+                switch(tipoRetorno)
+                {
+                	case "entero":	
+                    	return setSimbolos(Valorizq.Valor ** Valorder.Valor, tipoRetorno);
+					case "doble":	
+                    	return setSimbolos(Valorizq.Valor ** Valorder.Valor, tipoRetorno);	
+                }	
+            case "%":
+                switch(tipoRetorno)
+                {
+                	case "entero":
+            			return setSimbolos(Valorizq.Valor % Valorder.Valor, tipoRetorno);
+					case "doble":
+            			return setSimbolos(Valorizq.Valor % Valorder.Valor, tipoRetorno);		
+                }
+            case "not":
+                switch(tipoRetorno)
+                {
+                	case "entero":
+            			return setSimbolos(!Valorizq.Valor, tipoRetorno);
+					case "doble":
+            			return setSimbolos(!Valorizq.Valor, tipoRetorno);	
+                }
+            case "and":
+                switch(tipoRetorno)
+                {
+                	case "booleano":
+            			return setSimbolos(Valorizq.Valor && Valorder.Valor, tipoRetorno);
+                }
+            case "or":
+                switch(tipoRetorno)
+                {
+                	case "booleano":
+                		return setSimbolos(Valorizq.Valor || Valorder.Valor, tipoRetorno);
+                }
+            case ">":
+                switch(tipoRetorno)
+                {
+                	case "cadena":
+                	case "entero":
+					case "doble":
+                	case "booleano":
+                    	return setSimbolos(Valorizq.Valor > Valorder.Valor, "booleano");
+                }
+            case "<":
+                switch(tipoRetorno)
+                {
+                	case "cadena":
+                	case "entero":
+					case "doble":
+                	case "booleano":
+                    	return setSimbolos(Valorizq.Valor < Valorder.Valor, "booleano");
+                }
+            case ">=":
+                switch(tipoRetorno)
+                {
+                	case "cadena":
+                	case "entero":
+					case "doble":
+                	case "booleano":
+                    	return setSimbolos(Valorizq.Valor >= Valorder.Valor, "booleano");
+                }
+            case "<=":
+                switch(tipoRetorno)
+                {
+                	case "cadena":
+                	case "entero":
+					case "doble":
+                	case "booleano":
+                    	return setSimbolos(Valorizq.Valor <= Valorder.Valor, "booleano");
+                }
+            case "==":
+                switch(tipoRetorno)
+                {
+                	case "cadena":
+                	case "entero":
+					case "doble":
+                	case "booleano":
+                    	return setSimbolos(Valorizq.Valor == Valorder.Valor, "booleano");
+                }
+            case "!=":
+                switch(tipoRetorno)
+                {
+                	case "cadena":
+                	case "entero":
+					case "doble":
+                	case "booleano":
+                		return setSimbolos(Valorizq.Valor != Valorder.Valor, "booleano");
+                }
+        }
+      	console.log(
+          "Tipos incompatibles " + ( Valorizq ? Valorizq.Tipo : "" ) + 
+          " y " + ( Valorder ? Valorder.Tipo : "" )); 
+      	return setSimbolos("@error@", "error");
+    }
+	/*-----------------------------------------------------------------------------------------------*/
+    //print
+    const print=function(TipoInstruccion,Operacion)
+    {
+        return {
+            TipoInstruccion:TipoInstruccion,
+            Operacion:Operacion
+        }
+    }
+  	//Crear
+  	const Crear = function(id, tipo, expresion)
+    {
+    	return {
+      		Id:id,
+        	Tipo: tipo,
+        	Expresion: expresion,
+        	TipoInstruccion:"crear"
+      }
+    }
+    
+    function EjecutarCrear (crear,ent) 
+	{
+      	// validar si existe la variable
+      	if (ent.tablaSimbolos.has(crear.Id))
+      	{
+            console.log("La variable ",crear.Id," ya ha sido declarada en este ambito");
+      		return;
+      	}
+    		// evaluar el resultado de la expresión 
+		var valor ;	
+      	if (crear && crear.Expresion)
+      	{
+        	valor = Evaluar(crear.Expresion, ent);
+            if(valor.Tipo != crear.Tipo){
+                console.log("El tipo no coincide con la variable a Crear");
+                return
+            }
+    	}
+      	else
+        {
+            switch(crear.Tipo)
+            {
+                case "numero":
+                    valor=setSimbolos(0,"numero");
+                    break;
+                case "cadena":
+                    valor=setSimbolos("","cadena");
+                    break;
+                case "booleano":
+                    valor=setSimbolos(false,"booleano");
+                    break;
+            }
+        }
+      	// crear objeto a insertar
+      	ent.tablaSimbolos.set(crear.Id, valor);
+    }
+		// asignar
+  	const Asignar = function(id, expresion)
+    {
+    	return {
+      		Id:id,
+        	Expresion: expresion,
+        	TipoInstruccion: "asignar"
+      	}
+    }
+    
+    function EjecutarAsignar (asignar,ent) 
+	{
+      	//Evaluar la expresion
+      	var valor = Evaluar(asignar.Expresion,ent);
+        // validar si existe la variable
+      	temp=ent;
+      	while(temp!=null)
+        {
+            if (temp.tablaSimbolos.has(asignar.Id))
+            {
+                // evaluar el resultado de la expresión 
+                var simbolotabla = temp.tablaSimbolos.get(asignar.Id);	
+              	
+                // comparar los tipos
+                if (simbolotabla.Tipo === valor.Tipo)
+                {
+                	// reasignar el valor
+                    temp.tablaSimbolos.set(asignar.Id, valor);
+                    return
+                }
+                else
+                {
+                    console.log("Tipos incompatibles ",simbolotabla.Tipo," , ",valor.Tipo)
+                    return
+                }
+            }
+            temp=temp.anterior;
+        }
+        console.log("No se encontro la variable ",asignar.Id);
+    }
+	//Romper
+  	const Romper = function()
+    {
+      	return {
+          TipoInstruccion:"romper"
+        }
+    }
+	
+    const Retorno = function(Expresion)
+    {
+        return {
+            Expresion:Expresion,
+        	TipoInstruccion: "retorno"
+        }
+    }
+    //Si	 
+	const Si=function(Condicion,BloqueSi,BloqueElse)
+    {
+          return {
+            Condicion:Condicion,
+            BloqueSi:BloqueSi,
+            BloqueElse:BloqueElse,
+            TipoInstruccion:"si"
+          }
+    }
+    function EjecutarSi (si,ent)
+    {
+    	var res = Evaluar(si.Condicion, ent);
+        if(res.Tipo=="booleano")
+        {
+        	if(res.Valor)
+          	{
+      	        var nuevosi=Entorno(ent);
+            	return EjecutarBloque(si.BloqueSi, nuevosi);
+          	}
+          	else if(si.BloqueElse!=null)
+          	{
+      	        var nuevosino=Entorno(ent);
+            	return EjecutarBloque(si.BloqueElse, nuevosino);
+        	}
+    	}
+        else
+        {
+            console.log("Se esperaba una condicion dentro del Si");
+        }
+    }
+    //Casos
+    const Caso = function(Expresion,Bloque)
+    {
+        return {
+            Expresion:Expresion,
+            Bloque:Bloque
+        }
+    }
+    
+    const Seleccionar = function(Expresion, LCasos, NingunoBloque)
+    {
+        return  {
+            Expresion: Expresion,
+            LCasos: LCasos,
+            NingunoBloque: NingunoBloque,
+            TipoInstruccion: "seleccionar"
+        }
+    }
+	
+  	function EjecutarSeleccionar(seleccionar, ent)
+	{  
+        pilaCiclosSw.push("seleccionar");
+		var ejecutado = false;  
+      	var nuevo = Entorno(ent);
+        for(var elemento of seleccionar.LCasos)
+        {
+            var condicion=Evaluar(setOperacion(seleccionar.Expresion,elemento.Expresion,"=="), ent)
+            if(condicion.Tipo=="booleano")
+            {
+              	if(condicion.Valor || ejecutado)
+              	{
+                	ejecutado=true;
+                	var res = EjecutarBloque(elemento.Bloque, nuevo)
+                	if(res && res.TipoInstruccion=="romper")
+                	{
+                        pilaCiclosSw.pop();
+                  		return
+                	}
+                    else if (res)
+                    {
+                        pilaCiclosSw.pop();
+                        return res
+                    }
+              	}
+            }
+          	else
+            {
+                pilaCiclosSw.pop();
+                return
+            }
+        }
+        if(seleccionar.NingunoBloque && !ejecutado)
+        {
+            EjecutarBloque(seleccionar.NingunoBloque, nuevo)
+        }
+        pilaCiclosSw.pop();
+        return
+    }
+	//Mientras
+	const Mientras = function(Condicion, Bloque)
+    {
+        return {
+            Condicion: Condicion,
+            Bloque: Bloque,
+            TipoInstruccion:"mientras"
+        }
+    }
+  
+  	function EjecutarMientras(mientras,ent)
+	{
+        pilaCiclosSw.push("ciclo");        
+      	nuevo=Entorno(ent);
+        while(true)
+        {
+        	var resultadoCondicion = Evaluar(mientras.Condicion, ent)
+            if(resultadoCondicion.Tipo=="booleano")
+            {
+            	if(resultadoCondicion.Valor)
+            	{
+                	var res=EjecutarBloque(mientras.Bloque, nuevo);
+                	if(res && res.TipoInstruccion=="romper")
+                	{
+                		break;
+                	}
+                    else if (res)
+                    {
+                        pilaCiclosSw.pop();
+                        return res
+                    }
+            	}
+            	else
+            	{
+                	break;
+              	}
+            }
+            else
+            {
+                console.log("Se esperaba una condicion dentro del Mientras")
+                pilaCiclosSw.pop();
+                return
+            }
+		}
+        pilaCiclosSw.pop();
+        return
+	}
+	const Desde = function(ExpDesde, ExpHasta, ExpPaso, Bloque, ent)
+    {
+        return {
+            ExpDesde: ExpDesde,
+            ExpHasta: ExpHasta,
+            ExpPaso: ExpPaso,
+            Bloque: Bloque,
+            TipoInstruccion:"desde"
+        }
+    }
+  
+	function EjecutarDesde(Desde, ent)
+	{
+        pilaCiclosSw.push("ciclo"); 
+      	var nuevo=Entorno(ent);
+    	//controlador de la condicion
+    	if( Desde.ExpDesde.TipoInstruccion == "crear" )
+    	{
+      		EjecutarCrear(Desde.ExpDesde, nuevo);
+    	}
+    	else
+    	{
+        	EjecutarAsignar(Desde.ExpDesde, nuevo);
+    	}
+      	//mientras no se llegue al hasta
+    	var paso = Evaluar(Desde.ExpPaso, ent);
+    	var hasta = Evaluar(Desde.ExpHasta, ent);
+    	var Simbolo=setSimbolos(Desde.ExpDesde.Id,"ID")
+        if( !(paso.Tipo=="numero" && hasta.Tipo=="numero") )
+        {
+            pilaCiclosSw.pop();
+            console.log("Se esperaban valores numericos en el Desde");
+            return;
+        }
+    	while(true)
+    	{
+        	var inicio=Evaluar(Simbolo, nuevo)
+            if( inicio.Tipo != "numero" )
+            {
+                pilaCiclosSw.pop();
+                console.log("Se esperabam valores numericos en el Desde");
+                return;
+            }
+        	if(paso.Valor > 0)
+        	{
+                if(inicio.Valor <= hasta.Valor)
+                {
+                    var res=EjecutarBloque(Desde.Bloque, nuevo);
+                    if(res && res.TipoInstruccion=="romper")
+                    {
+                        break;
+                    }
+                    else if (res)
+                    {
+                        pilaCiclosSw.pop();
+                        return res
+                    }
+                }
+                else
+                {
+                  break;
+                }  
+        	}
+        	else
+        	{
+            	if(inicio.Valor >= hasta.Valor)
+            	{
+            		var res=EjecutarBloque(Desde.Bloque, nuevo);
+            		if(res && res.TipoInstruccion=="romper")
+                	{
+                    	break;
+                	}
+                }
+                else
+                {
+                	break;
+                }
+        	}
+        	EjecutarAsignar(Asignar(Desde.ExpDesde.Id,setOperacion(Simbolo,paso,"+")), nuevo)
+    	}
+        pilaCiclosSw.pop();
+        return;
+	}
+    //Funcion
+    const Funcion=function(Id, Parametros, Tipo, Bloque)
+    {
+        return{
+            Id: Id,
+            Parametros: Parametros,
+            Bloque: Bloque,
+            Tipo: Tipo,
+            TipoInstruccion: "funcion"
+        }
+    }
+    function EjecutarFuncion(elemento,ent)
+    {
+        var nombrefuncion = elemento.Id + "$";
+        for(var Parametro of elemento.Parametros)
+        {
+            nombrefuncion+=Parametro.Tipo;
+        }
+        if (ent.tablaSimbolos.has(nombrefuncion))
+      	{
+            console.log("La funcion ",crear.Id," ya ha sido declarada");
+      		return;
+      	}
+        ent.tablaSimbolos.set(nombrefuncion, elemento);
+    }
+    //Llamada
+    const Llamada=function(Id,Params)
+    {
+        return {
+            Id: Id,
+            Params: Params,
+            TipoInstruccion: "llamada"
+        }
+    }
+    function EjecutarLlamada(Llamada,ent)
+    {
+        var nombrefuncion = Llamada.Id+"$";
+        var Resueltos = [];
+        for(var param of Llamada.Params)
+        {
+            var valor = Evaluar(param,ent);
+            nombrefuncion += valor.Tipo;
+            Resueltos.push(valor);
+        }
+        var temp = ent;
+        var simboloFuncion = null;
+      	while(temp!=null)
+        {
+            if (temp.tablaSimbolos.has(nombrefuncion))
+            {
+                // evaluar el resultado de la expresión 
+                simboloFuncion = temp.tablaSimbolos.get(nombrefuncion);	
+                break;
+            }
+            temp=temp.anterior;
+        }
+        if(!simboloFuncion){
+            console.log("No se encontró la funcion "+Llamada.Id + " con esa combinacion de parametros")
+            return setSimbolos("@error@","error");
+        } 
+        pilaFunciones.push(Llamada.Id);
+        var nuevo=Entorno(EntornoGlobal)
+        var index=0;
+        for(var crear of simboloFuncion.Parametros)
+        {
+            crear.Expresion=Resueltos[index];
+            EjecutarCrear(crear,nuevo);
+            index++;
+        }
+        var retorno=setSimbolos("@error@","error");
+        var res = EjecutarBloque(simboloFuncion.Bloque, nuevo)
+        if(res)
+        {
+            if(res.Tipo=="void" )
+            {
+                if(simboloFuncion.Tipo!="void")
+                {
+                    console.log("No se esperaba un retorno");
+                    retorno=setSimbolos("@error@","error");
+                }
+                else
+                {
+                    retorno=setSimbolos("@vacio@","vacio")
+                }
+            }
+            else
+            {
+                var exp=Evaluar(res,nuevo);
+                if(exp.Tipo!=simboloFuncion.Tipo)
+                {
+                    console.log("El tipo del retorno no coincide");
+                    retorno=setSimbolos("@error@","error");
+                }
+                else
+                {
+                    retorno=exp;
+                }
+            }
+        }
+        else
+        {
+            if(simboloFuncion.Tipo!="void")
+            {
+                console.log("Se esperaba un retorno");
+                retorno=setSimbolos("@error@","error");
+            }
+            else
+            {
+                retorno=setSimbolos("@vacio@","vacio")
+            }
+        }
+        pilaFunciones.pop();
+        return retorno;
+    }
 /* generated by jison-lex 0.3.4 */
 var lexer = (function(){
 var lexer = ({
@@ -565,100 +1574,164 @@ options: {"case-insensitive":true},
 performAction: function anonymous(yy,yy_,$avoiding_name_collisions,YY_START) {
 var YYSTATE=YY_START;
 switch($avoiding_name_collisions) {
-case 0:// se ignoran espacios en blanco
+case 0: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 29; 
 break;
-case 1: console.error('Este es un comentario simple');
+case 1:// se ignoran espacios en blanco
 break;
-case 2:console.error('Este es un comentario multiple');
+case 2:console.error('Este es un comentario simple');
 break;
-case 3:return 'RIMPRIMIR';
+case 3:console.error('Este es un comentario multiple');
 break;
-case 4:return 'RNUMERO';
+case 4:return 7;
 break;
-case 5:return 'RSTRING';
+case 5:return 'LOWER';
 break;
-case 6:return 'RMIENTRAS';
+case 6:return 'UPPER';
 break;
-case 7:return 'RIF';
+case 7:return 'LENGTH';
 break;
-case 8:return 'RELSE';
+case 8:return 'TRUNCATE';
 break;
-case 9:return 'RPARA';
+case 9:return 'ROUND';
 break;
-case 10:return 'RSWITCH';
+case 10:return 'TYPEOF';
 break;
-case 11:return 'RCASE';
+case 11:return 'CHARARRAY';
 break;
-case 12:return 'RDEFAULT';
+case 12:return 'EXEC';
 break;
-case 13:return 'RBREAK';
+case 13:return 'NEW';
 break;
-case 14:return 'DOSPTS';
+case 14:return 'RENTERO';
 break;
-case 15:return 'PTCOMA';
+case 15:return 'RDOUBLE';
 break;
-case 16:return 'LLAVIZQ';
+case 16:return 'Rbooleano';
 break;
-case 17:return 'LLAVDER';
+case 17:return 'RCARACTER';
 break;
-case 18:return 'PARIZQ';
+case 18:return 'RCADENA';
 break;
-case 19:return 'PARDER';
+case 19:return 'SALTOLINEA';
 break;
-case 20:return 'O_MAS';
+case 20:return 'BARINVERSA';
 break;
-case 21:return 'O_MENOS';
+case 21:return 'COMILLASIM';
 break;
-case 22:return 'O_POR';
+case 22:return 'COMILLADOB';
 break;
-case 23:return 'O_DIVIDIDO';
+case 23:return 'TABULAR';
 break;
-case 24:return 'AND'
+case 24:return 'WHILE';
 break;
-case 25:return 'OR';
+case 25:return 'DO';
 break;
-case 26:return 'MAS';
+case 26:return 'IF';
 break;
-case 27:return 'MENOS';
+case 27:return 'ELSE';
 break;
-case 28:return 'POR';
+case 28:return 'FOR';
 break;
-case 29:return 'DIVIDIDO';
+case 29:return 'SWITCH';
 break;
-case 30:return 'CONCAT';
+case 30:return 'CASE';
 break;
-case 31:return 'MENIGQUE';
+case 31:return 'DEFAULT';
 break;
-case 32:return 'MAYIGQUE';
+case 32:return 'BREAK';
 break;
-case 33:return 'DOBLEIG';
+case 33:return 'CONTINUE';
 break;
-case 34:return 'NOIG';
+case 34:return 'RETURN';
 break;
-case 35:return 'MENQUE';
+case 35:return 'VOID';
 break;
-case 36:return 'MAYQUE';
+case 36:return 'DOSPTS';
 break;
-case 37:return 'IGUAL';
+case 37:return 'COMA';
 break;
-case 38:return 'NOT';
+case 38:return 11;
 break;
-case 39: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 'CADENA'; 
+case 39:return 'LLAVIZQ';
 break;
-case 40:return 'DECIMAL';
+case 40:return 'LLAVDER';
 break;
-case 41:return 'ENTERO';
+case 41:return 8;
 break;
-case 42:return 'IDENTIFICADOR';
+case 42:return 10;
 break;
-case 43:return 4;
+case 43:return 'CORIZQ';
 break;
-case 44: console.error('Este es un error léxico: ' + yy_.yytext + ', en la linea: ' + yy_.yylloc.first_line + ', en la columna: ' + yy_.yylloc.first_column); 
+case 44:return 'CORDER';
+break;
+case 45:return 'O_MAS';
+break;
+case 46:return 'O_MENOS';
+break;
+case 47:return 'O_POR';
+break;
+case 48:return 'O_DIVIDIDO';
+break;
+case 49:return 12;
+break;
+case 50:return 13;
+break;
+case 51:return 14;
+break;
+case 52:return 15;
+break;
+case 53:return 16;
+break;
+case 54:return 17;
+break;
+case 55:return 'INCREMENTO'
+break;
+case 56:return 'DECREMENTO'
+break;
+case 57:return 25;
+break;
+case 58:return 24
+break;
+case 59:return 26;
+break;
+case 60:return 22;
+break;
+case 61:return 23;
+break;
+case 62:return 18;
+break;
+case 63:return 19;
+break;
+case 64:return 20;
+break;
+case 65:return 21;
+break;
+case 66:return 27;
+break;
+case 67:return 28;
+break;
+case 68:return 'IGUAL';
+break;
+case 69:return 'OPTERNARIO'
+break;
+case 70:return 'CONCAT';
+break;
+case 71: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 30; 
+break;
+case 72:return 31;
+break;
+case 73:return 32;
+break;
+case 74:return 33;
+break;
+case 75:return 5;
+break;
+case 76: console.error('Este es un error léxico: ' + yy_.yytext + ', en la linea: ' + yy_.yylloc.first_line + ', en la columna: ' + yy_.yylloc.first_column); 
 break;
 }
 },
-rules: [/^(?:\s+)/i,/^(?:\/\/.*)/i,/^(?:[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/])/i,/^(?:imprimir\b)/i,/^(?:numero\b)/i,/^(?:string\b)/i,/^(?:mientras\b)/i,/^(?:if\b)/i,/^(?:else\b)/i,/^(?:para\b)/i,/^(?:switch\b)/i,/^(?:case\b)/i,/^(?:default\b)/i,/^(?:break\b)/i,/^(?::)/i,/^(?:;)/i,/^(?:\{)/i,/^(?:\})/i,/^(?:\()/i,/^(?:\))/i,/^(?:\+=)/i,/^(?:-=)/i,/^(?:\*=)/i,/^(?:\/=)/i,/^(?:&&)/i,/^(?:\|\|)/i,/^(?:\+)/i,/^(?:-)/i,/^(?:\*)/i,/^(?:\/)/i,/^(?:&)/i,/^(?:<=)/i,/^(?:>=)/i,/^(?:==)/i,/^(?:!=)/i,/^(?:<)/i,/^(?:>)/i,/^(?:=)/i,/^(?:!)/i,/^(?:"[^\"]*")/i,/^(?:[0-9]+(\.[0-9]+)?\b)/i,/^(?:[0-9]+\b)/i,/^(?:([a-zA-Z])[a-zA-Z0-9_]*)/i,/^(?:$)/i,/^(?:.)/i],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44],"inclusive":true}}
+rules: [/^(?:"((\\")|[^\n\"])*")/i,/^(?:\s+)/i,/^(?:\/\/.*)/i,/^(?:[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/])/i,/^(?:print\b)/i,/^(?:toLower\b)/i,/^(?:toUpper\b)/i,/^(?:length\b)/i,/^(?:truncate\b)/i,/^(?:round\b)/i,/^(?:typeof\b)/i,/^(?:toCharArray\b)/i,/^(?:exec\b)/i,/^(?:new\b)/i,/^(?:int\b)/i,/^(?:double\b)/i,/^(?:boolean\b)/i,/^(?:char\b)/i,/^(?:string\b)/i,/^(?:\\n)/i,/^(?:\\)/i,/^(?:\\')/i,/^(?:")/i,/^(?:\\t)/i,/^(?:while\b)/i,/^(?:do\b)/i,/^(?:if\b)/i,/^(?:else\b)/i,/^(?:for\b)/i,/^(?:switch\b)/i,/^(?:case\b)/i,/^(?:default\b)/i,/^(?:break\b)/i,/^(?:continue\b)/i,/^(?:return\b)/i,/^(?:void\b)/i,/^(?::)/i,/^(?:,)/i,/^(?:;)/i,/^(?:\{)/i,/^(?:\})/i,/^(?:\()/i,/^(?:\))/i,/^(?:\[)/i,/^(?:\])/i,/^(?:\+=)/i,/^(?:-=)/i,/^(?:\*=)/i,/^(?:\/=)/i,/^(?:\+)/i,/^(?:-)/i,/^(?:\*)/i,/^(?:\/)/i,/^(?:\^)/i,/^(?:%)/i,/^(?:\+\+)/i,/^(?:--)/i,/^(?:!)/i,/^(?:&&)/i,/^(?:\|\|)/i,/^(?:<=)/i,/^(?:>=)/i,/^(?:==)/i,/^(?:!=)/i,/^(?:<)/i,/^(?:>)/i,/^(?:true\b)/i,/^(?:false\b)/i,/^(?:=)/i,/^(?:\?)/i,/^(?:&)/i,/^(?:'((\\')|[^\n\'])')/i,/^(?:[0-9]+(\.[0-9]+)\b)/i,/^(?:[0-9]+\b)/i,/^(?:([a-zA-Z])[a-zA-Z0-9_]*)/i,/^(?:$)/i,/^(?:.)/i],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76],"inclusive":true}}
 });
 return lexer;
 })();
