@@ -1,3 +1,10 @@
 /**/
 //
-print((55)*(3+5));
+
+boolean variable;
+variable = false;
+ if (variable){
+     print("la variable es verdadera " + (5+10));
+ }else {
+     print("la variable es falsa " + 10+  5);
+ }

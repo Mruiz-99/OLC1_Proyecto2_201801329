@@ -1,5 +1,5 @@
 %{
-    var pilaCiclosSw = [];
+    var pilaCiclos = [];
     var pilaFunciones = [];
   	// entorno
   	const Entorno = function(anterior)
@@ -22,17 +22,17 @@
                     var res=Evaluar(elemento.Operacion, ent);
                     console.log(res.Valor);
                     break;
-                case "crear":
-                    retorno = EjecutarCrear(elemento, ent);
+                case "declaracion":
+                    retorno = EjecutarDeclaracion(elemento, ent);
                     break;
-                case "asignar":
+                case "asignacion":
                     retorno = EjecutarAsignar(elemento, ent);
                     break;
                 case "hacer":
                     retorno = EjecutarHacer(elemento, ent);
                     break;
-                case "si":
-                    retorno = EjecutarSi(elemento, ent);
+                case "if":
+                    retorno = EjecutarIF(elemento, ent);
                     break;
                 case "mientras":
                     retorno = EjecutarMientras(elemento, ent);
@@ -61,7 +61,7 @@
                     }
                     break;
                 case "romper":
-                    if (pilaCiclosSw.length>0)
+                    if (pilaCiclos.length>0)
                     {
                         return elemento;
                     }
@@ -239,6 +239,7 @@
                 switch(tipoRetorno)
                 {
                 	case "cadena":
+                    case "caracter":
                 	case "entero":
             			return setSimbolos(Valorizq.Valor + Valorder.Valor, tipoRetorno);
                 		break;
@@ -303,6 +304,8 @@
             			return setSimbolos(!Valorizq.Valor, tipoRetorno);
 					case "doble":
             			return setSimbolos(!Valorizq.Valor, tipoRetorno);	
+                    case "booleano":
+            			return setSimbolos(!Valorizq.Valor, tipoRetorno);
                 }
             case "and":
                 switch(tipoRetorno)
@@ -320,6 +323,7 @@
                 switch(tipoRetorno)
                 {
                 	case "cadena":
+                    case "caracter":
                 	case "entero":
 					case "doble":
                 	case "booleano":
@@ -330,6 +334,7 @@
                 {
                 	case "cadena":
                 	case "entero":
+                    case "caracter":
 					case "doble":
                 	case "booleano":
                     	return setSimbolos(Valorizq.Valor < Valorder.Valor, "booleano");
@@ -339,6 +344,7 @@
                 {
                 	case "cadena":
                 	case "entero":
+                    case "caracter":
 					case "doble":
                 	case "booleano":
                     	return setSimbolos(Valorizq.Valor >= Valorder.Valor, "booleano");
@@ -348,6 +354,7 @@
                 {
                 	case "cadena":
                 	case "entero":
+                    case "caracter":
 					case "doble":
                 	case "booleano":
                     	return setSimbolos(Valorizq.Valor <= Valorder.Valor, "booleano");
@@ -357,6 +364,7 @@
                 {
                 	case "cadena":
                 	case "entero":
+                    case "caracter":
 					case "doble":
                 	case "booleano":
                     	return setSimbolos(Valorizq.Valor == Valorder.Valor, "booleano");
@@ -365,6 +373,7 @@
                 switch(tipoRetorno)
                 {
                 	case "cadena":
+                    case "caracter":
                 	case "entero":
 					case "doble":
                 	case "booleano":
@@ -385,52 +394,58 @@
             Operacion:Operacion
         }
     }
-  	//Crear
-  	const Crear = function(id, tipo, expresion)
+  	//Declaracion de variable
+  	const Declaracion = function(id, tipo, expresion)
     {
     	return {
       		Id:id,
         	Tipo: tipo,
         	Expresion: expresion,
-        	TipoInstruccion:"crear"
+        	TipoInstruccion:"declaracion"
       }
     }
     
-    function EjecutarCrear (crear,ent) 
+    function EjecutarDeclaracion(declaracion,ent) 
 	{
       	// validar si existe la variable
-      	if (ent.tablaSimbolos.has(crear.Id))
+      	if (ent.tablaSimbolos.has(declaracion.Id))
       	{
-            console.log("La variable ",crear.Id," ya ha sido declarada en este ambito");
+            console.log("La variable ",declaracion.Id," ya ha sido declarada en este ambito");
       		return;
       	}
     		// evaluar el resultado de la expresión 
 		var valor ;	
-      	if (crear && crear.Expresion)
+      	if (declaracion && declaracion.Expresion)
       	{
-        	valor = Evaluar(crear.Expresion, ent);
-            if(valor.Tipo != crear.Tipo){
-                console.log("El tipo no coincide con la variable a Crear");
+        	valor = Evaluar(declaracion.Expresion, ent);
+            if(valor.Tipo != declaracion.Tipo){
+                console.log("El tipo no coincide con la variable a declaracion");
                 return
             }
     	}
       	else
         {
-            switch(crear.Tipo)
+            switch(declaracion.Tipo)
             {
-                case "numero":
-                    valor=setSimbolos(0,"numero");
+                case "entero":
+                    valor=setSimbolos(0,"entero");
                     break;
+                case "doble":
+                    valor=setSimbolos(0.0,"doble");
+                    break;    
                 case "cadena":
                     valor=setSimbolos("","cadena");
                     break;
+                case "caracter":
+                    valor=setSimbolos('0',"caracter");
+                    break;    
                 case "booleano":
-                    valor=setSimbolos(false,"booleano");
+                    valor=setSimbolos(true,"booleano");
                     break;
             }
         }
       	// crear objeto a insertar
-      	ent.tablaSimbolos.set(crear.Id, valor);
+      	ent.tablaSimbolos.set(declaracion.Id, valor);
     }
 		// asignar
   	const Asignar = function(id, expresion)
@@ -438,7 +453,7 @@
     	return {
       		Id:id,
         	Expresion: expresion,
-        	TipoInstruccion: "asignar"
+        	TipoInstruccion: "asignacion"
       	}
     }
     
@@ -487,30 +502,30 @@
         	TipoInstruccion: "retorno"
         }
     }
-    //Si	 
-	const Si=function(Condicion,BloqueSi,BloqueElse)
+    // Retorna un objeto con los datos de la condicional if 
+	const condIF=function(Condicion,BloqueIF,BloqueElse)
     {
           return {
             Condicion:Condicion,
-            BloqueSi:BloqueSi,
+            BloqueIF:BloqueIF,
             BloqueElse:BloqueElse,
-            TipoInstruccion:"si"
+            TipoInstruccion:"if"
           }
     }
-    function EjecutarSi (si,ent)
+    function EjecutarIF (si,ent)
     {
     	var res = Evaluar(si.Condicion, ent);
         if(res.Tipo=="booleano")
         {
         	if(res.Valor)
           	{
-      	        var nuevosi=Entorno(ent);
-            	return EjecutarBloque(si.BloqueSi, nuevosi);
+      	        var nuevoIF=Entorno(ent);
+            	return EjecutarBloque(si.BloqueIF, nuevoIF);
           	}
           	else if(si.BloqueElse!=null)
           	{
-      	        var nuevosino=Entorno(ent);
-            	return EjecutarBloque(si.BloqueElse, nuevosino);
+      	        var nuevoELSE=Entorno(ent);
+            	return EjecutarBloque(si.BloqueElse, nuevoELSE);
         	}
     	}
         else
@@ -539,7 +554,7 @@
 	
   	function EjecutarSeleccionar(seleccionar, ent)
 	{  
-        pilaCiclosSw.push("seleccionar");
+        pilaCiclos.push("seleccionar");
 		var ejecutado = false;  
       	var nuevo = Entorno(ent);
         for(var elemento of seleccionar.LCasos)
@@ -553,19 +568,19 @@
                 	var res = EjecutarBloque(elemento.Bloque, nuevo)
                 	if(res && res.TipoInstruccion=="romper")
                 	{
-                        pilaCiclosSw.pop();
+                        pilaCiclos.pop();
                   		return
                 	}
                     else if (res)
                     {
-                        pilaCiclosSw.pop();
+                        pilaCiclos.pop();
                         return res
                     }
               	}
             }
           	else
             {
-                pilaCiclosSw.pop();
+                pilaCiclos.pop();
                 return
             }
         }
@@ -573,7 +588,7 @@
         {
             EjecutarBloque(seleccionar.NingunoBloque, nuevo)
         }
-        pilaCiclosSw.pop();
+        pilaCiclos.pop();
         return
     }
 	//Mientras
@@ -588,7 +603,7 @@
   
   	function EjecutarMientras(mientras,ent)
 	{
-        pilaCiclosSw.push("ciclo");        
+        pilaCiclos.push("ciclo");        
       	nuevo=Entorno(ent);
         while(true)
         {
@@ -604,7 +619,7 @@
                 	}
                     else if (res)
                     {
-                        pilaCiclosSw.pop();
+                        pilaCiclos.pop();
                         return res
                     }
             	}
@@ -616,11 +631,11 @@
             else
             {
                 console.log("Se esperaba una condicion dentro del Mientras")
-                pilaCiclosSw.pop();
+                pilaCiclos.pop();
                 return
             }
 		}
-        pilaCiclosSw.pop();
+        pilaCiclos.pop();
         return
 	}
 	const Desde = function(ExpDesde, ExpHasta, ExpPaso, Bloque, ent)
@@ -636,7 +651,7 @@
   
 	function EjecutarDesde(Desde, ent)
 	{
-        pilaCiclosSw.push("ciclo"); 
+        pilaCiclos.push("ciclo"); 
       	var nuevo=Entorno(ent);
     	//controlador de la condicion
     	if( Desde.ExpDesde.TipoInstruccion == "crear" )
@@ -653,7 +668,7 @@
     	var Simbolo=setSimbolos(Desde.ExpDesde.Id,"ID")
         if( !(paso.Tipo=="numero" && hasta.Tipo=="numero") )
         {
-            pilaCiclosSw.pop();
+            pilaCiclos.pop();
             console.log("Se esperaban valores numericos en el Desde");
             return;
         }
@@ -662,7 +677,7 @@
         	var inicio=Evaluar(Simbolo, nuevo)
             if( inicio.Tipo != "numero" )
             {
-                pilaCiclosSw.pop();
+                pilaCiclos.pop();
                 console.log("Se esperabam valores numericos en el Desde");
                 return;
             }
@@ -677,7 +692,7 @@
                     }
                     else if (res)
                     {
-                        pilaCiclosSw.pop();
+                        pilaCiclos.pop();
                         return res
                     }
                 }
@@ -703,7 +718,7 @@
         	}
         	EjecutarAsignar(Asignar(Desde.ExpDesde.Id,setOperacion(Simbolo,paso,"+")), nuevo)
     	}
-        pilaCiclosSw.pop();
+        pilaCiclos.pop();
         return;
 	}
     //Funcion
@@ -852,12 +867,14 @@
 "boolean"			return 'Rbooleano';
 "char"				return 'RCARACTER';
 "string"			return 'RCADENA';
+
 // Secuencias de Escape
-"\n"				return 'SALTOLINEA';
-"\\"				return 'BARINVERSA';
-"\'"				return 'COMILLASIM';
-"\""				return 'COMILLADOB';
-"\t"				return 'TABULAR';
+\\\n				return 'SALTOLINEA';
+\\\\				return 'BARINVERSA';
+\\\'				return 'COMILLASIM';
+\\\"				return 'COMILLADOB';
+\\\t				return 'TABULAR';
+
 // Sentencias de control
 "while"				return 'WHILE';
 "do"				return 'DO';
@@ -901,6 +918,7 @@
 "%"					return 'MOD';
 "++"				return 'INCREMENTO'
 "--"				return 'DECREMENTO'
+
 //OPERADORES LOGICOS
 "!"					return 'NOT';
 "&&"				return 'AND'
@@ -913,6 +931,7 @@
 "!="				return 'NOIGUAL';
 "<"					return 'MENQUE';
 ">"					return 'MAYQUE';
+
 //valores booleanos
 "true" 				return 'TRUE';
 "false" 			return 'FALSE';
@@ -962,7 +981,39 @@ instrucciones
 
 
 instruccion 
-    : PRINT PARIZQ expresion PARDER PTCOMA	{ $$ = print("print",$3); }
+    : PRINT PARIZQ expresion PARDER PTCOMA	                { $$ = print("print",$3); }
+    | DECLARACION                                           { $$ = $1 }
+    | ASIGNACION                                            { $$ = $1 }
+    | condIF                                                { $$ = $1 }
+;
+
+condIF
+    : IF expresion BLOQUE                   { $$ = condIF($2, $3, null); }
+    | IF expresion BLOQUE ELSE BLOQUE       { $$ = condIF($2, $3, $5 ); }
+    | IF error LLAVDER {console.log("Se recupero en ",yytext," (",this._$.last_line,",",this._$.last_column,")");}
+;  
+
+BLOQUE
+    : LLAVIZQ LLAVDER                       { $$ = []; }
+    | LLAVIZQ instrucciones LLAVDER         { $$ = $2; }
+    | LLAVIZQ error LLAVDER {console.log("Se recupero en ",yytext," (",this._$.last_line,",",this._$.last_column,")");}
+; 
+
+ASIGNACION 
+    :IDENTIFICADOR IGUAL expresion  PTCOMA	        { $$ = Asignar($1,$3); }
+;
+
+DECLARACION 
+    : TIPO IDENTIFICADOR IGUAL expresion  PTCOMA	        { $$ = Declaracion($2,$1,$4); }
+    | TIPO IDENTIFICADOR PTCOMA	                            { $$ = Declaracion($2,$1,null); }
+;
+
+TIPO 
+    : RENTERO               { $$ = "entero" }
+    | Rbooleano             { $$ = "booleano" }   
+    | RCADENA               { $$ = "cadena" }   
+    | RCARACTER             { $$ = "caracter" }   
+    | RDOUBLE               { $$ = "doble" }   
 ;
 
 expresion
