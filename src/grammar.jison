@@ -60,14 +60,14 @@
                         console.log("Intruccion retorno fuera de una funcion")
                     }
                     break;
-                case "romper":
+                case "insBreak":
                     if (pilaCiclos.length>0)
                     {
                         return elemento;
                     }
                     else
                     {
-                        console.log("Intruccion romper fuera de un seleccionar o un ciclo")
+                        console.log("Intruccion insBreak fuera de un seleccionar o un ciclo")
                     }
                     
           	}
@@ -487,11 +487,11 @@
         }
         console.log("No se encontro la variable ",asignar.Id);
     }
-	//Romper
-  	const Romper = function()
+	//insBreak
+  	const insBreak = function()
     {
       	return {
-          TipoInstruccion:"romper"
+          TipoInstruccion:"insBreak"
         }
     }
 	
@@ -542,12 +542,12 @@
         }
     }
     
-    const Seleccionar = function(Expresion, LCasos, NingunoBloque)
+    const Seleccionar = function(Expresion, ListCase, BloqueSwitch)
     {
         return  {
             Expresion: Expresion,
-            LCasos: LCasos,
-            NingunoBloque: NingunoBloque,
+            ListCase: ListCase,
+            BloqueSwitch: BloqueSwitch,
             TipoInstruccion: "seleccionar"
         }
     }
@@ -557,7 +557,7 @@
         pilaCiclos.push("seleccionar");
 		var ejecutado = false;  
       	var nuevo = Entorno(ent);
-        for(var elemento of seleccionar.LCasos)
+        for(var elemento of seleccionar.ListCase)
         {
             var condicion=Evaluar(setOperacion(seleccionar.Expresion,elemento.Expresion,"=="), ent)
             if(condicion.Tipo=="booleano")
@@ -566,7 +566,7 @@
               	{
                 	ejecutado=true;
                 	var res = EjecutarBloque(elemento.Bloque, nuevo)
-                	if(res && res.TipoInstruccion=="romper")
+                	if(res && res.TipoInstruccion=="insBreak")
                 	{
                         pilaCiclos.pop();
                   		return
@@ -584,9 +584,9 @@
                 return
             }
         }
-        if(seleccionar.NingunoBloque && !ejecutado)
+        if(seleccionar.BloqueSwitch && !ejecutado)
         {
-            EjecutarBloque(seleccionar.NingunoBloque, nuevo)
+            EjecutarBloque(seleccionar.BloqueSwitch, nuevo)
         }
         pilaCiclos.pop();
         return
@@ -613,7 +613,7 @@
             	if(resultadoCondicion.Valor)
             	{
                 	var res=EjecutarBloque(mientras.Bloque, nuevo);
-                	if(res && res.TipoInstruccion=="romper")
+                	if(res && res.TipoInstruccion=="insBreak")
                 	{
                 		break;
                 	}
@@ -686,7 +686,7 @@
                 if(inicio.Valor <= hasta.Valor)
                 {
                     var res=EjecutarBloque(Desde.Bloque, nuevo);
-                    if(res && res.TipoInstruccion=="romper")
+                    if(res && res.TipoInstruccion=="insBreak")
                     {
                         break;
                     }
@@ -706,7 +706,7 @@
             	if(inicio.Valor >= hasta.Valor)
             	{
             		var res=EjecutarBloque(Desde.Bloque, nuevo);
-            		if(res && res.TipoInstruccion=="romper")
+            		if(res && res.TipoInstruccion=="insBreak")
                 	{
                     	break;
                 	}
@@ -919,10 +919,6 @@
 "++"				return 'INCREMENTO'
 "--"				return 'DECREMENTO'
 
-//OPERADORES LOGICOS
-"!"					return 'NOT';
-"&&"				return 'AND'
-"||"				return 'OR';
 
 //OPERACIONES RELACIONALES
 "<="				return 'MENIGQUE';
@@ -931,6 +927,11 @@
 "!="				return 'NOIGUAL';
 "<"					return 'MENQUE';
 ">"					return 'MAYQUE';
+
+//OPERADORES LOGICOS
+"!"					return 'NOT';
+"&&"				return 'AND'
+"||"				return 'OR';
 
 //valores booleanos
 "true" 				return 'TRUE';
@@ -969,13 +970,14 @@
 
 inicio
     : instrucciones EOF {console.log(JSON.stringify($1,null,2)); EjecutarBloque($1,EntornoGlobal)  }
-	| error EOF {console.log("Sintactico","Error en : '"+yytext+"'",this._$.first_line,this._$.first_column)}
+	
     
 ;
 
 instrucciones 
     : instrucciones instruccion  { $$=$1; $$.push($2); }
     | instruccion       { $$=[]; $$.push($1); }
+    | error  {console.log("Sintactico","Error en : '"+yytext+"'",this._$.first_line,this._$.first_column)}
 	
 ;
 
@@ -985,18 +987,35 @@ instruccion
     | DECLARACION                                           { $$ = $1 }
     | ASIGNACION                                            { $$ = $1 }
     | condIF                                                { $$ = $1 }
+    | switchCASE                                            { $$ = $1 }
+    | BREAK PTCOMA                                          { $$ = insBreak();}
 ;
+
+switchCASE
+    : SWITCH expresion LLAVIZQ ListCase LLAVDER                    { $$ = Seleccionar($2, $4); }
+    | SWITCH expresion LLAVIZQ ListCase DEFAULT BLOQUECASE LLAVDER { $$ = Seleccionar($2, $4, $6); } 
+;
+
+ListCase
+    : ListCase CASE expresion  BLOQUECASE   { $$ = $1; $$.push(Caso($3, $4)); }
+    | CASE expresion BLOQUECASE             { $$ = []; $$.push(Caso($2, $3)); }
+;
+
+BLOQUECASE
+    : DOSPTS                          { $$ = []; }
+    | DOSPTS instrucciones            { $$ = $2; }
+; 
 
 condIF
     : IF expresion BLOQUE                   { $$ = condIF($2, $3, null); }
+    | IF expresion BLOQUE ELSE condIF   { $$ = condIF($2, $3, Array ($5) );}
     | IF expresion BLOQUE ELSE BLOQUE       { $$ = condIF($2, $3, $5 ); }
-    | IF error LLAVDER {console.log("Se recupero en ",yytext," (",this._$.last_line,",",this._$.last_column,")");}
 ;  
+   
 
 BLOQUE
     : LLAVIZQ LLAVDER                       { $$ = []; }
     | LLAVIZQ instrucciones LLAVDER         { $$ = $2; }
-    | LLAVIZQ error LLAVDER {console.log("Se recupero en ",yytext," (",this._$.last_line,",",this._$.last_column,")");}
 ; 
 
 ASIGNACION 

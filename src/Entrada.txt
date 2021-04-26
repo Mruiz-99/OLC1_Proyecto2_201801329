@@ -1,10 +1,18 @@
 /**/
 //
 
-boolean variable;
-variable = false;
- if (variable){
-     print("la variable es verdadera " + (5+10));
- }else {
-     print("la variable es falsa " + 10+  5);
- }
+// EJEMPLO DE SWITCH
+int edad = 8;
+switch(edad) {
+ Case (edad < 10):
+ Print("Tengo 10 anios.");
+ Break;
+ Case 18:
+ Print("Tengo 18 anios.");
+ Case 25:
+ Print("Tengo 25 anios.");
+ Break;
+ Default: 
+ Print("No se que edad tengo. :(");
+ Break;
+}
