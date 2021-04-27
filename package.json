@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.8.3",
     "bootstrap": "^4.6.0",
     "codemirror": "^5.60.0",
+    "json-to-dot": "^1.1.0",
     "react": "^17.0.2",
     "react-bootstrap": "^1.5.2",
     "react-codemirror": "^1.0.0",

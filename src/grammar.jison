@@ -28,17 +28,23 @@
                 case "asignacion":
                     retorno = EjecutarAsignar(elemento, ent);
                     break;
+                case "incremento":
+                    retorno = EjecutarIncremento(elemento, ent);
+                    break;
+                case "decremento":
+                    retorno = EjecutarDecremento(elemento, ent);
+                    break;    
                 case "hacer":
                     retorno = EjecutarHacer(elemento, ent);
                     break;
                 case "if":
                     retorno = EjecutarIF(elemento, ent);
                     break;
-                case "mientras":
-                    retorno = EjecutarMientras(elemento, ent);
+                case "while":
+                    retorno = EjecutarWHILE(elemento, ent);
                     break;
-                case "desde":
-                    retorno = EjecutarDesde(elemento, ent);
+                case "for":
+                    retorno = EjecutarFOR(elemento, ent);
                     break;
                 case "seleccionar":
                     retorno = EjecutarSeleccionar(elemento, ent);
@@ -447,7 +453,7 @@
       	// crear objeto a insertar
       	ent.tablaSimbolos.set(declaracion.Id, valor);
     }
-		// asignar
+		// objeto que almacena los datos para hacer una asignacion 
   	const Asignar = function(id, expresion)
     {
     	return {
@@ -459,7 +465,7 @@
     
     function EjecutarAsignar (asignar,ent) 
 	{
-      	//Evaluar la expresion
+      //Evaluar la expresion
       	var valor = Evaluar(asignar.Expresion,ent);
         // validar si existe la variable
       	temp=ent;
@@ -482,6 +488,56 @@
                     console.log("Tipos incompatibles ",simbolotabla.Tipo," , ",valor.Tipo)
                     return
                 }
+            }
+            temp=temp.anterior;
+        }
+        console.log("No se encontro la variable ",asignar.Id);
+    }
+    //objeto que guarda los datos del incremento
+    const Incremento = function(id)
+    {
+    	return {
+      		Id:id,
+        	TipoInstruccion: "incremento"
+      	}
+    }
+    function EjecutarIncremento(asignar,ent) {
+        // validar si existe la variable
+      	temp=ent;
+      	while(temp!=null)
+        {
+            if (temp.tablaSimbolos.has(asignar.Id))
+            {
+              	// reasignar el valor
+                  var simbolotabla = temp.tablaSimbolos.get(asignar.Id);
+                  var numero = simbolotabla.Valor +1;
+                 temp.tablaSimbolos.set(asignar.Id, setSimbolos(numero, "entero"));
+                    return
+            }
+            temp=temp.anterior;
+        }
+        console.log("No se encontro la variable ",asignar.Id);
+    }
+    //objeto que guarda los datos del decremento
+    const Decremento = function(id)
+    {
+    	return {
+      		Id:id,
+        	TipoInstruccion: "decremento"
+      	}
+    }
+    function EjecutarDecremento(asignar,ent) {
+        // validar si existe la variable
+      	temp=ent;
+      	while(temp!=null)
+        {
+            if (temp.tablaSimbolos.has(asignar.Id))
+            {
+              	// reasignar el valor
+                  var simbolotabla = temp.tablaSimbolos.get(asignar.Id);
+                  var numero = simbolotabla.Valor - 1;
+                 temp.tablaSimbolos.set(asignar.Id, setSimbolos(numero, "entero"));
+                    return
             }
             temp=temp.anterior;
         }
@@ -533,7 +589,7 @@
             console.log("Se esperaba una condicion dentro del Si");
         }
     }
-    //Casos
+    //Objeto donde se guardaran los datos de los casos
     const Caso = function(Expresion,Bloque)
     {
         return {
@@ -591,17 +647,17 @@
         pilaCiclos.pop();
         return
     }
-	//Mientras
-	const Mientras = function(Condicion, Bloque)
+	//objeto donde se agruparan los datos del wihle
+	const condWHILE = function(Condicion, Bloque)
     {
         return {
             Condicion: Condicion,
             Bloque: Bloque,
-            TipoInstruccion:"mientras"
+            TipoInstruccion:"while"
         }
     }
   
-  	function EjecutarMientras(mientras,ent)
+  	function EjecutarWHILE(mientras,ent)
 	{
         pilaCiclos.push("ciclo");        
       	nuevo=Entorno(ent);
@@ -625,12 +681,13 @@
             	}
             	else
             	{
+                    pilaCiclos.pop();
                 	break;
               	}
             }
             else
             {
-                console.log("Se esperaba una condicion dentro del Mientras")
+                console.log("Se esperaba una condicion dentro del while")
                 pilaCiclos.pop();
                 return
             }
@@ -638,54 +695,51 @@
         pilaCiclos.pop();
         return
 	}
-	const Desde = function(ExpDesde, ExpHasta, ExpPaso, Bloque, ent)
+	const condFOR = function(ExpDesde, ExpHasta, ExpPaso, Bloque)
     {
         return {
             ExpDesde: ExpDesde,
             ExpHasta: ExpHasta,
             ExpPaso: ExpPaso,
             Bloque: Bloque,
-            TipoInstruccion:"desde"
+            TipoInstruccion:"for"
         }
     }
   
-	function EjecutarDesde(Desde, ent)
+	function EjecutarFOR(insfor, ent)
 	{
         pilaCiclos.push("ciclo"); 
       	var nuevo=Entorno(ent);
     	//controlador de la condicion
-    	if( Desde.ExpDesde.TipoInstruccion == "crear" )
+    	if( insfor.ExpDesde.TipoInstruccion == "declaracion" )
     	{
-      		EjecutarCrear(Desde.ExpDesde, nuevo);
+      		EjecutarDeclaracion(insfor.ExpDesde, nuevo);
     	}
     	else
     	{
-        	EjecutarAsignar(Desde.ExpDesde, nuevo);
+        	EjecutarAsignar(insfor.ExpDesde, nuevo);
     	}
-      	//mientras no se llegue al hasta
-    	var paso = Evaluar(Desde.ExpPaso, ent);
-    	var hasta = Evaluar(Desde.ExpHasta, ent);
-    	var Simbolo=setSimbolos(Desde.ExpDesde.Id,"ID")
-        if( !(paso.Tipo=="numero" && hasta.Tipo=="numero") )
+        var hasta = Evaluar(insfor.ExpHasta, nuevo);
+    	var Simbolo=setSimbolos(insfor.ExpDesde.Id,"identificador")
+        if( !(hasta.Tipo=="booleano") )
         {
             pilaCiclos.pop();
-            console.log("Se esperaban valores numericos en el Desde");
+            console.log("Se esperaban valores numericos en el for");
             return;
         }
     	while(true)
     	{
+            hasta = Evaluar(insfor.ExpHasta, nuevo);
         	var inicio=Evaluar(Simbolo, nuevo)
-            if( inicio.Tipo != "numero" )
+            if( inicio.Tipo != "entero" )
             {
                 pilaCiclos.pop();
-                console.log("Se esperabam valores numericos en el Desde");
+                console.log("Se esperaba valores numericos en el for");
                 return;
             }
-        	if(paso.Valor > 0)
+        	if(hasta.Valor == true)
         	{
-                if(inicio.Valor <= hasta.Valor)
-                {
-                    var res=EjecutarBloque(Desde.Bloque, nuevo);
+                    var res=EjecutarBloque(insfor.Bloque, nuevo);
                     if(res && res.TipoInstruccion=="insBreak")
                     {
                         break;
@@ -695,29 +749,24 @@
                         pilaCiclos.pop();
                         return res
                     }
-                }
-                else
-                {
-                  break;
-                }  
+                 
         	}
         	else
         	{
-            	if(inicio.Valor >= hasta.Valor)
-            	{
-            		var res=EjecutarBloque(Desde.Bloque, nuevo);
-            		if(res && res.TipoInstruccion=="insBreak")
-                	{
-                    	break;
-                	}
-                }
-                else
-                {
-                	break;
-                }
+            	break;
         	}
-        	EjecutarAsignar(Asignar(Desde.ExpDesde.Id,setOperacion(Simbolo,paso,"+")), nuevo)
-    	}
+        	if( insfor.ExpPaso.TipoInstruccion == "incremento")
+            {
+                EjecutarIncremento(insfor.ExpPaso, nuevo);
+            } else if( insfor.ExpPaso.TipoInstruccion == "decremento")
+            {
+                EjecutarDecremento(insfor.ExpPaso, nuevo);
+            }
+            else
+            {
+                EjecutarAsignar(insfor.ExpPaso, nuevo);
+            }
+            }
         pilaCiclos.pop();
         return;
 	}
@@ -787,7 +836,7 @@
         for(var crear of simboloFuncion.Parametros)
         {
             crear.Expresion=Resueltos[index];
-            EjecutarCrear(crear,nuevo);
+            EjecutarDeclaracion(crear,nuevo);
             index++;
         }
         var retorno=setSimbolos("@error@","error");
@@ -910,14 +959,15 @@
 
 
 //operaddores aritmeticos
+"++"				return 'INCREMENTO'
+"--"				return 'DECREMENTO'
 "+"					return 'MAS';
 "-"					return 'MENOS';
 "*"					return 'POR';
 "/"					return 'DIVIDIDO';
 "^"					return 'POTENCIA';
 "%"					return 'MOD';
-"++"				return 'INCREMENTO'
-"--"				return 'DECREMENTO'
+
 
 
 //OPERACIONES RELACIONALES
@@ -969,7 +1019,7 @@
 %% /* Definición de la gramática */
 
 inicio
-    : instrucciones EOF {console.log(JSON.stringify($1,null,2)); EjecutarBloque($1,EntornoGlobal)  }
+    : instrucciones EOF { console.log(JSON.stringify($1,null,2)); EjecutarBloque($1,EntornoGlobal)  }
 	
     
 ;
@@ -988,7 +1038,26 @@ instruccion
     | ASIGNACION                                            { $$ = $1 }
     | condIF                                                { $$ = $1 }
     | switchCASE                                            { $$ = $1 }
+    | condWHILE                                             { $$ = $1 }
+    | condFOR                                               { $$ = $1 }
+    | IDENTIFICADOR INCREMENTO PTCOMA		                { $$ = Incremento($1);}
+    | IDENTIFICADOR DECREMENTO PTCOMA		                { $$ = Decremento($1);}
     | BREAK PTCOMA                                          { $$ = insBreak();}
+;
+
+condFOR
+    : FOR PARIZQ DECLARACION expresion PTCOMA refeshFOR PARDER  BLOQUE       { $$ = condFOR($3, $4, $6, $8);}
+    | FOR PARIZQ ASIGNACION  expresion PTCOMA refeshFOR PARDER  BLOQUE       { $$ = condFOR($3, $4, $6, $8);}
+;
+
+refeshFOR
+    : IDENTIFICADOR INCREMENTO				            { $$ = Incremento($1);}
+    | IDENTIFICADOR DECREMENTO				            { $$ = Decremento($1);}
+    | ASIGNACION                                        {$$ = $1;}
+;
+
+condWHILE
+    : WHILE expresion BLOQUE                { $$ = condWHILE($2, $3);}
 ;
 
 switchCASE
@@ -1037,6 +1106,7 @@ TIPO
 
 expresion
 	: expresion MAS expresion				{ $$ = setOperacion($1,$3,"+");}
+    
 	| expresion MENOS expresion				{ $$ = setOperacion($1,$3,"-");}
 	| expresion POR expresion				{ $$ = setOperacion($1,$3,"*");}
 	| expresion DIVIDIDO expresion			{ $$ = setOperacion($1,$3,"/");}
@@ -1061,5 +1131,6 @@ expresion
 	| DECIMAL				     			{ $$ = setSimbolos(parseFloat($1),"doble");}
 	| ENTERO				     			{ $$ = setSimbolos($1,"entero");}
 	| IDENTIFICADOR							{ $$ = setSimbolos($1,"identificador");}
+    
 	
 ;
