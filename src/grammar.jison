@@ -1,6 +1,8 @@
 %{
     var pilaCiclos = [];
     var pilaFunciones = [];
+    var Errores = [];
+    var principal = 0;
   	// entorno
   	const Entorno = function(anterior)
     {
@@ -43,6 +45,9 @@
                 case "while":
                     retorno = EjecutarWHILE(elemento, ent);
                     break;
+                case "dowhile":
+                    retorno = EjecutarDOWHILE(elemento, ent);
+                    break;    
                 case "for":
                     retorno = EjecutarFOR(elemento, ent);
                     break;
@@ -56,6 +61,10 @@
                     EjecutarLlamada(elemento,ent);
                     retorno = null;
                     break;
+                case "llamadaexec":
+                    EjecutarLlamadaEXEC(elemento,ent);
+                    retorno = null;
+                    break;    
                 case "retorno":
                     if (pilaFunciones.length>0)
                     {
@@ -170,7 +179,7 @@
             }
             break;
 		case "caracter":
-            // cadena puede sumarse con cualquier otro tipo
+            // caracter puede sumarse con cualquier otro tipo
             if(!Valorder){
             	tipoRetorno="caracter";
             	break;
@@ -178,11 +187,16 @@
             switch(Valorder.Tipo)
             {
             	case "cadena":
+                	tipoRetorno = "cadena";
+                	break;
 				case "caracter":
+                	tipoRetorno = "cadena";
+                	break;
               	case "entero":
+                	tipoRetorno = "entero";
+                	break;
 				case "doble":
-                case "booleano":
-                	tipoRetorno = "cadena";	
+                	tipoRetorno = "doble";
                 	break;
             }
             break;	
@@ -193,6 +207,12 @@
             }
             switch(Valorder.Tipo)
             {
+                case "booleano":
+                	tipoRetorno = "entero";
+                	break;
+                case "caracter":
+                	tipoRetorno = "entero";
+                	break;    
             	case "cadena":
                 	tipoRetorno = "cadena";
                 	break;
@@ -214,12 +234,18 @@
             	case "cadena":
                 	tipoRetorno = "cadena";
                 	break;
+                case "caracter":
+                	tipoRetorno = "doble";
+                	break;    
               	case "entero":
-                	tipoRetorno = "entero";	
+                	tipoRetorno = "doble";	
                 	break;
 				case "doble":
                 	tipoRetorno = "doble";	
                 	break;	
+                case "booleano":
+                	tipoRetorno = "doble";
+                	break;    
             }
             break;	
           case "booleano":
@@ -227,14 +253,20 @@
             	tipoRetorno="booleano";
               	break;
             }
-            if(!Valorder){
-            	break;
-            }
             switch(Valorder.Tipo)
             {
             	case "booleano":
                 	tipoRetorno = "booleano";
               		break;
+                case "entero":
+                	tipoRetorno = "entero";
+                	break;
+                case "doble":
+                	tipoRetorno = "doble";
+                	break; 
+                case "cadena":
+                	tipoRetorno = "cadena";
+                	break;       
             }
             break;
         }
@@ -245,14 +277,12 @@
                 switch(tipoRetorno)
                 {
                 	case "cadena":
-                    case "caracter":
                 	case "entero":
             			return setSimbolos(Valorizq.Valor + Valorder.Valor, tipoRetorno);
-                		break;
 					case "doble":
-            			return setSimbolos(Valorizq.Valor + Valorder.Valor, tipoRetorno);
-                		break;
+            			return setSimbolos(parseFloat(Valorizq.Valor + Valorder.Valor), tipoRetorno);
                 }
+                break;
             case "-":
                 switch(tipoRetorno)
                 {
@@ -260,49 +290,70 @@
             			return setSimbolos(Valorizq.Valor - Valorder.Valor, tipoRetorno);
                 		break;
 					case "doble":
-            			return setSimbolos(Valorizq.Valor - Valorder.Valor, tipoRetorno);
-                		break;	
+            			return setSimbolos(parseFloat(Valorizq.Valor - Valorder.Valor), tipoRetorno);
                 }
+                break;
             case "umenos":
                 switch(tipoRetorno)
                 {
                 	case "entero":
             			return setSimbolos(0-Valorizq.Valor, tipoRetorno);
 					case "doble":
-            			return setSimbolos(0-Valorizq.Valor, tipoRetorno);	
+            			return setSimbolos(parseFloat(0-Valorizq.Valor), tipoRetorno);	
                 }
+                break;
             case "*":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && Valorder.Tipo != "cadena" && Valorizq.Tipo != "cadena" && (Valorizq.Tipo != 'caracter' || Valorder.Tipo != 'caracter')) {
+
                 switch(tipoRetorno)
                 {
                 	case "entero":
-                    	return setSimbolos(Valorizq.Valor * Valorder.Valor, tipoRetorno);
+                    	return setSimbolos(Number(Valorizq.Valor * Valorder.Valor), tipoRetorno);
 					case "doble":
-                    	return setSimbolos(Valorizq.Valor * Valorder.Valor, tipoRetorno);	
+                    	return setSimbolos(parseFloat(Valorizq.Valor * Valorder.Valor), tipoRetorno);	
                 }
+                
+                }
+                break;
             case "/":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && Valorder.Tipo != "cadena" && Valorizq.Tipo != "cadena" && (Valorizq.Tipo != 'caracter' || Valorder.Tipo != 'caracter')) {
+
                 switch(tipoRetorno)
                 {
+                    case "cadena":	
+                    	return setSimbolos(parseFloat(Valorizq.Valor / Valorder.Valor), "doble");
                 	case "entero":	
-                    	return setSimbolos(Valorizq.Valor / Valorder.Valor, tipoRetorno);
+                    	return setSimbolos(parseFloat(Valorizq.Valor / Valorder.Valor), "doble");
 					case "doble":	
-                    	return setSimbolos(Valorizq.Valor / Valorder.Valor, tipoRetorno);	
+                    	return setSimbolos(parseFloat(Valorizq.Valor / Valorder.Valor), tipoRetorno);	
                 }
+                }
+                break;
 			case "^":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && Valorder.Tipo != "cadena" && Valorizq.Tipo != "cadena" && Valorizq.Tipo != 'caracter' && Valorder.Tipo != 'caracter') {
+
                 switch(tipoRetorno)
                 {
                 	case "entero":	
-                    	return setSimbolos(Valorizq.Valor ** Valorder.Valor, tipoRetorno);
+                    	return setSimbolos(Number(Valorizq.Valor ** Valorder.Valor), tipoRetorno);
 					case "doble":	
-                    	return setSimbolos(Valorizq.Valor ** Valorder.Valor, tipoRetorno);	
-                }	
+                    	
+                        return setSimbolos(parseFloat(Valorizq.Valor ** Valorder.Valor), tipoRetorno);	
+                }
+            }
+                break;	
             case "%":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && Valorder.Tipo != "cadena" && Valorizq.Tipo != "cadena" && Valorizq.Tipo != 'caracter' && Valorder.Tipo != 'caracter') {
+
                 switch(tipoRetorno)
                 {
                 	case "entero":
             			return setSimbolos(Valorizq.Valor % Valorder.Valor, tipoRetorno);
 					case "doble":
-            			return setSimbolos(Valorizq.Valor % Valorder.Valor, tipoRetorno);		
+            			return setSimbolos(Number(Valorizq.Valor % Valorder.Valor), "entero");		
                 }
+                }
+                break;
             case "not":
                 switch(tipoRetorno)
                 {
@@ -313,21 +364,27 @@
                     case "booleano":
             			return setSimbolos(!Valorizq.Valor, tipoRetorno);
                 }
+                break;
             case "and":
                 switch(tipoRetorno)
                 {
                 	case "booleano":
             			return setSimbolos(Valorizq.Valor && Valorder.Valor, tipoRetorno);
                 }
+                break;
             case "or":
                 switch(tipoRetorno)
                 {
                 	case "booleano":
                 		return setSimbolos(Valorizq.Valor || Valorder.Valor, tipoRetorno);
                 }
+                break;
             case ">":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && (Valorizq.Tipo != 'caracter' || Valorder.Tipo != 'cadena') && (Valorizq.Tipo != 'cadena' || Valorder.Tipo != 'caracter')) {
+                    
                 switch(tipoRetorno)
                 {
+                    
                 	case "cadena":
                     case "caracter":
                 	case "entero":
@@ -335,61 +392,116 @@
                 	case "booleano":
                     	return setSimbolos(Valorizq.Valor > Valorder.Valor, "booleano");
                 }
-            case "<":
+                }
                 switch(tipoRetorno)
                 {
+                	case "booleano":
+                    	return setSimbolos(Valorizq.Valor > Valorder.Valor, "booleano");
+                }
+                break;
+            case "<":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && (Valorizq.Tipo != 'caracter' || Valorder.Tipo != 'cadena') && (Valorizq.Tipo != 'cadena' || Valorder.Tipo != 'caracter')) {
+                    
+                switch(tipoRetorno)
+                {
+                    
                 	case "cadena":
-                	case "entero":
                     case "caracter":
+                	case "entero":
 					case "doble":
                 	case "booleano":
                     	return setSimbolos(Valorizq.Valor < Valorder.Valor, "booleano");
                 }
-            case ">=":
+                }
                 switch(tipoRetorno)
                 {
+                	case "booleano":
+                    	return setSimbolos(Valorizq.Valor < Valorder.Valor, "booleano");
+                }
+                break;
+            case ">=":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && (Valorizq.Tipo != 'caracter' || Valorder.Tipo != 'cadena') && (Valorizq.Tipo != 'cadena' || Valorder.Tipo != 'caracter')) {
+                    
+                switch(tipoRetorno)
+                {
+                    
                 	case "cadena":
-                	case "entero":
                     case "caracter":
+                	case "entero":
 					case "doble":
                 	case "booleano":
                     	return setSimbolos(Valorizq.Valor >= Valorder.Valor, "booleano");
                 }
-            case "<=":
+                }
                 switch(tipoRetorno)
                 {
+                	case "booleano":
+                    	return setSimbolos(Valorizq.Valor >= Valorder.Valor, "booleano");
+                }
+                break;
+            case "<=":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && (Valorizq.Tipo != 'caracter' || Valorder.Tipo != 'cadena') && (Valorizq.Tipo != 'cadena' || Valorder.Tipo != 'caracter')) {
+                    
+                switch(tipoRetorno)
+                {
+                    
                 	case "cadena":
-                	case "entero":
                     case "caracter":
+                	case "entero":
 					case "doble":
                 	case "booleano":
                     	return setSimbolos(Valorizq.Valor <= Valorder.Valor, "booleano");
                 }
-            case "==":
+                }
                 switch(tipoRetorno)
                 {
+                	case "booleano":
+                    	return setSimbolos(Valorizq.Valor <= Valorder.Valor, "booleano");
+                }
+                break;
+            case "==":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && (Valorizq.Tipo != 'caracter' || Valorder.Tipo != 'cadena') && (Valorizq.Tipo != 'cadena' || Valorder.Tipo != 'caracter')) {
+                
+                switch(tipoRetorno)
+                {
+                    
                 	case "cadena":
-                	case "entero":
                     case "caracter":
+                	case "entero":
 					case "doble":
                 	case "booleano":
                     	return setSimbolos(Valorizq.Valor == Valorder.Valor, "booleano");
                 }
-            case "!=":
+                }
                 switch(tipoRetorno)
                 {
+                	case "booleano":
+                    	return setSimbolos(Valorizq.Valor == Valorder.Valor, "booleano");
+                }
+                break;
+            case "!=":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && (Valorizq.Tipo != 'caracter' || Valorder.Tipo != 'cadena') && (Valorizq.Tipo != 'cadena' || Valorder.Tipo != 'caracter')) {
+                    
+                switch(tipoRetorno)
+                {
+                    
                 	case "cadena":
                     case "caracter":
                 	case "entero":
 					case "doble":
                 	case "booleano":
-                		return setSimbolos(Valorizq.Valor != Valorder.Valor, "booleano");
+                    	return setSimbolos(Valorizq.Valor != Valorder.Valor, "booleano");
                 }
+                }
+                switch(tipoRetorno)
+                {
+                	case "booleano":
+                    	return setSimbolos(Valorizq.Valor != Valorder.Valor, "booleano");
+                }
+                break;
         }
-      	console.log(
-          "Tipos incompatibles " + ( Valorizq ? Valorizq.Tipo : "" ) + 
-          " y " + ( Valorder ? Valorder.Tipo : "" )); 
-      	return setSimbolos("@error@", "error");
+        console.log("Semantico","Error cerca del caracter : '"+ ( Valorizq ? Valorizq.Tipo : "" ) + " y " + ( Valorder ? Valorder.Tipo : "" ) +"'");
+        return setSimbolos("@error@", "error");
     }
 	/*-----------------------------------------------------------------------------------------------*/
     //print
@@ -425,7 +537,7 @@
       	{
         	valor = Evaluar(declaracion.Expresion, ent);
             if(valor.Tipo != declaracion.Tipo){
-                console.log("El tipo no coincide con la variable a declaracion");
+                console.log("Semantico","tipos de datos incompatibles : '"+ declaracion.Tipo + " y " + valor.Tipo +"'");
                 return
             }
     	}
@@ -485,7 +597,7 @@
                 }
                 else
                 {
-                    console.log("Tipos incompatibles ",simbolotabla.Tipo," , ",valor.Tipo)
+                    console.log("Semantico","tipos de datos incompatibles : '"+ simbolotabla.Tipo + " y " + valor.Tipo +"'");
                     return
                 }
             }
@@ -660,10 +772,11 @@
   	function EjecutarWHILE(mientras,ent)
 	{
         pilaCiclos.push("ciclo");        
-      	nuevo=Entorno(ent);
+      	
         while(true)
         {
-        	var resultadoCondicion = Evaluar(mientras.Condicion, ent)
+            nuevo=Entorno(ent);
+        	var resultadoCondicion = Evaluar(mientras.Condicion, nuevo)
             if(resultadoCondicion.Tipo=="booleano")
             {
             	if(resultadoCondicion.Valor)
@@ -681,13 +794,58 @@
             	}
             	else
             	{
-                    pilaCiclos.pop();
                 	break;
               	}
             }
             else
             {
-                console.log("Se esperaba una condicion dentro del while")
+                console.log("Semantico","Error, el while esperaba una condicion que retorne un booleano, no un => '"+ resultadoCondicion.Tipo );
+                pilaCiclos.pop();
+                return
+            }
+		}
+        pilaCiclos.pop();
+        return
+	}
+    	//objeto donde se agruparan los datos del do wihle
+	const condDOWHILE = function(Condicion, Bloque)
+    {
+        return {
+            Condicion: Condicion,
+            Bloque: Bloque,
+            TipoInstruccion:"dowhile"
+        }
+    }
+    function EjecutarDOWHILE(mientras,ent)
+	{
+        pilaCiclos.push("ciclo");        
+      	
+        while(true)
+        {
+            nuevo=Entorno(ent);
+        	var resultadoCondicion = Evaluar(mientras.Condicion, nuevo)
+            if(resultadoCondicion.Tipo=="booleano")
+            {
+            	
+                	var res=EjecutarBloque(mientras.Bloque, nuevo);
+                	if(res && res.TipoInstruccion=="insBreak")
+                	{
+                		break;
+                	}
+                    else if (res)
+                    {
+                        pilaCiclos.pop();
+                        return res
+                    }
+                resultadoCondicion = Evaluar(mientras.Condicion, nuevo)    
+            	if(!resultadoCondicion.Valor)
+            	{
+                	break;
+              	}
+            }
+            else
+            {
+                console.log("Semantico","Error, el while esperaba una condicion que retorne un booleano, no un => '"+ resultadoCondicion.Tipo );
                 pilaCiclos.pop();
                 return
             }
@@ -729,12 +887,13 @@
         }
     	while(true)
     	{
+            
             hasta = Evaluar(insfor.ExpHasta, nuevo);
         	var inicio=Evaluar(Simbolo, nuevo)
             if( inicio.Tipo != "entero" )
             {
                 pilaCiclos.pop();
-                console.log("Se esperaba valores numericos en el for");
+                console.log("Semantico","Error, el for esperaba un entero no un => '"+ inicio.Tipo );
                 return;
             }
         	if(hasta.Valor == true)
@@ -766,7 +925,8 @@
             {
                 EjecutarAsignar(insfor.ExpPaso, nuevo);
             }
-            }
+            nuevo=Entorno(ent);
+        }
         pilaCiclos.pop();
         return;
 	}
@@ -783,17 +943,12 @@
     }
     function EjecutarFuncion(elemento,ent)
     {
-        var nombrefuncion = elemento.Id + "$";
-        for(var Parametro of elemento.Parametros)
-        {
-            nombrefuncion+=Parametro.Tipo;
-        }
-        if (ent.tablaSimbolos.has(nombrefuncion))
+        if (ent.tablaSimbolos.has(elemento.Id))
       	{
-            console.log("La funcion ",crear.Id," ya ha sido declarada");
+            console.log("Error Semantico","el nombre de la funcion: '"+ elemento.Id +" ya existe");
       		return;
       	}
-        ent.tablaSimbolos.set(nombrefuncion, elemento);
+        ent.tablaSimbolos.set(elemento.Id, elemento);
     }
     //Llamada
     const Llamada=function(Id,Params)
@@ -806,28 +961,26 @@
     }
     function EjecutarLlamada(Llamada,ent)
     {
-        var nombrefuncion = Llamada.Id+"$";
         var Resueltos = [];
         for(var param of Llamada.Params)
         {
             var valor = Evaluar(param,ent);
-            nombrefuncion += valor.Tipo;
             Resueltos.push(valor);
         }
         var temp = ent;
         var simboloFuncion = null;
       	while(temp!=null)
         {
-            if (temp.tablaSimbolos.has(nombrefuncion))
+            if (temp.tablaSimbolos.has(Llamada.Id))
             {
                 // evaluar el resultado de la expresión 
-                simboloFuncion = temp.tablaSimbolos.get(nombrefuncion);	
+                simboloFuncion = temp.tablaSimbolos.get(Llamada.Id);	
                 break;
             }
             temp=temp.anterior;
         }
         if(!simboloFuncion){
-            console.log("No se encontró la funcion "+Llamada.Id + " con esa combinacion de parametros")
+            console.log("Error Semantico","No se encontró la funcion: "+Llamada.Id );
             return setSimbolos("@error@","error");
         } 
         pilaFunciones.push(Llamada.Id);
@@ -883,6 +1036,98 @@
         }
         pilaFunciones.pop();
         return retorno;
+    }
+    //Llamada EXEC
+    const LlamadaEXEC=function(Id,Params)
+    {
+        return {
+            Id: Id,
+            Params: Params,
+            TipoInstruccion: "llamadaexec"
+        }
+    }
+    function EjecutarLlamadaEXEC(Llamada,ent)
+    {   
+        if(principal==0){
+        var Resueltos = [];
+        for(var param of Llamada.Params)
+        {
+            var valor = Evaluar(param,ent);
+            Resueltos.push(valor);
+        }
+        var temp = ent;
+        var simboloFuncion = null;
+      	while(temp!=null)
+        {
+            if (temp.tablaSimbolos.has(Llamada.Id))
+            {
+                // evaluar el resultado de la expresión 
+                simboloFuncion = temp.tablaSimbolos.get(Llamada.Id);	
+                break;
+            }
+            temp=temp.anterior;
+        }
+        if(!simboloFuncion){
+            console.log("Error Semantico","No se encontró la funcion: "+Llamada.Id );
+            return setSimbolos("@error@","error");
+        } 
+        pilaFunciones.push(Llamada.Id);
+        var nuevo=Entorno(EntornoGlobal)
+        var index=0;
+        for(var crear of simboloFuncion.Parametros)
+        {
+            crear.Expresion=Resueltos[index];
+            EjecutarDeclaracion(crear,nuevo);
+            index++;
+        }
+        var retorno=setSimbolos("@error@","error");
+        var res = EjecutarBloque(simboloFuncion.Bloque, nuevo)
+        if(res)
+        {
+            if(res.Tipo=="void" )
+            {
+                if(simboloFuncion.Tipo!="void")
+                {
+                    console.log("No se esperaba un retorno");
+                    retorno=setSimbolos("@error@","error");
+                }
+                else
+                {
+                    retorno=setSimbolos("@vacio@","vacio")
+                }
+            }
+            else
+            {
+                var exp=Evaluar(res,nuevo);
+                if(exp.Tipo!=simboloFuncion.Tipo)
+                {
+                    console.log("El tipo del retorno no coincide");
+                    retorno=setSimbolos("@error@","error");
+                }
+                else
+                {
+                    retorno=exp;
+                }
+            }
+        }
+        else
+        {
+            if(simboloFuncion.Tipo!="void")
+            {
+                console.log("Se esperaba un retorno");
+                retorno=setSimbolos("@error@","error");
+            }
+            else
+            {
+                retorno=setSimbolos("@vacio@","vacio")
+            }
+        }
+        pilaFunciones.pop();
+        principal = principal+1;
+        return retorno;
+        }else{
+            console.log("Solo se puede aplicar la funcion EXEC a una funcion, no a mas");
+        }
     }
 %}
 
@@ -1027,7 +1272,7 @@ inicio
 instrucciones 
     : instrucciones instruccion  { $$=$1; $$.push($2); }
     | instruccion       { $$=[]; $$.push($1); }
-    | error  {console.log("Sintactico","Error en : '"+yytext+"'",this._$.first_line,this._$.first_column)}
+    | error  {console.log("Sintactico","Error cerca del caracter : '"+yytext+"'",this._$.first_line,this._$.first_column);}
 	
 ;
 
@@ -1039,10 +1284,32 @@ instruccion
     | condIF                                                { $$ = $1 }
     | switchCASE                                            { $$ = $1 }
     | condWHILE                                             { $$ = $1 }
+    | condDOWHILE                                           { $$ = $1 }
     | condFOR                                               { $$ = $1 }
+    | FUNCION                                               { $$ = $1 }
+    | LLAMADA                                               { $$ = $1 }
     | IDENTIFICADOR INCREMENTO PTCOMA		                { $$ = Incremento($1);}
     | IDENTIFICADOR DECREMENTO PTCOMA		                { $$ = Decremento($1);}
     | BREAK PTCOMA                                          { $$ = insBreak();}
+;
+
+LLAMADA
+    : IDENTIFICADOR PARIZQ PARDER  PTCOMA                         { $$ = Llamada($1,[]);}
+    | IDENTIFICADOR PARIZQ L_exp PARDER  PTCOMA                   { $$ = Llamada($1,$3);}
+    | EXEC IDENTIFICADOR PARIZQ PARDER  PTCOMA                    { $$ = LlamadaEXEC($2,[]);}
+    | EXEC IDENTIFICADOR PARIZQ L_exp PARDER  PTCOMA              { $$ = LlamadaEXEC($2,$4);}
+;
+
+FUNCION
+    : TIPO IDENTIFICADOR PARIZQ PARDER BLOQUE                       { $$ = Funcion($2,[],$1,$5); }
+    | VOID IDENTIFICADOR PARIZQ PARDER BLOQUE                       { $$ = Funcion($2,[],"void",$5); }
+    | TIPO IDENTIFICADOR PARIZQ PARAMETROS PARDER BLOQUE            { $$ = Funcion($2, $4, $1, $6); }
+    | VOID IDENTIFICADOR PARIZQ PARAMETROS PARDER BLOQUE            { $$ = Funcion($2, $4, "void", $6); }
+;
+
+PARAMETROS
+    : PARAMETROS COMA TIPO IDENTIFICADOR                        { $$ = $1; $$.push(Declaracion($4, $3, null));}
+    | TIPO IDENTIFICADOR                                        { $$ = []; $$.push(Declaracion($2, $1, null));}
 ;
 
 condFOR
@@ -1058,6 +1325,10 @@ refeshFOR
 
 condWHILE
     : WHILE expresion BLOQUE                { $$ = condWHILE($2, $3);}
+;
+
+condDOWHILE
+    : DO BLOQUE WHILE expresion PTCOMA               { $$ = condDOWHILE($4, $2);}
 ;
 
 switchCASE
@@ -1106,7 +1377,6 @@ TIPO
 
 expresion
 	: expresion MAS expresion				{ $$ = setOperacion($1,$3,"+");}
-    
 	| expresion MENOS expresion				{ $$ = setOperacion($1,$3,"-");}
 	| expresion POR expresion				{ $$ = setOperacion($1,$3,"*");}
 	| expresion DIVIDIDO expresion			{ $$ = setOperacion($1,$3,"/");}
@@ -1121,9 +1391,9 @@ expresion
 	| expresion AND expresion				{ $$ = setOperacion($1,$3,"and");}
 	| expresion NOT expresion				{ $$ = setOperacion($1,$3,"not");}
 	| expresion OR expresion				{ $$ = setOperacion($1,$3,"or");}
+    | PARIZQ expresion PARDER     			{ $$ = $2}
 	| NOT expresion							{ $$ = setOperacionUnario($2,"not");}
 	| MENOS expresion %prec UMENOS			{ $$ = setOperacionUnario($2,"umenos");}
-	| PARIZQ expresion PARDER     			{ $$ = $2}
 	| TRUE				     				{ $$ = setSimbolos(true,"booleano");}
 	| FALSE				     				{ $$ = setSimbolos(false,"booleano");}
 	| CADENA				     			{ $$ = setSimbolos($1,"cadena");}
@@ -1131,6 +1401,11 @@ expresion
 	| DECIMAL				     			{ $$ = setSimbolos(parseFloat($1),"doble");}
 	| ENTERO				     			{ $$ = setSimbolos($1,"entero");}
 	| IDENTIFICADOR							{ $$ = setSimbolos($1,"identificador");}
-    
-	
+    | IDENTIFICADOR PARIZQ PARDER           { $$ = setSimbolos({Id: $1, Params: []}, "funcion");}
+    | IDENTIFICADOR PARIZQ L_exp PARDER     { $$ = setSimbolos({Id: $1, Params:$3}, "funcion");}
+    	
+;
+L_exp
+    : L_exp COMA expresion              { $$ = $1; $$.push($3);}
+    | expresion                         { $$ = []; $$.push($1);}
 ;

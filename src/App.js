@@ -4,6 +4,7 @@ import Main from "./components/MainComponent"
 import './App.css';
 import Editor from './components/Editor'
 
+
 let contador = 1;
 function App() {
   return (

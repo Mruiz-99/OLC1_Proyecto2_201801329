@@ -1,0 +1,10 @@
+
+    {
+      "Id": "a",
+      "Tipo": "entero",
+      "Expresion": {
+        "Valor": "5",
+        "Tipo": "entero"
+      },
+      "TipoInstruccion": "declaracion"
+    }

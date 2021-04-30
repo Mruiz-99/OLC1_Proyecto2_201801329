@@ -5,8 +5,11 @@ import Editor from './EditorComponent';
 import Tablas from './TablasComponent';
 import AST from './TreeComponent';
 import Navbar from './NavbarComponent';
+import axios from 'axios'
 
-
+const api  = axios.create({
+    baseURL: 'http://localhost:3000/TablaErrores.json'
+})
 
 class Main extends Component {
 
@@ -16,12 +19,15 @@ class Main extends Component {
             code:["",""],
             index: [0,1]
         };
-
         //this.setTabs = this.setTabs.bind(this)
         //this.setTabActual = this.setTabActual.bind(this)
         this.setCode = this.setCode.bind(this)
         this.modifyCode = this.modifyCode.bind(this)
         this.removeCode = this.removeCode.bind(this)
+
+        axios.get('http://localhost:3000/TablaErrores.json').then(res => {
+                alert(res.data);
+        })
     }
 
     setCode = () => {

@@ -13,7 +13,7 @@ class Editor extends Component {
         return(
             <div id="modulo">
                 <Entrada removeCode ={this.props.removeCode} modifyCode={this.props.modifyCode} setActual={this.props.setActual} setCode={this.props.setCode} code={this.props.code}></Entrada>
-                <Salida></Salida>
+                <Salida ></Salida>
             </div>
             
         );

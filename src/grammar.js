@@ -72,12 +72,12 @@
   }
 */
 var grammar = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,4],$V1=[1,5],$V2=[1,12],$V3=[1,13],$V4=[1,18],$V5=[1,17],$V6=[1,16],$V7=[1,15],$V8=[1,19],$V9=[1,20],$Va=[1,21],$Vb=[1,22],$Vc=[1,23],$Vd=[5,7,18,21,22,25,26,29,30,32,34,38,39,40,41,42],$Ve=[1,29],$Vf=[1,35],$Vg=[1,42],$Vh=[1,34],$Vi=[1,33],$Vj=[1,36],$Vk=[1,37],$Vl=[1,38],$Vm=[1,39],$Vn=[1,40],$Vo=[1,41],$Vp=[1,68],$Vq=[1,53],$Vr=[1,54],$Vs=[1,55],$Vt=[1,56],$Vu=[1,57],$Vv=[1,58],$Vw=[1,59],$Vx=[1,60],$Vy=[1,61],$Vz=[1,62],$VA=[1,63],$VB=[1,64],$VC=[1,65],$VD=[1,66],$VE=[1,67],$VF=[10,11,27,33,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57],$VG=[5,7,8,18,21,22,25,26,29,30,32,34,38,39,40,41,42,44,56,58,59,60,61,62,63],$VH=[10,11,27,33,55,57],$VI=[10,11,27,33,43,44,49,50,51,52,53,54,55,56,57],$VJ=[10,11,27,33,43,44,45,46,48,49,50,51,52,53,54,55,56,57],$VK=[10,11,27,33,49,50,51,52,53,54,55,56,57],$VL=[5,7,18,21,22,25,26,29,30,32,34,35,38,39,40,41,42],$VM=[1,115],$VN=[1,119],$VO=[29,30,32];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,4],$V1=[1,5],$V2=[1,15],$V3=[1,16],$V4=[1,24],$V5=[1,23],$V6=[1,22],$V7=[1,20],$V8=[1,21],$V9=[1,19],$Va=[1,18],$Vb=[1,25],$Vc=[1,26],$Vd=[1,27],$Ve=[1,28],$Vf=[1,29],$Vg=[5,7,21,24,26,29,32,34,35,36,39,40,42,44,47,48,49,50,51],$Vh=[1,35],$Vi=[1,40],$Vj=[1,49],$Vk=[1,42],$Vl=[1,41],$Vm=[1,43],$Vn=[1,44],$Vo=[1,45],$Vp=[1,46],$Vq=[1,47],$Vr=[1,48],$Vs=[1,53],$Vt=[1,65],$Vu=[1,64],$Vv=[1,68],$Vw=[1,69],$Vx=[1,70],$Vy=[1,71],$Vz=[1,72],$VA=[1,73],$VB=[1,74],$VC=[1,75],$VD=[1,76],$VE=[1,77],$VF=[1,78],$VG=[1,79],$VH=[1,80],$VI=[1,81],$VJ=[1,82],$VK=[10,11,31,37,43,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66],$VL=[1,102],$VM=[10,31],$VN=[5,7,8,21,24,26,29,32,34,35,36,39,40,42,44,47,48,49,50,51,53,65,67,68,69,70,71,72],$VO=[10,11,31,37,43,64,66],$VP=[5,7,21,24,26,29,32,34,35,36,39,40,42,44,45,47,48,49,50,51],$VQ=[1,143],$VR=[10,11,31,37,43,52,53,58,59,60,61,62,63,64,65,66],$VS=[10,11,31,37,43,52,53,54,55,57,58,59,60,61,62,63,64,65,66],$VT=[10,11,31,37,43,58,59,60,61,62,63,64,65,66],$VU=[1,162],$VV=[1,166],$VW=[39,40,42];
 var parser = {trace: function trace () { },
 yy: {},
-symbols_: {"error":2,"inicio":3,"instrucciones":4,"EOF":5,"instruccion":6,"PRINT":7,"PARIZQ":8,"expresion":9,"PARDER":10,"PTCOMA":11,"DECLARACION":12,"ASIGNACION":13,"condIF":14,"switchCASE":15,"condWHILE":16,"condFOR":17,"IDENTIFICADOR":18,"INCREMENTO":19,"DECREMENTO":20,"BREAK":21,"FOR":22,"refeshFOR":23,"BLOQUE":24,"WHILE":25,"SWITCH":26,"LLAVIZQ":27,"ListCase":28,"LLAVDER":29,"DEFAULT":30,"BLOQUECASE":31,"CASE":32,"DOSPTS":33,"IF":34,"ELSE":35,"IGUAL":36,"TIPO":37,"RENTERO":38,"Rbooleano":39,"RCADENA":40,"RCARACTER":41,"RDOUBLE":42,"MAS":43,"MENOS":44,"POR":45,"DIVIDIDO":46,"POTENCIA":47,"MOD":48,"DOBLEIGUAL":49,"NOIGUAL":50,"MENQUE":51,"MAYQUE":52,"MENIGQUE":53,"MAYIGQUE":54,"AND":55,"NOT":56,"OR":57,"TRUE":58,"FALSE":59,"CADENA":60,"CARACTER":61,"DECIMAL":62,"ENTERO":63,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",7:"PRINT",8:"PARIZQ",10:"PARDER",11:"PTCOMA",18:"IDENTIFICADOR",19:"INCREMENTO",20:"DECREMENTO",21:"BREAK",22:"FOR",25:"WHILE",26:"SWITCH",27:"LLAVIZQ",29:"LLAVDER",30:"DEFAULT",32:"CASE",33:"DOSPTS",34:"IF",35:"ELSE",36:"IGUAL",38:"RENTERO",39:"Rbooleano",40:"RCADENA",41:"RCARACTER",42:"RDOUBLE",43:"MAS",44:"MENOS",45:"POR",46:"DIVIDIDO",47:"POTENCIA",48:"MOD",49:"DOBLEIGUAL",50:"NOIGUAL",51:"MENQUE",52:"MAYQUE",53:"MENIGQUE",54:"MAYIGQUE",55:"AND",56:"NOT",57:"OR",58:"TRUE",59:"FALSE",60:"CADENA",61:"CARACTER",62:"DECIMAL",63:"ENTERO"},
-productions_: [0,[3,2],[4,2],[4,1],[4,1],[6,5],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,3],[6,3],[6,2],[17,8],[17,8],[23,2],[23,2],[23,1],[16,3],[15,5],[15,7],[28,4],[28,3],[31,1],[31,2],[14,3],[14,5],[14,5],[24,2],[24,3],[13,4],[12,5],[12,3],[37,1],[37,1],[37,1],[37,1],[37,1],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,2],[9,2],[9,3],[9,1],[9,1],[9,1],[9,1],[9,1],[9,1],[9,1]],
+symbols_: {"error":2,"inicio":3,"instrucciones":4,"EOF":5,"instruccion":6,"PRINT":7,"PARIZQ":8,"expresion":9,"PARDER":10,"PTCOMA":11,"DECLARACION":12,"ASIGNACION":13,"condIF":14,"switchCASE":15,"condWHILE":16,"condDOWHILE":17,"condFOR":18,"FUNCION":19,"LLAMADA":20,"IDENTIFICADOR":21,"INCREMENTO":22,"DECREMENTO":23,"BREAK":24,"L_exp":25,"EXEC":26,"TIPO":27,"BLOQUE":28,"VOID":29,"PARAMETROS":30,"COMA":31,"FOR":32,"refeshFOR":33,"WHILE":34,"DO":35,"SWITCH":36,"LLAVIZQ":37,"ListCase":38,"LLAVDER":39,"DEFAULT":40,"BLOQUECASE":41,"CASE":42,"DOSPTS":43,"IF":44,"ELSE":45,"IGUAL":46,"RENTERO":47,"Rbooleano":48,"RCADENA":49,"RCARACTER":50,"RDOUBLE":51,"MAS":52,"MENOS":53,"POR":54,"DIVIDIDO":55,"POTENCIA":56,"MOD":57,"DOBLEIGUAL":58,"NOIGUAL":59,"MENQUE":60,"MAYQUE":61,"MENIGQUE":62,"MAYIGQUE":63,"AND":64,"NOT":65,"OR":66,"TRUE":67,"FALSE":68,"CADENA":69,"CARACTER":70,"DECIMAL":71,"ENTERO":72,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",7:"PRINT",8:"PARIZQ",10:"PARDER",11:"PTCOMA",21:"IDENTIFICADOR",22:"INCREMENTO",23:"DECREMENTO",24:"BREAK",26:"EXEC",29:"VOID",31:"COMA",32:"FOR",34:"WHILE",35:"DO",36:"SWITCH",37:"LLAVIZQ",39:"LLAVDER",40:"DEFAULT",42:"CASE",43:"DOSPTS",44:"IF",45:"ELSE",46:"IGUAL",47:"RENTERO",48:"Rbooleano",49:"RCADENA",50:"RCARACTER",51:"RDOUBLE",52:"MAS",53:"MENOS",54:"POR",55:"DIVIDIDO",56:"POTENCIA",57:"MOD",58:"DOBLEIGUAL",59:"NOIGUAL",60:"MENQUE",61:"MAYQUE",62:"MENIGQUE",63:"MAYIGQUE",64:"AND",65:"NOT",66:"OR",67:"TRUE",68:"FALSE",69:"CADENA",70:"CARACTER",71:"DECIMAL",72:"ENTERO"},
+productions_: [0,[3,2],[4,2],[4,1],[4,1],[6,5],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,3],[6,3],[6,2],[20,4],[20,5],[20,5],[20,6],[19,5],[19,5],[19,6],[19,6],[30,4],[30,2],[18,8],[18,8],[33,2],[33,2],[33,1],[16,3],[17,5],[15,5],[15,7],[38,4],[38,3],[41,1],[41,2],[14,3],[14,5],[14,5],[28,2],[28,3],[13,4],[12,5],[12,3],[27,1],[27,1],[27,1],[27,1],[27,1],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,2],[9,2],[9,1],[9,1],[9,1],[9,1],[9,1],[9,1],[9,1],[9,3],[9,4],[25,3],[25,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -93,171 +93,216 @@ case 3:
  this.$=[]; this.$.push($$[$0]); 
 break;
 case 4:
-console.log("Sintactico","Error en : '"+yytext+"'",this._$.first_line,this._$.first_column)
+console.log("Sintactico","Error cerca del caracter : '"+yytext+"'",this._$.first_line,this._$.first_column);
 break;
 case 5:
  this.$ = print("print",$$[$0-2]); 
 break;
-case 6: case 7: case 8: case 9: case 10: case 11:
+case 6: case 7: case 8: case 9: case 10: case 11: case 12: case 13: case 14:
  this.$ = $$[$0] 
 break;
-case 12:
+case 15:
  this.$ = Incremento($$[$0-2]);
 break;
-case 13:
+case 16:
  this.$ = Decremento($$[$0-2]);
 break;
-case 14:
+case 17:
  this.$ = insBreak();
 break;
-case 15: case 16:
- this.$ = condFOR($$[$0-5], $$[$0-4], $$[$0-2], $$[$0]);
-break;
-case 17:
- this.$ = Incremento($$[$0-1]);
-break;
 case 18:
- this.$ = Decremento($$[$0-1]);
+ this.$ = Llamada($$[$0-3],[]);
 break;
 case 19:
-this.$ = $$[$0];
+ this.$ = Llamada($$[$0-4],$$[$0-2]);
 break;
 case 20:
- this.$ = condWHILE($$[$0-1], $$[$0]);
+ this.$ = LlamadaEXEC($$[$0-3],[]);
 break;
 case 21:
- this.$ = Seleccionar($$[$0-3], $$[$0-1]); 
+ this.$ = LlamadaEXEC($$[$0-4],$$[$0-2]);
 break;
 case 22:
- this.$ = Seleccionar($$[$0-5], $$[$0-3], $$[$0-1]); 
+ this.$ = Funcion($$[$0-3],[],$$[$0-4],$$[$0]); 
 break;
 case 23:
- this.$ = $$[$0-3]; this.$.push(Caso($$[$0-1], $$[$0])); 
+ this.$ = Funcion($$[$0-3],[],"void",$$[$0]); 
 break;
 case 24:
- this.$ = []; this.$.push(Caso($$[$0-1], $$[$0])); 
+ this.$ = Funcion($$[$0-4], $$[$0-2], $$[$0-5], $$[$0]); 
 break;
-case 25: case 30:
- this.$ = []; 
+case 25:
+ this.$ = Funcion($$[$0-4], $$[$0-2], "void", $$[$0]); 
 break;
 case 26:
- this.$ = $$[$0]; 
+ this.$ = $$[$0-3]; this.$.push(Declaracion($$[$0], $$[$0-1], null));
 break;
 case 27:
- this.$ = condIF($$[$0-1], $$[$0], null); 
+ this.$ = []; this.$.push(Declaracion($$[$0], $$[$0-1], null));
 break;
-case 28:
- this.$ = condIF($$[$0-3], $$[$0-2], Array ($$[$0]) );
+case 28: case 29:
+ this.$ = condFOR($$[$0-5], $$[$0-4], $$[$0-2], $$[$0]);
 break;
-case 29:
- this.$ = condIF($$[$0-3], $$[$0-2], $$[$0] ); 
+case 30:
+ this.$ = Incremento($$[$0-1]);
 break;
 case 31:
- this.$ = $$[$0-1]; 
+ this.$ = Decremento($$[$0-1]);
 break;
 case 32:
- this.$ = Asignar($$[$0-3],$$[$0-1]); 
+this.$ = $$[$0];
 break;
 case 33:
- this.$ = Declaracion($$[$0-3],$$[$0-4],$$[$0-1]); 
+ this.$ = condWHILE($$[$0-1], $$[$0]);
 break;
 case 34:
- this.$ = Declaracion($$[$0-1],$$[$0-2],null); 
+ this.$ = condDOWHILE($$[$0-1], $$[$0-3]);
 break;
 case 35:
- this.$ = "entero" 
+ this.$ = Seleccionar($$[$0-3], $$[$0-1]); 
 break;
 case 36:
- this.$ = "booleano" 
+ this.$ = Seleccionar($$[$0-5], $$[$0-3], $$[$0-1]); 
 break;
 case 37:
- this.$ = "cadena" 
+ this.$ = $$[$0-3]; this.$.push(Caso($$[$0-1], $$[$0])); 
 break;
 case 38:
- this.$ = "caracter" 
+ this.$ = []; this.$.push(Caso($$[$0-1], $$[$0])); 
 break;
-case 39:
- this.$ = "doble" 
+case 39: case 44:
+ this.$ = []; 
 break;
 case 40:
- this.$ = setOperacion($$[$0-2],$$[$0],"+");
+ this.$ = $$[$0]; 
 break;
 case 41:
- this.$ = setOperacion($$[$0-2],$$[$0],"-");
+ this.$ = condIF($$[$0-1], $$[$0], null); 
 break;
 case 42:
- this.$ = setOperacion($$[$0-2],$$[$0],"*");
+ this.$ = condIF($$[$0-3], $$[$0-2], Array ($$[$0]) );
 break;
 case 43:
- this.$ = setOperacion($$[$0-2],$$[$0],"/");
-break;
-case 44:
- this.$ = setOperacion($$[$0-2],$$[$0],"^");
+ this.$ = condIF($$[$0-3], $$[$0-2], $$[$0] ); 
 break;
 case 45:
- this.$ = setOperacion($$[$0-2],$$[$0],"%");
+ this.$ = $$[$0-1]; 
 break;
 case 46:
- this.$ = setOperacion($$[$0-2],$$[$0],"==");
+ this.$ = Asignar($$[$0-3],$$[$0-1]); 
 break;
 case 47:
- this.$ = setOperacion($$[$0-2],$$[$0],"!=");
+ this.$ = Declaracion($$[$0-3],$$[$0-4],$$[$0-1]); 
 break;
 case 48:
- this.$ = setOperacion($$[$0-2],$$[$0],"<");
+ this.$ = Declaracion($$[$0-1],$$[$0-2],null); 
 break;
 case 49:
- this.$ = setOperacion($$[$0-2],$$[$0],">");
+ this.$ = "entero" 
 break;
 case 50:
- this.$ = setOperacion($$[$0-2],$$[$0],"<=");
+ this.$ = "booleano" 
 break;
 case 51:
- this.$ = setOperacion($$[$0-2],$$[$0],">=");
+ this.$ = "cadena" 
 break;
 case 52:
- this.$ = setOperacion($$[$0-2],$$[$0],"and");
+ this.$ = "caracter" 
 break;
 case 53:
- this.$ = setOperacion($$[$0-2],$$[$0],"not");
+ this.$ = "doble" 
 break;
 case 54:
- this.$ = setOperacion($$[$0-2],$$[$0],"or");
+ this.$ = setOperacion($$[$0-2],$$[$0],"+");
 break;
 case 55:
- this.$ = setOperacionUnario($$[$0],"not");
+ this.$ = setOperacion($$[$0-2],$$[$0],"-");
 break;
 case 56:
- this.$ = setOperacionUnario($$[$0],"umenos");
+ this.$ = setOperacion($$[$0-2],$$[$0],"*");
 break;
 case 57:
- this.$ = $$[$0-1]
+ this.$ = setOperacion($$[$0-2],$$[$0],"/");
 break;
 case 58:
- this.$ = setSimbolos(true,"booleano");
+ this.$ = setOperacion($$[$0-2],$$[$0],"^");
 break;
 case 59:
- this.$ = setSimbolos(false,"booleano");
+ this.$ = setOperacion($$[$0-2],$$[$0],"%");
 break;
 case 60:
- this.$ = setSimbolos($$[$0],"cadena");
+ this.$ = setOperacion($$[$0-2],$$[$0],"==");
 break;
 case 61:
- this.$ = setSimbolos($$[$0],"caracter");
+ this.$ = setOperacion($$[$0-2],$$[$0],"!=");
 break;
 case 62:
- this.$ = setSimbolos(parseFloat($$[$0]),"doble");
+ this.$ = setOperacion($$[$0-2],$$[$0],"<");
 break;
 case 63:
- this.$ = setSimbolos($$[$0],"entero");
+ this.$ = setOperacion($$[$0-2],$$[$0],">");
 break;
 case 64:
+ this.$ = setOperacion($$[$0-2],$$[$0],"<=");
+break;
+case 65:
+ this.$ = setOperacion($$[$0-2],$$[$0],">=");
+break;
+case 66:
+ this.$ = setOperacion($$[$0-2],$$[$0],"and");
+break;
+case 67:
+ this.$ = setOperacion($$[$0-2],$$[$0],"not");
+break;
+case 68:
+ this.$ = setOperacion($$[$0-2],$$[$0],"or");
+break;
+case 69:
+ this.$ = $$[$0-1]
+break;
+case 70:
+ this.$ = setOperacionUnario($$[$0],"not");
+break;
+case 71:
+ this.$ = setOperacionUnario($$[$0],"umenos");
+break;
+case 72:
+ this.$ = setSimbolos(true,"booleano");
+break;
+case 73:
+ this.$ = setSimbolos(false,"booleano");
+break;
+case 74:
+ this.$ = setSimbolos($$[$0],"cadena");
+break;
+case 75:
+ this.$ = setSimbolos($$[$0],"caracter");
+break;
+case 76:
+ this.$ = setSimbolos(parseFloat($$[$0]),"doble");
+break;
+case 77:
+ this.$ = setSimbolos($$[$0],"entero");
+break;
+case 78:
  this.$ = setSimbolos($$[$0],"identificador");
+break;
+case 79:
+ this.$ = setSimbolos({Id: $$[$0-2], Params: []}, "funcion");
+break;
+case 80:
+ this.$ = setSimbolos({Id: $$[$0-3], Params:$$[$0-1]}, "funcion");
+break;
+case 81:
+ this.$ = $$[$0-2]; this.$.push($$[$0]);
+break;
+case 82:
+ this.$ = []; this.$.push($$[$0]);
 break;
 }
 },
-table: [{2:$V0,3:1,4:2,6:3,7:$V1,12:6,13:7,14:8,15:9,16:10,17:11,18:$V2,21:$V3,22:$V4,25:$V5,26:$V6,34:$V7,37:14,38:$V8,39:$V9,40:$Va,41:$Vb,42:$Vc},{1:[3]},{5:[1,24],6:25,7:$V1,12:6,13:7,14:8,15:9,16:10,17:11,18:$V2,21:$V3,22:$V4,25:$V5,26:$V6,34:$V7,37:14,38:$V8,39:$V9,40:$Va,41:$Vb,42:$Vc},o($Vd,[2,3]),o($Vd,[2,4]),{8:[1,26]},o($Vd,[2,6]),o($Vd,[2,7]),o($Vd,[2,8]),o($Vd,[2,9]),o($Vd,[2,10]),o($Vd,[2,11]),{19:[1,27],20:[1,28],36:$Ve},{11:[1,30]},{18:[1,31]},{8:$Vf,9:32,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:43,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:44,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:[1,45]},{18:[2,35]},{18:[2,36]},{18:[2,37]},{18:[2,38]},{18:[2,39]},{1:[2,1]},o($Vd,[2,2]),{8:$Vf,9:46,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{11:[1,47]},{11:[1,48]},{8:$Vf,9:49,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},o($Vd,[2,14]),{11:[1,51],36:[1,50]},{24:52,27:$Vp,43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv,49:$Vw,50:$Vx,51:$Vy,52:$Vz,53:$VA,54:$VB,55:$VC,56:$VD,57:$VE},{8:$Vf,9:69,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:70,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:71,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},o($VF,[2,58]),o($VF,[2,59]),o($VF,[2,60]),o($VF,[2,61]),o($VF,[2,62]),o($VF,[2,63]),o($VF,[2,64]),{27:[1,72],43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv,49:$Vw,50:$Vx,51:$Vy,52:$Vz,53:$VA,54:$VB,55:$VC,56:$VD,57:$VE},{24:73,27:$Vp,43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv,49:$Vw,50:$Vx,51:$Vy,52:$Vz,53:$VA,54:$VB,55:$VC,56:$VD,57:$VE},{12:74,13:75,18:[1,76],37:14,38:$V8,39:$V9,40:$Va,41:$Vb,42:$Vc},{10:[1,77],43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv,49:$Vw,50:$Vx,51:$Vy,52:$Vz,53:$VA,54:$VB,55:$VC,56:$VD,57:$VE},o($Vd,[2,12]),o($Vd,[2,13]),{11:[1,78],43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv,49:$Vw,50:$Vx,51:$Vy,52:$Vz,53:$VA,54:$VB,55:$VC,56:$VD,57:$VE},{8:$Vf,9:79,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},o($VG,[2,34]),o($Vd,[2,27],{35:[1,80]}),{8:$Vf,9:81,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:82,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:83,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:84,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:85,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:86,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:87,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:88,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:89,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:90,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:91,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:92,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:93,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:94,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:95,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{2:$V0,4:97,6:3,7:$V1,12:6,13:7,14:8,15:9,16:10,17:11,18:$V2,21:$V3,22:$V4,25:$V5,26:$V6,29:[1,96],34:$V7,37:14,38:$V8,39:$V9,40:$Va,41:$Vb,42:$Vc},o($VH,[2,55],{43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv,49:$Vw,50:$Vx,51:$Vy,52:$Vz,53:$VA,54:$VB,56:$VD}),o($VF,[2,56]),{10:[1,98],43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv,49:$Vw,50:$Vx,51:$Vy,52:$Vz,53:$VA,54:$VB,55:$VC,56:$VD,57:$VE},{28:99,32:[1,100]},o($Vd,[2,20]),{8:$Vf,9:101,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{8:$Vf,9:102,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{36:$Ve},{11:[1,103]},o([5,7,8,10,18,21,22,25,26,29,30,32,34,38,39,40,41,42,44,56,58,59,60,61,62,63],[2,32]),{11:[1,104],43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv,49:$Vw,50:$Vx,51:$Vy,52:$Vz,53:$VA,54:$VB,55:$VC,56:$VD,57:$VE},{14:105,24:106,27:$Vp,34:$V7},o($VI,[2,40],{45:$Vs,46:$Vt,47:$Vu,48:$Vv}),o($VI,[2,41],{45:$Vs,46:$Vt,47:$Vu,48:$Vv}),o($VJ,[2,42],{47:$Vu}),o($VJ,[2,43],{47:$Vu}),o($VJ,[2,44]),o($VJ,[2,45],{47:$Vu}),o($VK,[2,46],{43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv}),o($VK,[2,47],{43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv}),o($VK,[2,48],{43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv}),o($VK,[2,49],{43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv}),o($VK,[2,50],{43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv}),o($VK,[2,51],{43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv}),o($VH,[2,52],{43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv,49:$Vw,50:$Vx,51:$Vy,52:$Vz,53:$VA,54:$VB,56:$VD}),o($VH,[2,53],{43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv,49:$Vw,50:$Vx,51:$Vy,52:$Vz,53:$VA,54:$VB,56:$VD}),o([10,11,27,33,57],[2,54],{43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv,49:$Vw,50:$Vx,51:$Vy,52:$Vz,53:$VA,54:$VB,55:$VC,56:$VD}),o($VL,[2,30]),{6:25,7:$V1,12:6,13:7,14:8,15:9,16:10,17:11,18:$V2,21:$V3,22:$V4,25:$V5,26:$V6,29:[1,107],34:$V7,37:14,38:$V8,39:$V9,40:$Va,41:$Vb,42:$Vc},o($VF,[2,57]),{29:[1,108],30:[1,109],32:[1,110]},{8:$Vf,9:111,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{11:[1,112],43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv,49:$Vw,50:$Vx,51:$Vy,52:$Vz,53:$VA,54:$VB,55:$VC,56:$VD,57:$VE},{11:[1,113],43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv,49:$Vw,50:$Vx,51:$Vy,52:$Vz,53:$VA,54:$VB,55:$VC,56:$VD,57:$VE},o($Vd,[2,5]),o($VG,[2,33]),o($Vd,[2,28]),o($Vd,[2,29]),o($VL,[2,31]),o($Vd,[2,21]),{31:114,33:$VM},{8:$Vf,9:116,18:$Vg,44:$Vh,56:$Vi,58:$Vj,59:$Vk,60:$Vl,61:$Vm,62:$Vn,63:$Vo},{31:117,33:$VM,43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv,49:$Vw,50:$Vx,51:$Vy,52:$Vz,53:$VA,54:$VB,55:$VC,56:$VD,57:$VE},{13:120,18:$VN,23:118},{13:120,18:$VN,23:121},{29:[1,122]},o($VO,[2,25],{6:3,12:6,13:7,14:8,15:9,16:10,17:11,37:14,4:123,2:$V0,7:$V1,18:$V2,21:$V3,22:$V4,25:$V5,26:$V6,34:$V7,38:$V8,39:$V9,40:$Va,41:$Vb,42:$Vc}),{31:124,33:$VM,43:$Vq,44:$Vr,45:$Vs,46:$Vt,47:$Vu,48:$Vv,49:$Vw,50:$Vx,51:$Vy,52:$Vz,53:$VA,54:$VB,55:$VC,56:$VD,57:$VE},o($VO,[2,24]),{10:[1,125]},{19:[1,126],20:[1,127],36:$Ve},{10:[2,19]},{10:[1,128]},o($Vd,[2,22]),o($VO,[2,26],{12:6,13:7,14:8,15:9,16:10,17:11,37:14,6:25,7:$V1,18:$V2,21:$V3,22:$V4,25:$V5,26:$V6,34:$V7,38:$V8,39:$V9,40:$Va,41:$Vb,42:$Vc}),o($VO,[2,23]),{24:129,27:$Vp},{10:[2,17]},{10:[2,18]},{24:130,27:$Vp},o($Vd,[2,15]),o($Vd,[2,16])],
-defaultActions: {19:[2,35],20:[2,36],21:[2,37],22:[2,38],23:[2,39],24:[2,1],120:[2,19],126:[2,17],127:[2,18]},
+table: [{2:$V0,3:1,4:2,6:3,7:$V1,12:6,13:7,14:8,15:9,16:10,17:11,18:12,19:13,20:14,21:$V2,24:$V3,26:$V4,27:17,29:$V5,32:$V6,34:$V7,35:$V8,36:$V9,44:$Va,47:$Vb,48:$Vc,49:$Vd,50:$Ve,51:$Vf},{1:[3]},{5:[1,30],6:31,7:$V1,12:6,13:7,14:8,15:9,16:10,17:11,18:12,19:13,20:14,21:$V2,24:$V3,26:$V4,27:17,29:$V5,32:$V6,34:$V7,35:$V8,36:$V9,44:$Va,47:$Vb,48:$Vc,49:$Vd,50:$Ve,51:$Vf},o($Vg,[2,3]),o($Vg,[2,4]),{8:[1,32]},o($Vg,[2,6]),o($Vg,[2,7]),o($Vg,[2,8]),o($Vg,[2,9]),o($Vg,[2,10]),o($Vg,[2,11]),o($Vg,[2,12]),o($Vg,[2,13]),o($Vg,[2,14]),{8:[1,36],22:[1,33],23:[1,34],46:$Vh},{11:[1,37]},{21:[1,38]},{8:$Vi,9:39,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:50,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:51,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{28:52,37:$Vs},{8:[1,54]},{21:[1,55]},{21:[1,56]},{21:[2,49]},{21:[2,50]},{21:[2,51]},{21:[2,52]},{21:[2,53]},{1:[2,1]},o($Vg,[2,2]),{8:$Vi,9:57,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{11:[1,58]},{11:[1,59]},{8:$Vi,9:60,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:63,10:[1,61],21:$Vj,25:62,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},o($Vg,[2,17]),{8:[1,66],11:$Vt,46:$Vu},{28:67,37:$Vs,52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA,58:$VB,59:$VC,60:$VD,61:$VE,62:$VF,63:$VG,64:$VH,65:$VI,66:$VJ},{8:$Vi,9:83,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:84,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:85,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},o($VK,[2,72]),o($VK,[2,73]),o($VK,[2,74]),o($VK,[2,75]),o($VK,[2,76]),o($VK,[2,77]),o($VK,[2,78],{8:[1,86]}),{37:[1,87],52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA,58:$VB,59:$VC,60:$VD,61:$VE,62:$VF,63:$VG,64:$VH,65:$VI,66:$VJ},{28:88,37:$Vs,52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA,58:$VB,59:$VC,60:$VD,61:$VE,62:$VF,63:$VG,64:$VH,65:$VI,66:$VJ},{34:[1,89]},{2:$V0,4:91,6:3,7:$V1,12:6,13:7,14:8,15:9,16:10,17:11,18:12,19:13,20:14,21:$V2,24:$V3,26:$V4,27:17,29:$V5,32:$V6,34:$V7,35:$V8,36:$V9,39:[1,90],44:$Va,47:$Vb,48:$Vc,49:$Vd,50:$Ve,51:$Vf},{12:92,13:93,21:[1,95],27:94,47:$Vb,48:$Vc,49:$Vd,50:$Ve,51:$Vf},{8:[1,96]},{8:[1,97]},{10:[1,98],52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA,58:$VB,59:$VC,60:$VD,61:$VE,62:$VF,63:$VG,64:$VH,65:$VI,66:$VJ},o($Vg,[2,15]),o($Vg,[2,16]),{11:[1,99],52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA,58:$VB,59:$VC,60:$VD,61:$VE,62:$VF,63:$VG,64:$VH,65:$VI,66:$VJ},{11:[1,100]},{10:[1,101],31:$VL},o($VM,[2,82],{52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA,58:$VB,59:$VC,60:$VD,61:$VE,62:$VF,63:$VG,64:$VH,65:$VI,66:$VJ}),{8:$Vi,9:103,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},o($VN,[2,48]),{10:[1,104],27:106,30:105,47:$Vb,48:$Vc,49:$Vd,50:$Ve,51:$Vf},o($Vg,[2,41],{45:[1,107]}),{8:$Vi,9:108,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:109,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:110,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:111,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:112,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:113,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:114,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:115,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:116,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:117,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:118,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:119,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:120,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:121,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:122,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{10:[1,123],52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA,58:$VB,59:$VC,60:$VD,61:$VE,62:$VF,63:$VG,64:$VH,65:$VI,66:$VJ},o($VO,[2,70],{52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA,58:$VB,59:$VC,60:$VD,61:$VE,62:$VF,63:$VG,65:$VI}),o($VK,[2,71]),{8:$Vi,9:63,10:[1,124],21:$Vj,25:125,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{38:126,42:[1,127]},o($Vg,[2,33]),{8:$Vi,9:128,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},o($VP,[2,44]),{6:31,7:$V1,12:6,13:7,14:8,15:9,16:10,17:11,18:12,19:13,20:14,21:$V2,24:$V3,26:$V4,27:17,29:$V5,32:$V6,34:$V7,35:$V8,36:$V9,39:[1,129],44:$Va,47:$Vb,48:$Vc,49:$Vd,50:$Ve,51:$Vf},{8:$Vi,9:130,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{8:$Vi,9:131,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{21:[1,132]},{46:$Vh},{10:[1,133],27:106,30:134,47:$Vb,48:$Vc,49:$Vd,50:$Ve,51:$Vf},{8:$Vi,9:63,10:[1,135],21:$Vj,25:136,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{11:[1,137]},o([5,7,8,10,21,24,26,29,32,34,35,36,39,40,42,44,47,48,49,50,51,53,65,67,68,69,70,71,72],[2,46]),o($Vg,[2,18]),{11:[1,138]},{8:$Vi,9:139,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{11:[1,140],52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA,58:$VB,59:$VC,60:$VD,61:$VE,62:$VF,63:$VG,64:$VH,65:$VI,66:$VJ},{28:141,37:$Vs},{10:[1,142],31:$VQ},{21:[1,144]},{14:145,28:146,37:$Vs,44:$Va},o($VR,[2,54],{54:$Vx,55:$Vy,56:$Vz,57:$VA}),o($VR,[2,55],{54:$Vx,55:$Vy,56:$Vz,57:$VA}),o($VS,[2,56],{56:$Vz}),o($VS,[2,57],{56:$Vz}),o($VS,[2,58]),o($VS,[2,59],{56:$Vz}),o($VT,[2,60],{52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA}),o($VT,[2,61],{52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA}),o($VT,[2,62],{52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA}),o($VT,[2,63],{52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA}),o($VT,[2,64],{52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA}),o($VT,[2,65],{52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA}),o($VO,[2,66],{52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA,58:$VB,59:$VC,60:$VD,61:$VE,62:$VF,63:$VG,65:$VI}),o($VO,[2,67],{52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA,58:$VB,59:$VC,60:$VD,61:$VE,62:$VF,63:$VG,65:$VI}),o([10,11,31,37,43,66],[2,68],{52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA,58:$VB,59:$VC,60:$VD,61:$VE,62:$VF,63:$VG,64:$VH,65:$VI}),o($VK,[2,69]),o($VK,[2,79]),{10:[1,147],31:$VL},{39:[1,148],40:[1,149],42:[1,150]},{8:$Vi,9:151,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{11:[1,152],52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA,58:$VB,59:$VC,60:$VD,61:$VE,62:$VF,63:$VG,64:$VH,65:$VI,66:$VJ},o($VP,[2,45]),{11:[1,153],52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA,58:$VB,59:$VC,60:$VD,61:$VE,62:$VF,63:$VG,64:$VH,65:$VI,66:$VJ},{11:[1,154],52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA,58:$VB,59:$VC,60:$VD,61:$VE,62:$VF,63:$VG,64:$VH,65:$VI,66:$VJ},{11:$Vt,46:$Vu},{28:155,37:$Vs},{10:[1,156],31:$VQ},{11:[1,157]},{10:[1,158],31:$VL},o($Vg,[2,5]),o($Vg,[2,19]),o($VM,[2,81],{52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA,58:$VB,59:$VC,60:$VD,61:$VE,62:$VF,63:$VG,64:$VH,65:$VI,66:$VJ}),o($VN,[2,47]),o($Vg,[2,22]),{28:159,37:$Vs},{27:160,47:$Vb,48:$Vc,49:$Vd,50:$Ve,51:$Vf},o($VM,[2,27]),o($Vg,[2,42]),o($Vg,[2,43]),o($VK,[2,80]),o($Vg,[2,35]),{41:161,43:$VU},{8:$Vi,9:163,21:$Vj,53:$Vk,65:$Vl,67:$Vm,68:$Vn,69:$Vo,70:$Vp,71:$Vq,72:$Vr},{41:164,43:$VU,52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA,58:$VB,59:$VC,60:$VD,61:$VE,62:$VF,63:$VG,64:$VH,65:$VI,66:$VJ},o($Vg,[2,34]),{13:167,21:$VV,33:165},{13:167,21:$VV,33:168},o($Vg,[2,23]),{28:169,37:$Vs},o($Vg,[2,20]),{11:[1,170]},o($Vg,[2,24]),{21:[1,171]},{39:[1,172]},o($VW,[2,39],{6:3,12:6,13:7,14:8,15:9,16:10,17:11,18:12,19:13,20:14,27:17,4:173,2:$V0,7:$V1,21:$V2,24:$V3,26:$V4,29:$V5,32:$V6,34:$V7,35:$V8,36:$V9,44:$Va,47:$Vb,48:$Vc,49:$Vd,50:$Ve,51:$Vf}),{41:174,43:$VU,52:$Vv,53:$Vw,54:$Vx,55:$Vy,56:$Vz,57:$VA,58:$VB,59:$VC,60:$VD,61:$VE,62:$VF,63:$VG,64:$VH,65:$VI,66:$VJ},o($VW,[2,38]),{10:[1,175]},{22:[1,176],23:[1,177],46:$Vh},{10:[2,32]},{10:[1,178]},o($Vg,[2,25]),o($Vg,[2,21]),o($VM,[2,26]),o($Vg,[2,36]),o($VW,[2,40],{12:6,13:7,14:8,15:9,16:10,17:11,18:12,19:13,20:14,27:17,6:31,7:$V1,21:$V2,24:$V3,26:$V4,29:$V5,32:$V6,34:$V7,35:$V8,36:$V9,44:$Va,47:$Vb,48:$Vc,49:$Vd,50:$Ve,51:$Vf}),o($VW,[2,37]),{28:179,37:$Vs},{10:[2,30]},{10:[2,31]},{28:180,37:$Vs},o($Vg,[2,28]),o($Vg,[2,29])],
+defaultActions: {25:[2,49],26:[2,50],27:[2,51],28:[2,52],29:[2,53],30:[2,1],167:[2,32],176:[2,30],177:[2,31]},
 parseError: function parseError (str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -508,6 +553,8 @@ _handle_error:
 
     var pilaCiclos = [];
     var pilaFunciones = [];
+    var Errores = [];
+    var principal = 0;
   	// entorno
   	const Entorno = function(anterior)
     {
@@ -550,6 +597,9 @@ _handle_error:
                 case "while":
                     retorno = EjecutarWHILE(elemento, ent);
                     break;
+                case "dowhile":
+                    retorno = EjecutarDOWHILE(elemento, ent);
+                    break;    
                 case "for":
                     retorno = EjecutarFOR(elemento, ent);
                     break;
@@ -563,6 +613,10 @@ _handle_error:
                     EjecutarLlamada(elemento,ent);
                     retorno = null;
                     break;
+                case "llamadaexec":
+                    EjecutarLlamadaEXEC(elemento,ent);
+                    retorno = null;
+                    break;    
                 case "retorno":
                     if (pilaFunciones.length>0)
                     {
@@ -677,7 +731,7 @@ _handle_error:
             }
             break;
 		case "caracter":
-            // cadena puede sumarse con cualquier otro tipo
+            // caracter puede sumarse con cualquier otro tipo
             if(!Valorder){
             	tipoRetorno="caracter";
             	break;
@@ -685,11 +739,16 @@ _handle_error:
             switch(Valorder.Tipo)
             {
             	case "cadena":
+                	tipoRetorno = "cadena";
+                	break;
 				case "caracter":
+                	tipoRetorno = "cadena";
+                	break;
               	case "entero":
+                	tipoRetorno = "entero";
+                	break;
 				case "doble":
-                case "booleano":
-                	tipoRetorno = "cadena";	
+                	tipoRetorno = "doble";
                 	break;
             }
             break;	
@@ -700,6 +759,12 @@ _handle_error:
             }
             switch(Valorder.Tipo)
             {
+                case "booleano":
+                	tipoRetorno = "entero";
+                	break;
+                case "caracter":
+                	tipoRetorno = "entero";
+                	break;    
             	case "cadena":
                 	tipoRetorno = "cadena";
                 	break;
@@ -721,12 +786,18 @@ _handle_error:
             	case "cadena":
                 	tipoRetorno = "cadena";
                 	break;
+                case "caracter":
+                	tipoRetorno = "doble";
+                	break;    
               	case "entero":
-                	tipoRetorno = "entero";	
+                	tipoRetorno = "doble";	
                 	break;
 				case "doble":
                 	tipoRetorno = "doble";	
                 	break;	
+                case "booleano":
+                	tipoRetorno = "doble";
+                	break;    
             }
             break;	
           case "booleano":
@@ -734,14 +805,20 @@ _handle_error:
             	tipoRetorno="booleano";
               	break;
             }
-            if(!Valorder){
-            	break;
-            }
             switch(Valorder.Tipo)
             {
             	case "booleano":
                 	tipoRetorno = "booleano";
               		break;
+                case "entero":
+                	tipoRetorno = "entero";
+                	break;
+                case "doble":
+                	tipoRetorno = "doble";
+                	break; 
+                case "cadena":
+                	tipoRetorno = "cadena";
+                	break;       
             }
             break;
         }
@@ -752,14 +829,12 @@ _handle_error:
                 switch(tipoRetorno)
                 {
                 	case "cadena":
-                    case "caracter":
                 	case "entero":
             			return setSimbolos(Valorizq.Valor + Valorder.Valor, tipoRetorno);
-                		break;
 					case "doble":
-            			return setSimbolos(Valorizq.Valor + Valorder.Valor, tipoRetorno);
-                		break;
+            			return setSimbolos(parseFloat(Valorizq.Valor + Valorder.Valor), tipoRetorno);
                 }
+                break;
             case "-":
                 switch(tipoRetorno)
                 {
@@ -767,49 +842,70 @@ _handle_error:
             			return setSimbolos(Valorizq.Valor - Valorder.Valor, tipoRetorno);
                 		break;
 					case "doble":
-            			return setSimbolos(Valorizq.Valor - Valorder.Valor, tipoRetorno);
-                		break;	
+            			return setSimbolos(parseFloat(Valorizq.Valor - Valorder.Valor), tipoRetorno);
                 }
+                break;
             case "umenos":
                 switch(tipoRetorno)
                 {
                 	case "entero":
             			return setSimbolos(0-Valorizq.Valor, tipoRetorno);
 					case "doble":
-            			return setSimbolos(0-Valorizq.Valor, tipoRetorno);	
+            			return setSimbolos(parseFloat(0-Valorizq.Valor), tipoRetorno);	
                 }
+                break;
             case "*":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && Valorder.Tipo != "cadena" && Valorizq.Tipo != "cadena" && (Valorizq.Tipo != 'caracter' || Valorder.Tipo != 'caracter')) {
+
                 switch(tipoRetorno)
                 {
                 	case "entero":
-                    	return setSimbolos(Valorizq.Valor * Valorder.Valor, tipoRetorno);
+                    	return setSimbolos(Number(Valorizq.Valor * Valorder.Valor), tipoRetorno);
 					case "doble":
-                    	return setSimbolos(Valorizq.Valor * Valorder.Valor, tipoRetorno);	
+                    	return setSimbolos(parseFloat(Valorizq.Valor * Valorder.Valor), tipoRetorno);	
                 }
+                
+                }
+                break;
             case "/":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && Valorder.Tipo != "cadena" && Valorizq.Tipo != "cadena" && (Valorizq.Tipo != 'caracter' || Valorder.Tipo != 'caracter')) {
+
                 switch(tipoRetorno)
                 {
+                    case "cadena":	
+                    	return setSimbolos(parseFloat(Valorizq.Valor / Valorder.Valor), "doble");
                 	case "entero":	
-                    	return setSimbolos(Valorizq.Valor / Valorder.Valor, tipoRetorno);
+                    	return setSimbolos(parseFloat(Valorizq.Valor / Valorder.Valor), "doble");
 					case "doble":	
-                    	return setSimbolos(Valorizq.Valor / Valorder.Valor, tipoRetorno);	
+                    	return setSimbolos(parseFloat(Valorizq.Valor / Valorder.Valor), tipoRetorno);	
                 }
+                }
+                break;
 			case "^":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && Valorder.Tipo != "cadena" && Valorizq.Tipo != "cadena" && Valorizq.Tipo != 'caracter' && Valorder.Tipo != 'caracter') {
+
                 switch(tipoRetorno)
                 {
                 	case "entero":	
-                    	return setSimbolos(Valorizq.Valor ** Valorder.Valor, tipoRetorno);
+                    	return setSimbolos(Number(Valorizq.Valor ** Valorder.Valor), tipoRetorno);
 					case "doble":	
-                    	return setSimbolos(Valorizq.Valor ** Valorder.Valor, tipoRetorno);	
-                }	
+                    	
+                        return setSimbolos(parseFloat(Valorizq.Valor ** Valorder.Valor), tipoRetorno);	
+                }
+            }
+                break;	
             case "%":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && Valorder.Tipo != "cadena" && Valorizq.Tipo != "cadena" && Valorizq.Tipo != 'caracter' && Valorder.Tipo != 'caracter') {
+
                 switch(tipoRetorno)
                 {
                 	case "entero":
             			return setSimbolos(Valorizq.Valor % Valorder.Valor, tipoRetorno);
 					case "doble":
-            			return setSimbolos(Valorizq.Valor % Valorder.Valor, tipoRetorno);		
+            			return setSimbolos(Number(Valorizq.Valor % Valorder.Valor), "entero");		
                 }
+                }
+                break;
             case "not":
                 switch(tipoRetorno)
                 {
@@ -820,21 +916,27 @@ _handle_error:
                     case "booleano":
             			return setSimbolos(!Valorizq.Valor, tipoRetorno);
                 }
+                break;
             case "and":
                 switch(tipoRetorno)
                 {
                 	case "booleano":
             			return setSimbolos(Valorizq.Valor && Valorder.Valor, tipoRetorno);
                 }
+                break;
             case "or":
                 switch(tipoRetorno)
                 {
                 	case "booleano":
                 		return setSimbolos(Valorizq.Valor || Valorder.Valor, tipoRetorno);
                 }
+                break;
             case ">":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && (Valorizq.Tipo != 'caracter' || Valorder.Tipo != 'cadena') && (Valorizq.Tipo != 'cadena' || Valorder.Tipo != 'caracter')) {
+                    
                 switch(tipoRetorno)
                 {
+                    
                 	case "cadena":
                     case "caracter":
                 	case "entero":
@@ -842,61 +944,116 @@ _handle_error:
                 	case "booleano":
                     	return setSimbolos(Valorizq.Valor > Valorder.Valor, "booleano");
                 }
-            case "<":
+                }
                 switch(tipoRetorno)
                 {
+                	case "booleano":
+                    	return setSimbolos(Valorizq.Valor > Valorder.Valor, "booleano");
+                }
+                break;
+            case "<":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && (Valorizq.Tipo != 'caracter' || Valorder.Tipo != 'cadena') && (Valorizq.Tipo != 'cadena' || Valorder.Tipo != 'caracter')) {
+                    
+                switch(tipoRetorno)
+                {
+                    
                 	case "cadena":
-                	case "entero":
                     case "caracter":
+                	case "entero":
 					case "doble":
                 	case "booleano":
                     	return setSimbolos(Valorizq.Valor < Valorder.Valor, "booleano");
                 }
-            case ">=":
+                }
                 switch(tipoRetorno)
                 {
+                	case "booleano":
+                    	return setSimbolos(Valorizq.Valor < Valorder.Valor, "booleano");
+                }
+                break;
+            case ">=":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && (Valorizq.Tipo != 'caracter' || Valorder.Tipo != 'cadena') && (Valorizq.Tipo != 'cadena' || Valorder.Tipo != 'caracter')) {
+                    
+                switch(tipoRetorno)
+                {
+                    
                 	case "cadena":
-                	case "entero":
                     case "caracter":
+                	case "entero":
 					case "doble":
                 	case "booleano":
                     	return setSimbolos(Valorizq.Valor >= Valorder.Valor, "booleano");
                 }
-            case "<=":
+                }
                 switch(tipoRetorno)
                 {
+                	case "booleano":
+                    	return setSimbolos(Valorizq.Valor >= Valorder.Valor, "booleano");
+                }
+                break;
+            case "<=":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && (Valorizq.Tipo != 'caracter' || Valorder.Tipo != 'cadena') && (Valorizq.Tipo != 'cadena' || Valorder.Tipo != 'caracter')) {
+                    
+                switch(tipoRetorno)
+                {
+                    
                 	case "cadena":
-                	case "entero":
                     case "caracter":
+                	case "entero":
 					case "doble":
                 	case "booleano":
                     	return setSimbolos(Valorizq.Valor <= Valorder.Valor, "booleano");
                 }
-            case "==":
+                }
                 switch(tipoRetorno)
                 {
+                	case "booleano":
+                    	return setSimbolos(Valorizq.Valor <= Valorder.Valor, "booleano");
+                }
+                break;
+            case "==":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && (Valorizq.Tipo != 'caracter' || Valorder.Tipo != 'cadena') && (Valorizq.Tipo != 'cadena' || Valorder.Tipo != 'caracter')) {
+                
+                switch(tipoRetorno)
+                {
+                    
                 	case "cadena":
-                	case "entero":
                     case "caracter":
+                	case "entero":
 					case "doble":
                 	case "booleano":
                     	return setSimbolos(Valorizq.Valor == Valorder.Valor, "booleano");
                 }
-            case "!=":
+                }
                 switch(tipoRetorno)
                 {
+                	case "booleano":
+                    	return setSimbolos(Valorizq.Valor == Valorder.Valor, "booleano");
+                }
+                break;
+            case "!=":
+                if(Valorder.Tipo != "booleano" && Valorizq.Tipo != "booleano" && (Valorizq.Tipo != 'caracter' || Valorder.Tipo != 'cadena') && (Valorizq.Tipo != 'cadena' || Valorder.Tipo != 'caracter')) {
+                    
+                switch(tipoRetorno)
+                {
+                    
                 	case "cadena":
                     case "caracter":
                 	case "entero":
 					case "doble":
                 	case "booleano":
-                		return setSimbolos(Valorizq.Valor != Valorder.Valor, "booleano");
+                    	return setSimbolos(Valorizq.Valor != Valorder.Valor, "booleano");
                 }
+                }
+                switch(tipoRetorno)
+                {
+                	case "booleano":
+                    	return setSimbolos(Valorizq.Valor != Valorder.Valor, "booleano");
+                }
+                break;
         }
-      	console.log(
-          "Tipos incompatibles " + ( Valorizq ? Valorizq.Tipo : "" ) + 
-          " y " + ( Valorder ? Valorder.Tipo : "" )); 
-      	return setSimbolos("@error@", "error");
+        console.log("Semantico","Error cerca del caracter : '"+ ( Valorizq ? Valorizq.Tipo : "" ) + " y " + ( Valorder ? Valorder.Tipo : "" ) +"'");
+        return setSimbolos("@error@", "error");
     }
 	/*-----------------------------------------------------------------------------------------------*/
     //print
@@ -932,7 +1089,7 @@ _handle_error:
       	{
         	valor = Evaluar(declaracion.Expresion, ent);
             if(valor.Tipo != declaracion.Tipo){
-                console.log("El tipo no coincide con la variable a declaracion");
+                console.log("Semantico","tipos de datos incompatibles : '"+ declaracion.Tipo + " y " + valor.Tipo +"'");
                 return
             }
     	}
@@ -992,7 +1149,7 @@ _handle_error:
                 }
                 else
                 {
-                    console.log("Tipos incompatibles ",simbolotabla.Tipo," , ",valor.Tipo)
+                    console.log("Semantico","tipos de datos incompatibles : '"+ simbolotabla.Tipo + " y " + valor.Tipo +"'");
                     return
                 }
             }
@@ -1167,10 +1324,11 @@ _handle_error:
   	function EjecutarWHILE(mientras,ent)
 	{
         pilaCiclos.push("ciclo");        
-      	nuevo=Entorno(ent);
+      	
         while(true)
         {
-        	var resultadoCondicion = Evaluar(mientras.Condicion, ent)
+            nuevo=Entorno(ent);
+        	var resultadoCondicion = Evaluar(mientras.Condicion, nuevo)
             if(resultadoCondicion.Tipo=="booleano")
             {
             	if(resultadoCondicion.Valor)
@@ -1188,13 +1346,58 @@ _handle_error:
             	}
             	else
             	{
-                    pilaCiclos.pop();
                 	break;
               	}
             }
             else
             {
-                console.log("Se esperaba una condicion dentro del while")
+                console.log("Semantico","Error, el while esperaba una condicion que retorne un booleano, no un => '"+ resultadoCondicion.Tipo );
+                pilaCiclos.pop();
+                return
+            }
+		}
+        pilaCiclos.pop();
+        return
+	}
+    	//objeto donde se agruparan los datos del do wihle
+	const condDOWHILE = function(Condicion, Bloque)
+    {
+        return {
+            Condicion: Condicion,
+            Bloque: Bloque,
+            TipoInstruccion:"dowhile"
+        }
+    }
+    function EjecutarDOWHILE(mientras,ent)
+	{
+        pilaCiclos.push("ciclo");        
+      	
+        while(true)
+        {
+            nuevo=Entorno(ent);
+        	var resultadoCondicion = Evaluar(mientras.Condicion, nuevo)
+            if(resultadoCondicion.Tipo=="booleano")
+            {
+            	
+                	var res=EjecutarBloque(mientras.Bloque, nuevo);
+                	if(res && res.TipoInstruccion=="insBreak")
+                	{
+                		break;
+                	}
+                    else if (res)
+                    {
+                        pilaCiclos.pop();
+                        return res
+                    }
+                resultadoCondicion = Evaluar(mientras.Condicion, nuevo)    
+            	if(!resultadoCondicion.Valor)
+            	{
+                	break;
+              	}
+            }
+            else
+            {
+                console.log("Semantico","Error, el while esperaba una condicion que retorne un booleano, no un => '"+ resultadoCondicion.Tipo );
                 pilaCiclos.pop();
                 return
             }
@@ -1236,12 +1439,13 @@ _handle_error:
         }
     	while(true)
     	{
+            
             hasta = Evaluar(insfor.ExpHasta, nuevo);
         	var inicio=Evaluar(Simbolo, nuevo)
             if( inicio.Tipo != "entero" )
             {
                 pilaCiclos.pop();
-                console.log("Se esperaba valores numericos en el for");
+                console.log("Semantico","Error, el for esperaba un entero no un => '"+ inicio.Tipo );
                 return;
             }
         	if(hasta.Valor == true)
@@ -1273,7 +1477,8 @@ _handle_error:
             {
                 EjecutarAsignar(insfor.ExpPaso, nuevo);
             }
-            }
+            nuevo=Entorno(ent);
+        }
         pilaCiclos.pop();
         return;
 	}
@@ -1290,17 +1495,12 @@ _handle_error:
     }
     function EjecutarFuncion(elemento,ent)
     {
-        var nombrefuncion = elemento.Id + "$";
-        for(var Parametro of elemento.Parametros)
-        {
-            nombrefuncion+=Parametro.Tipo;
-        }
-        if (ent.tablaSimbolos.has(nombrefuncion))
+        if (ent.tablaSimbolos.has(elemento.Id))
       	{
-            console.log("La funcion ",crear.Id," ya ha sido declarada");
+            console.log("Error Semantico","el nombre de la funcion: '"+ elemento.Id +" ya existe");
       		return;
       	}
-        ent.tablaSimbolos.set(nombrefuncion, elemento);
+        ent.tablaSimbolos.set(elemento.Id, elemento);
     }
     //Llamada
     const Llamada=function(Id,Params)
@@ -1313,28 +1513,26 @@ _handle_error:
     }
     function EjecutarLlamada(Llamada,ent)
     {
-        var nombrefuncion = Llamada.Id+"$";
         var Resueltos = [];
         for(var param of Llamada.Params)
         {
             var valor = Evaluar(param,ent);
-            nombrefuncion += valor.Tipo;
             Resueltos.push(valor);
         }
         var temp = ent;
         var simboloFuncion = null;
       	while(temp!=null)
         {
-            if (temp.tablaSimbolos.has(nombrefuncion))
+            if (temp.tablaSimbolos.has(Llamada.Id))
             {
                 // evaluar el resultado de la expresión 
-                simboloFuncion = temp.tablaSimbolos.get(nombrefuncion);	
+                simboloFuncion = temp.tablaSimbolos.get(Llamada.Id);	
                 break;
             }
             temp=temp.anterior;
         }
         if(!simboloFuncion){
-            console.log("No se encontró la funcion "+Llamada.Id + " con esa combinacion de parametros")
+            console.log("Error Semantico","No se encontró la funcion: "+Llamada.Id );
             return setSimbolos("@error@","error");
         } 
         pilaFunciones.push(Llamada.Id);
@@ -1390,6 +1588,98 @@ _handle_error:
         }
         pilaFunciones.pop();
         return retorno;
+    }
+    //Llamada EXEC
+    const LlamadaEXEC=function(Id,Params)
+    {
+        return {
+            Id: Id,
+            Params: Params,
+            TipoInstruccion: "llamadaexec"
+        }
+    }
+    function EjecutarLlamadaEXEC(Llamada,ent)
+    {   
+        if(principal==0){
+        var Resueltos = [];
+        for(var param of Llamada.Params)
+        {
+            var valor = Evaluar(param,ent);
+            Resueltos.push(valor);
+        }
+        var temp = ent;
+        var simboloFuncion = null;
+      	while(temp!=null)
+        {
+            if (temp.tablaSimbolos.has(Llamada.Id))
+            {
+                // evaluar el resultado de la expresión 
+                simboloFuncion = temp.tablaSimbolos.get(Llamada.Id);	
+                break;
+            }
+            temp=temp.anterior;
+        }
+        if(!simboloFuncion){
+            console.log("Error Semantico","No se encontró la funcion: "+Llamada.Id );
+            return setSimbolos("@error@","error");
+        } 
+        pilaFunciones.push(Llamada.Id);
+        var nuevo=Entorno(EntornoGlobal)
+        var index=0;
+        for(var crear of simboloFuncion.Parametros)
+        {
+            crear.Expresion=Resueltos[index];
+            EjecutarDeclaracion(crear,nuevo);
+            index++;
+        }
+        var retorno=setSimbolos("@error@","error");
+        var res = EjecutarBloque(simboloFuncion.Bloque, nuevo)
+        if(res)
+        {
+            if(res.Tipo=="void" )
+            {
+                if(simboloFuncion.Tipo!="void")
+                {
+                    console.log("No se esperaba un retorno");
+                    retorno=setSimbolos("@error@","error");
+                }
+                else
+                {
+                    retorno=setSimbolos("@vacio@","vacio")
+                }
+            }
+            else
+            {
+                var exp=Evaluar(res,nuevo);
+                if(exp.Tipo!=simboloFuncion.Tipo)
+                {
+                    console.log("El tipo del retorno no coincide");
+                    retorno=setSimbolos("@error@","error");
+                }
+                else
+                {
+                    retorno=exp;
+                }
+            }
+        }
+        else
+        {
+            if(simboloFuncion.Tipo!="void")
+            {
+                console.log("Se esperaba un retorno");
+                retorno=setSimbolos("@error@","error");
+            }
+            else
+            {
+                retorno=setSimbolos("@vacio@","vacio")
+            }
+        }
+        pilaFunciones.pop();
+        principal = principal+1;
+        return retorno;
+        }else{
+            console.log("Solo se puede aplicar la funcion EXEC a una funcion, no a mas");
+        }
     }
 /* generated by jison-lex 0.3.4 */
 var lexer = (function(){
@@ -1719,7 +2009,7 @@ options: {"case-insensitive":true},
 performAction: function anonymous(yy,yy_,$avoiding_name_collisions,YY_START) {
 var YYSTATE=YY_START;
 switch($avoiding_name_collisions) {
-case 0: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 60; 
+case 0: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 69; 
 break;
 case 1:// se ignoran espacios en blanco
 break;
@@ -1743,19 +2033,19 @@ case 10:return 'TYPEOF';
 break;
 case 11:return 'CHARARRAY';
 break;
-case 12:return 'EXEC';
+case 12:return 26;
 break;
 case 13:return 'NEW';
 break;
-case 14:return 38;
+case 14:return 47;
 break;
-case 15:return 42;
+case 15:return 51;
 break;
-case 16:return 39;
+case 16:return 48;
 break;
-case 17:return 41;
+case 17:return 50;
 break;
-case 18:return 40;
+case 18:return 49;
 break;
 case 19:return 'SALTOLINEA';
 break;
@@ -1767,39 +2057,39 @@ case 22:return 'COMILLADOB';
 break;
 case 23:return 'TABULAR';
 break;
-case 24:return 25;
+case 24:return 34;
 break;
-case 25:return 'DO';
+case 25:return 35;
 break;
-case 26:return 34;
+case 26:return 44;
 break;
-case 27:return 35;
+case 27:return 45;
 break;
-case 28:return 22;
+case 28:return 32;
 break;
-case 29:return 26;
+case 29:return 36;
 break;
-case 30:return 32;
+case 30:return 42;
 break;
-case 31:return 30;
+case 31:return 40;
 break;
-case 32:return 21;
+case 32:return 24;
 break;
 case 33:return 'CONTINUE';
 break;
 case 34:return 'RETURN';
 break;
-case 35:return 'VOID';
+case 35:return 29;
 break;
-case 36:return 33;
+case 36:return 43;
 break;
-case 37:return 'COMA';
+case 37:return 31;
 break;
 case 38:return 11;
 break;
-case 39:return 27;
+case 39:return 37;
 break;
-case 40:return 29;
+case 40:return 39;
 break;
 case 41:return 8;
 break;
@@ -1817,57 +2107,57 @@ case 47:return 'O_POR';
 break;
 case 48:return 'O_DIVIDIDO';
 break;
-case 49:return 19
+case 49:return 22
 break;
-case 50:return 20
+case 50:return 23
 break;
-case 51:return 43;
+case 51:return 52;
 break;
-case 52:return 44;
+case 52:return 53;
 break;
-case 53:return 45;
+case 53:return 54;
 break;
-case 54:return 46;
+case 54:return 55;
 break;
-case 55:return 47;
+case 55:return 56;
 break;
-case 56:return 48;
+case 56:return 57;
 break;
-case 57:return 53;
+case 57:return 62;
 break;
-case 58:return 54;
+case 58:return 63;
 break;
-case 59:return 49;
+case 59:return 58;
 break;
-case 60:return 50;
+case 60:return 59;
 break;
-case 61:return 51;
+case 61:return 60;
 break;
-case 62:return 52;
+case 62:return 61;
 break;
-case 63:return 56;
+case 63:return 65;
 break;
-case 64:return 55
+case 64:return 64
 break;
-case 65:return 57;
+case 65:return 66;
 break;
-case 66:return 58;
+case 66:return 67;
 break;
-case 67:return 59;
+case 67:return 68;
 break;
-case 68:return 36;
+case 68:return 46;
 break;
 case 69:return 'OPTERNARIO'
 break;
 case 70:return 'CONCAT';
 break;
-case 71: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 61; 
+case 71: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 70; 
 break;
-case 72:return 62;
+case 72:return 71;
 break;
-case 73:return 63;
+case 73:return 72;
 break;
-case 74:return 18;
+case 74:return 21;
 break;
 case 75:return 5;
 break;
