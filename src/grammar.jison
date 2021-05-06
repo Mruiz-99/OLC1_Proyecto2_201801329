@@ -520,6 +520,89 @@
                     	return setSimbolos(Valorizq.Valor != Valorder.Valor, "booleano");
                 }
                 break;
+            case "lower":
+                switch(tipoRetorno)
+                {
+                	case "cadena":
+            			return setSimbolos(Valorizq.Valor.toLowerCase(), tipoRetorno);
+                }
+                break;
+            case "upper":
+                switch(tipoRetorno)
+                {
+                	case "cadena":
+            			return setSimbolos(Valorizq.Valor.toUpperCase(), tipoRetorno);
+                }
+                break;  
+            case "length":
+                switch(tipoRetorno)
+                {
+                	case "cadena":
+            			return setSimbolos(Valorizq.Valor.length, "entero");
+                }
+                break;  
+            case "truncate":
+                switch(tipoRetorno)
+                {
+                    case "entero":
+            			return setSimbolos(Valorizq.Valor, tipoRetorno);
+					case "doble":
+            			return setSimbolos(Math.trunc(Valorizq.Valor), "entero");
+                }
+                break;
+             case "round":
+                switch(tipoRetorno)
+                {
+                    case "entero":
+            			return setSimbolos(Valorizq.Valor, tipoRetorno);
+					case "doble":
+            			return setSimbolos(Math.round(Valorizq.Valor), "entero");
+                }
+                break;
+            case "typeof":
+                switch(tipoRetorno)
+                {
+                    case "cadena":
+                        return setSimbolos("cadena", "cadena");
+                    case "caracter":
+                        return setSimbolos("caracter", "cadena");
+                	case "entero":
+                        return setSimbolos("entero", "cadena");
+					case "doble":
+                        return setSimbolos("doble", "cadena");
+                	case "booleano":
+                    	return setSimbolos("booleano", "cadena");
+                }
+                break; 
+            case "tostring":
+                switch(tipoRetorno)
+                {
+                	case "entero":
+                        return setSimbolos(Valorizq.Valor.toString(), "cadena");
+					case "doble":
+                        return setSimbolos(Valorizq.Valor.toString(), "cadena");
+                	case "booleano":
+                    	return setSimbolos(Valorizq.Valor.toString(), "cadena");
+                }
+                break;
+            case "casteo":
+                if(Valorizq.Tipo == "entero" && Valorder.Tipo == "doble"){
+                    return setSimbolos(Number(Valorder.Valor), "entero");
+                } else if(Valorizq.Tipo == "doble" && Valorder.Tipo == "entero"){
+                    return setSimbolos(parseFloat(Valorder.Valor), "doble");
+                }else if(Valorizq.Tipo == "cadena" && Valorder.Tipo == "entero"){
+                    return setSimbolos(Valorder.Valor.toString(), "cadena");
+                }else if(Valorizq.Tipo == "caracter" && Valorder.Tipo == "entero"){
+                    return setSimbolos(String.fromCharCode(Valorder.Valor), "caracter");
+                }else if(Valorizq.Tipo == "cadena" && Valorder.Tipo == "doble"){
+                    return setSimbolos(Valorder.Valor.toString(), "cadena");
+                }else if(Valorizq.Tipo == "entero" && Valorder.Tipo == "caracter"){
+                    return setSimbolos(Number(Valorder.Valor), "entero");
+                }else if(Valorizq.Tipo == "doble" && Valorder.Tipo == "caracter"){
+                    return setSimbolos(Number(Valorder.Valor), "doble");
+                }
+
+                break;                    
         }
         Salida.push("Error semantico, Error de operacion con las expresiones: '"+ ( Valorizq ? Valorizq.Tipo : "" ) + " y " + ( Valorder ? Valorder.Tipo : "" ) +"'");
         errores.push(new Error_(0,0,"Semantico", "Semantico","Error de operacion con las expresiones: '"+ ( Valorizq ? Valorizq.Tipo : "" ) + " y " + ( Valorder ? Valorder.Tipo : "" ) +"'"));
@@ -1261,6 +1344,7 @@
 "truncate"			return 'TRUNCATE';
 "round"				return 'ROUND';
 "typeof"			return 'TYPEOF';
+"toString"			return 'TOSTRING';
 "toCharArray"		return 'CHARARRAY';
 "exec"				return 'EXEC';
 "new"				return 'NEW';
@@ -1518,6 +1602,13 @@ expresion
 	| expresion NOT expresion				{ $$ = setOperacion($1,$3,"not");}
 	| expresion OR expresion				{ $$ = setOperacion($1,$3,"or");}
     | PARIZQ expresion PARDER     			{ $$ = $2}
+    | LOWER PARIZQ expresion PARDER         { $$ = setOperacionUnario($3,"lower"); }
+    | UPPER PARIZQ expresion PARDER         { $$ = setOperacionUnario($3,"upper"); }
+    | LENGTH PARIZQ expresion PARDER         { $$ = setOperacionUnario($3,"length"); }
+    | TRUNCATE PARIZQ expresion PARDER         { $$ = setOperacionUnario($3,"truncate"); }
+    | ROUND PARIZQ expresion PARDER         { $$ = setOperacionUnario($3,"round"); }
+    | TYPEOF PARIZQ expresion PARDER         { $$ = setOperacionUnario($3,"typeof"); }
+    | TOSTRING PARIZQ expresion PARDER         { $$ = setOperacionUnario($3,"tostring"); }
 	| NOT expresion							{ $$ = setOperacionUnario($2,"not");}
 	| MENOS expresion %prec UMENOS			{ $$ = setOperacionUnario($2,"umenos");}
 	| TRUE				     				{ $$ = setSimbolos(true,"booleano");}
