@@ -1,7 +1,11 @@
 %{
     var pilaCiclos = [];
     var pilaFunciones = [];
-    var Errores = [];
+    var Salida = [];
+    const {errores} = require('./Errores.ts');
+    const {Error_} = require('./Error.ts');
+    const {simbolos} = require('./Simbolos.ts');
+    const {Simbolo_} = require('./Simbolo.ts');
     var principal = 0;
   	// entorno
   	const Entorno = function(anterior)
@@ -22,6 +26,7 @@
           	{
             	case "print":
                     var res=Evaluar(elemento.Operacion, ent);
+                    Salida.push(res.Valor);
                     console.log(res.Valor);
                     break;
                 case "declaracion":
@@ -36,9 +41,6 @@
                 case "decremento":
                     retorno = EjecutarDecremento(elemento, ent);
                     break;    
-                case "hacer":
-                    retorno = EjecutarHacer(elemento, ent);
-                    break;
                 case "if":
                     retorno = EjecutarIF(elemento, ent);
                     break;
@@ -72,7 +74,9 @@
                     }
                     else
                     {
-                        console.log("Intruccion retorno fuera de una funcion")
+                        Salida.push("Error semantico, intruccion return fuera de una funcion");
+                        errores.push(new Error_(0,0,"Semantico", "Intruccion return fuera de una funcion"));
+                        console.log("Intruccion return fuera de una funcion")
                     }
                     break;
                 case "insBreak":
@@ -82,8 +86,23 @@
                     }
                     else
                     {
-                        console.log("Intruccion insBreak fuera de un seleccionar o un ciclo")
+                        Salida.push("Error semantico, Intruccion break fuera de un switch o un ciclo");
+                        errores.push(new Error_(0,0,"Semantico", "Intruccion break fuera de un switch o un ciclo"));
+                        console.log("Intruccion break fuera de un switch o un ciclo")
                     }
+                    break;
+                case "insContinue":
+                    if (pilaCiclos.length>0)
+                    {
+                        return elemento;
+                    }
+                    else
+                    {
+                        Salida.push("Error semantico, Intruccion break fuera de un switch o un ciclo");
+                        errores.push(new Error_(0,0,"Semantico", "Intruccion break fuera de un switch o un ciclo"));
+                        console.log("Intruccion break fuera de un switch o un ciclo")
+                    }
+                    break;
                     
           	}
             if(retorno)
@@ -145,6 +164,8 @@
                     }
                     temp=temp.anterior;
                 }
+                Salida.push("Error semantico, No existe la variable " + Operacion.Valor);
+                errores.push(new Error_(0,0,"Semantico", "No existe la variable " + Operacion.Valor));
                 console.log("No existe la variable " + Operacion.Valor);
                 return setSimbolos("@error@","error");
             case "funcion":
@@ -500,7 +521,9 @@
                 }
                 break;
         }
-        console.log("Semantico","Error cerca del caracter : '"+ ( Valorizq ? Valorizq.Tipo : "" ) + " y " + ( Valorder ? Valorder.Tipo : "" ) +"'");
+        Salida.push("Error semantico, Error de operacion con las expresiones: '"+ ( Valorizq ? Valorizq.Tipo : "" ) + " y " + ( Valorder ? Valorder.Tipo : "" ) +"'");
+        errores.push(new Error_(0,0,"Semantico", "Semantico","Error de operacion con las expresiones: '"+ ( Valorizq ? Valorizq.Tipo : "" ) + " y " + ( Valorder ? Valorder.Tipo : "" ) +"'"));
+        console.log("Semantico","Error de operacion con las expresiones: '"+ ( Valorizq ? Valorizq.Tipo : "" ) + " y " + ( Valorder ? Valorder.Tipo : "" ) +"'");
         return setSimbolos("@error@", "error");
     }
 	/*-----------------------------------------------------------------------------------------------*/
@@ -528,7 +551,9 @@
       	// validar si existe la variable
       	if (ent.tablaSimbolos.has(declaracion.Id))
       	{
-            console.log("La variable ",declaracion.Id," ya ha sido declarada en este ambito");
+        Salida.push("Error semantico, La variable "+declaracion.Id+" ya ha sido declarada en este ambito");
+        errores.push(new Error_(0,0,"Semantico", "La variable ",declaracion.Id," ya ha sido declarada en este ambito"));
+        console.log("La variable ",declaracion.Id," ya ha sido declarada en este ambito");
       		return;
       	}
     		// evaluar el resultado de la expresión 
@@ -537,6 +562,8 @@
       	{
         	valor = Evaluar(declaracion.Expresion, ent);
             if(valor.Tipo != declaracion.Tipo){
+                Salida.push("Error semantico, tipos de datos incompatibles : '"+ declaracion.Tipo + " y " + valor.Tipo +"'");
+                errores.push(new Error_(0,0,"Semantico","tipos de datos incompatibles : '"+ declaracion.Tipo + " y " + valor.Tipo +"'"));
                 console.log("Semantico","tipos de datos incompatibles : '"+ declaracion.Tipo + " y " + valor.Tipo +"'");
                 return
             }
@@ -564,6 +591,19 @@
         }
       	// crear objeto a insertar
       	ent.tablaSimbolos.set(declaracion.Id, valor);
+        let aux = new Simbolo_(0,0,"Variable",declaracion.Tipo,declaracion.Id);
+        let cont = 0;
+        let bandera = false;
+        while(simbolos.length > cont){
+            if(simbolos[cont].identificador == declaracion.Id){
+                bandera = true
+            }
+            cont++;
+        }
+        if(bandera==false){
+             simbolos.push(new Simbolo_(0,0,"Variable",declaracion.Tipo,declaracion.Id));
+        }
+       
     }
 		// objeto que almacena los datos para hacer una asignacion 
   	const Asignar = function(id, expresion)
@@ -580,7 +620,7 @@
       //Evaluar la expresion
       	var valor = Evaluar(asignar.Expresion,ent);
         // validar si existe la variable
-      	temp=ent;
+      	var temp=ent;
       	while(temp!=null)
         {
             if (temp.tablaSimbolos.has(asignar.Id))
@@ -597,13 +637,17 @@
                 }
                 else
                 {
+                    Salida.push("Error semantico, tipos de datos incompatibles : '"+ simbolotabla.Tipo + " y " + valor.Tipo +"'");
+                    errores.push(new Error_(0,0,"Semantico","tipos de datos incompatibles : '"+ simbolotabla.Tipo + " y " + valor.Tipo +"'"));
                     console.log("Semantico","tipos de datos incompatibles : '"+ simbolotabla.Tipo + " y " + valor.Tipo +"'");
                     return
                 }
             }
             temp=temp.anterior;
         }
-        console.log("No se encontro la variable ",asignar.Id);
+        Salida.push("Error semantico, No se encontro la variable "+asignar.Id);
+        errores.push(new Error_(0,0,"Semantico","No se encontro la variable "+asignar.Id));
+        console.log("No se encontro la variable "+asignar.Id);
     }
     //objeto que guarda los datos del incremento
     const Incremento = function(id)
@@ -615,7 +659,7 @@
     }
     function EjecutarIncremento(asignar,ent) {
         // validar si existe la variable
-      	temp=ent;
+      	var temp=ent;
       	while(temp!=null)
         {
             if (temp.tablaSimbolos.has(asignar.Id))
@@ -628,7 +672,9 @@
             }
             temp=temp.anterior;
         }
-        console.log("No se encontro la variable ",asignar.Id);
+        Salida.push("Error semantico, No se encontro la variable "+asignar.Id);
+        errores.push(new Error_(0,0,"Semantico","No se encontro la variable "+asignar.Id));
+        console.log("No se encontro la variable "+asignar.Id);
     }
     //objeto que guarda los datos del decremento
     const Decremento = function(id)
@@ -640,7 +686,7 @@
     }
     function EjecutarDecremento(asignar,ent) {
         // validar si existe la variable
-      	temp=ent;
+      	var temp=ent;
       	while(temp!=null)
         {
             if (temp.tablaSimbolos.has(asignar.Id))
@@ -653,6 +699,8 @@
             }
             temp=temp.anterior;
         }
+        Salida.push("Error semantico, No se encontro la variable "+asignar.Id);
+        errores.push(new Error_(0,0,"Semantico","No se encontro la variable "+asignar.Id));
         console.log("No se encontro la variable ",asignar.Id);
     }
 	//insBreak
@@ -660,6 +708,12 @@
     {
       	return {
           TipoInstruccion:"insBreak"
+        }
+    }
+    const insContinue = function()
+    {
+      	return {
+          TipoInstruccion:"insContinue"
         }
     }
 	
@@ -698,7 +752,9 @@
     	}
         else
         {
-            console.log("Se esperaba una condicion dentro del Si");
+            Salida.push("Error semantico, Se esperaba una condicion dentro del if");
+            errores.push(new Error_(0,0,"Semantico","Se esperaba una condicion dentro del if"));
+            console.log("Se esperaba una condicion dentro del if");
         }
     }
     //Objeto donde se guardaran los datos de los casos
@@ -772,7 +828,7 @@
   	function EjecutarWHILE(mientras,ent)
 	{
         pilaCiclos.push("ciclo");        
-      	
+      	var nuevo;
         while(true)
         {
             nuevo=Entorno(ent);
@@ -786,6 +842,10 @@
                 	{
                 		break;
                 	}
+                    else if(res && res.TipoInstruccion=="insContinue")
+                    {
+                        continue;
+                    }
                     else if (res)
                     {
                         pilaCiclos.pop();
@@ -799,6 +859,8 @@
             }
             else
             {
+                Salida.push("Error semantico, el while esperaba una condicion que retorne un booleano, no un => '"+ resultadoCondicion.Tipo);
+                errores.push(new Error_(0,0,"Semantico"," el while esperaba una condicion que retorne un booleano, no un => '"+ resultadoCondicion.Tipo));
                 console.log("Semantico","Error, el while esperaba una condicion que retorne un booleano, no un => '"+ resultadoCondicion.Tipo );
                 pilaCiclos.pop();
                 return
@@ -819,7 +881,7 @@
     function EjecutarDOWHILE(mientras,ent)
 	{
         pilaCiclos.push("ciclo");        
-      	
+      	var nuevo;
         while(true)
         {
             nuevo=Entorno(ent);
@@ -831,7 +893,10 @@
                 	if(res && res.TipoInstruccion=="insBreak")
                 	{
                 		break;
-                	}
+                	}else if(res && res.TipoInstruccion=="insContinue")
+                    {
+                        continue;
+                    }
                     else if (res)
                     {
                         pilaCiclos.pop();
@@ -845,6 +910,8 @@
             }
             else
             {
+                Salida.push("Error semantico, el while esperaba una condicion que retorne un booleano, no un => '"+ resultadoCondicion.Tipo);
+                errores.push(new Error_(0,0,"Semantico"," el while esperaba una condicion que retorne un booleano, no un => '"+ resultadoCondicion.Tipo));
                 console.log("Semantico","Error, el while esperaba una condicion que retorne un booleano, no un => '"+ resultadoCondicion.Tipo );
                 pilaCiclos.pop();
                 return
@@ -882,6 +949,8 @@
         if( !(hasta.Tipo=="booleano") )
         {
             pilaCiclos.pop();
+            Salida.push("Error semantico, Se esperaban valores numericos en el for");
+            errores.push(new Error_(0,0,"Semantico","Se esperaban valores numericos en el for"));
             console.log("Se esperaban valores numericos en el for");
             return;
         }
@@ -893,6 +962,8 @@
             if( inicio.Tipo != "entero" )
             {
                 pilaCiclos.pop();
+                Salida.push("Error semantico, el for esperaba un entero no un => '"+ inicio.Tipo);
+                errores.push(new Error_(0,0,"Semantico","el for esperaba un entero no un => '"+ inicio.Tipo));
                 console.log("Semantico","Error, el for esperaba un entero no un => '"+ inicio.Tipo );
                 return;
             }
@@ -902,6 +973,20 @@
                     if(res && res.TipoInstruccion=="insBreak")
                     {
                         break;
+                    }else if(res && res.TipoInstruccion=="insContinue")
+                    {
+                        if( insfor.ExpPaso.TipoInstruccion == "incremento")
+                    {
+                        EjecutarIncremento(insfor.ExpPaso, nuevo);
+                    } else if( insfor.ExpPaso.TipoInstruccion == "decremento")
+                    {
+                        EjecutarDecremento(insfor.ExpPaso, nuevo);
+                    }
+                    else
+                    {
+                        EjecutarAsignar(insfor.ExpPaso, nuevo);
+                    }
+                        continue;
                     }
                     else if (res)
                     {
@@ -925,7 +1010,6 @@
             {
                 EjecutarAsignar(insfor.ExpPaso, nuevo);
             }
-            nuevo=Entorno(ent);
         }
         pilaCiclos.pop();
         return;
@@ -945,10 +1029,18 @@
     {
         if (ent.tablaSimbolos.has(elemento.Id))
       	{
-            console.log("Error Semantico","el nombre de la funcion: '"+ elemento.Id +" ya existe");
+            Salida.push("Error semantico, el nombre de la funcion o metodo: '"+ elemento.Id +" ya existe");
+            errores.push(new Error_(0,0,"Semantico","el nombre de la funcion o metodo: '"+ elemento.Id +" ya existe"));
+            console.log("Error Semantico","el nombre de la funcion o metodo: '"+ elemento.Id +" ya existe");
       		return;
       	}
         ent.tablaSimbolos.set(elemento.Id, elemento);
+        if(elemento.Tipo=="void"){
+            simbolos.push(new Simbolo_(0,0,"Metodo",elemento.Tipo,elemento.Id));
+        }else{
+            simbolos.push(new Simbolo_(0,0,"Funcion",elemento.Tipo,elemento.Id));
+        }
+        
     }
     //Llamada
     const Llamada=function(Id,Params)
@@ -980,6 +1072,8 @@
             temp=temp.anterior;
         }
         if(!simboloFuncion){
+            Salida.push("Error semantico, No se encontró la funcion: "+Llamada.Id );
+            errores.push(new Error_(0,0,"Semantico","No se encontró la funcion: "+Llamada.Id ));
             console.log("Error Semantico","No se encontró la funcion: "+Llamada.Id );
             return setSimbolos("@error@","error");
         } 
@@ -1000,6 +1094,8 @@
             {
                 if(simboloFuncion.Tipo!="void")
                 {
+                    Salida.push("Error semantico, No se esperaba un retorno" );
+                    errores.push(new Error_(0,0,"Semantico","No se esperaba un retorno"));
                     console.log("No se esperaba un retorno");
                     retorno=setSimbolos("@error@","error");
                 }
@@ -1013,6 +1109,8 @@
                 var exp=Evaluar(res,nuevo);
                 if(exp.Tipo!=simboloFuncion.Tipo)
                 {
+                    Salida.push("Error semantico, El tipo del retorno no coincide");
+                    errores.push(new Error_(0,0,"Semantico","El tipo del retorno no coincide"));
                     console.log("El tipo del retorno no coincide");
                     retorno=setSimbolos("@error@","error");
                 }
@@ -1026,6 +1124,8 @@
         {
             if(simboloFuncion.Tipo!="void")
             {
+                Salida.push("Error semantico, Se esperaba un retorno");
+                errores.push(new Error_(0,0,"Semantico","Se esperaba un retorno"));
                 console.log("Se esperaba un retorno");
                 retorno=setSimbolos("@error@","error");
             }
@@ -1068,6 +1168,8 @@
             temp=temp.anterior;
         }
         if(!simboloFuncion){
+            Salida.push("Error semantico, No se encontró la funcion: "+Llamada.Id);
+            errores.push(new Error_(0,0,"Semantico","No se encontró la funcion: "+Llamada.Id));
             console.log("Error Semantico","No se encontró la funcion: "+Llamada.Id );
             return setSimbolos("@error@","error");
         } 
@@ -1088,6 +1190,8 @@
             {
                 if(simboloFuncion.Tipo!="void")
                 {
+                    Salida.push("Error semantico, No se esperaba un retorno");
+                    errores.push(new Error_(0,0,"Semantico","No se esperaba un retorno"));
                     console.log("No se esperaba un retorno");
                     retorno=setSimbolos("@error@","error");
                 }
@@ -1101,6 +1205,8 @@
                 var exp=Evaluar(res,nuevo);
                 if(exp.Tipo!=simboloFuncion.Tipo)
                 {
+                    Salida.push("Error semantico, El tipo del retorno no coincide");
+                    errores.push(new Error_(0,0,"Semantico","El tipo del retorno no coincide"));
                     console.log("El tipo del retorno no coincide");
                     retorno=setSimbolos("@error@","error");
                 }
@@ -1114,6 +1220,8 @@
         {
             if(simboloFuncion.Tipo!="void")
             {
+                Salida.push("Error semantico, Se esperaba un retorno");
+                errores.push(new Error_(0,0,"Semantico","Se esperaba un retorno"));
                 console.log("Se esperaba un retorno");
                 retorno=setSimbolos("@error@","error");
             }
@@ -1126,6 +1234,8 @@
         principal = principal+1;
         return retorno;
         }else{
+            Salida.push("Error semantico, Solo se puede aplicar la funcion EXEC a una funcion, no a mas");
+            errores.push(new Error_(0,0,"Semantico","Solo se puede aplicar la funcion EXEC a una funcion, no a mas"));
             console.log("Solo se puede aplicar la funcion EXEC a una funcion, no a mas");
         }
     }
@@ -1244,7 +1354,9 @@
 
 
 <<EOF>>				return 'EOF';
-.					{ console.error('Este es un error léxico: ' + yytext + ', en la linea: ' + yylloc.first_line + ', en la columna: ' + yylloc.first_column); }
+.					{ Salida.push('Este es un error léxico: ' + yytext + ', en la linea: ' + yylloc.first_line + ', en la columna: ' + yylloc.first_column);
+                    errores.push(new Error_(yylloc.first_line,yylloc.first_column,"Lexico","Este es un error léxico: " + yytext));
+                    console.error('Este es un error léxico: ' + yytext + ', en la linea: ' + yylloc.first_line + ', en la columna: ' + yylloc.first_column); }
 
 /lex
 
@@ -1264,7 +1376,11 @@
 %% /* Definición de la gramática */
 
 inicio
-    : instrucciones EOF { console.log(JSON.stringify($1,null,2)); EjecutarBloque($1,EntornoGlobal)  }
+    : instrucciones EOF {console.log(JSON.stringify($1,null,2)); EjecutarBloque($1,EntornoGlobal);
+    let sal  = Salida;
+    Salida = [];
+    principal = 0; 
+    EntornoGlobal = Entorno(null); return {salida: sal, ast: $1 };  }
 	
     
 ;
@@ -1272,7 +1388,7 @@ inicio
 instrucciones 
     : instrucciones instruccion  { $$=$1; $$.push($2); }
     | instruccion       { $$=[]; $$.push($1); }
-    | error  {console.log("Sintactico","Error cerca del caracter : '"+yytext+"'",this._$.first_line,this._$.first_column);}
+    
 	
 ;
 
@@ -1291,6 +1407,16 @@ instruccion
     | IDENTIFICADOR INCREMENTO PTCOMA		                { $$ = Incremento($1);}
     | IDENTIFICADOR DECREMENTO PTCOMA		                { $$ = Decremento($1);}
     | BREAK PTCOMA                                          { $$ = insBreak();}
+    | CONTINUE PTCOMA                                      {$$ = insContinue();}
+    | RETORNO
+    | error  {Salida.push('Este es un error Sintactico: ' + yytext + ', en la linea: ' + this._$.first_line + ', en la columna: ' + this._$.first_line.first_column);
+                    errores.push(new Error_(this._$.first_line,this._$.first_column,"Sintactico","No se esperaba la expresion: " + yytext));
+                    console.log('Este es un error Sintactico: ' + yytext + ', en la linea: ' + yylineno.first_line + ', en la columna: ' + yylineno.first_column);}
+;
+
+RETORNO   
+    : RETURN expresion  PTCOMA   { $$ = Retorno($2); }
+    | RETURN PTCOMA       { $$ = Retorno(setSimbolos("@Vacio@","void")); }
 ;
 
 LLAMADA

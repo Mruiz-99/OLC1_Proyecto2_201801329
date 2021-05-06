@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-
-
 class AST extends Component {
 
     constructor(props){
@@ -10,8 +8,11 @@ class AST extends Component {
     render(){
         return(
             <div id="modulo">
-            <h1>arbol ast</h1>
+                <textarea  cols={85} rows={35}  > 
+                {this.props.txtAST.toString()}
+                </textarea>
             </div>
+
         );
     }
 }export default AST;

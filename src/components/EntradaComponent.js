@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Editor from './Editor'
-
+import Parser from '../grammar.js'
+const {errores} = require('../Errores.ts');
+const {simbolos} = require('../Simbolos.ts');
 
 class Tabs extends React.Component{
   constructor(props){
@@ -81,7 +83,7 @@ class Tabs extends React.Component{
   }
 
 class Entrada extends Component {
-
+  
     constructor(props){
         super(props);
         this.state = {
@@ -89,6 +91,7 @@ class Entrada extends Component {
           index:0
         }
         this.setCodigo = this.setCodigo.bind(this)
+        this.Ejecutar = this.Ejecutar.bind(this)
         this.selectCodigo = this.selectCodigo.bind(this)
     }
       setCodigo = (cod)=> {
@@ -109,13 +112,25 @@ class Entrada extends Component {
           index: i
       }))
   }
+  Ejecutar = (texto) => {
+      this.props.clearSalida();
+      while(errores.length > 0)
+      errores.pop(); 
+      while(simbolos.length > 0)
+      simbolos.pop(); 
+      let resultado = Parser.parse(texto.toString());
+      this.props.code[this.state.index]=texto.toString();
+      this.props.setSalida(resultado.salida.toString().replaceAll(",","\n"));
+      this.props.clearAST();
+      this.props.setAST(JSON.stringify(resultado.ast,null,2));
+  }
 
     render(){
         return(
             <div id = "codigo">
               <button onClick={this.props.setCode} id = "boton">Nueva Pestaña</button>
               <button onClick={this.props.removeCode} id = "boton">Cerrar Pestaña</button>
-              <button  id = "boton">Compilar</button>
+              <button  id = "boton" onClick={()=>this.Ejecutar(this.state.codigo)}>Compilar</button>
               <button  id = "boton">Abrir archivo</button>
               <button  id = "boton">Guardar archivo</button>
                <Tabs selectCodigo={this.selectCodigo} setIndex = {this.setIndex} codigo={this.state.codigo} setCodigo={this.setCodigo} removeCode ={this.props.removeCode} modifyCode={this.props.modifyCode} setCode={this.props.setCode} code={this.props.code} index={this.state.index}>
